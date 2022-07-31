@@ -1,0 +1,68 @@
+
+<div class="content-box" style="min-height: 100%; background: #00539F;"> <!--404040 Hero Section -->
+    <section class="section section-hero" >
+        <div class="hero-box" style="padding:200px 0 100px 0;">
+            <div class="container" style="text-align:center">
+        <div class="body">
+            <div class="card">
+              <div class="login">
+               <br><br>
+                  <form [formGroup]="form" (ngSubmit)="ingresar()">
+                      <img src="./assets/img/logoUg.png" width="30%">
+                      <br><br>
+                  <h1>Acceso al Sistema</h1>
+                 
+                  <mat-form-field class="ancho" appearance="outline">
+                      <mat-label>Usuario</mat-label>
+                      <input type="text" matInput autocomplete="off" formControlName="NombreUsuario">
+                    </mat-form-field>
+                  
+                    <mat-form-field class="ancho" appearance="outline">
+                      <mat-label>Contraseña</mat-label>
+                      <input type="password" matInput autocomplete="off" formControlName="password">
+                    </mat-form-field>
+                    <!--mat-form-field class="ancho" appearance="outline">
+                        <mat-label >Contraseña</mat-label>
+                        <input  matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                      </!--mat-form-field-->
+          
+                    <br> <br>
+                    <button type="submit" class="ancho button" mat-flat-button color="primary" >Acceder</button>
+                    <br> <br> <br>
+                  </form>       
+              </div>
+          </div>
+        </div>
+    </div>
+</div>
+    </section>
+
+    <!-- Destinations Section -->
+    <mat-divider ></mat-divider>
+    <section >
+            <div class="row" >
+                    <br><br>
+                    <div class="widget widget_links" style="color:white;text-align:center">
+                      <br><br>
+                        <p>Ciudadela Universitaria "Universidad de Guayaquil" | Av. Delta y Av. Kennedy | Casilla Postal 471 </p>
+                    </div>
+                    <br>
+                    <div class="widget widget_links" style="color:white;text-align:center">
+                        <p>Creado por la <a style="font-weight:bold" href="http://www.ug.edu.ec/Centro-de-Computo/index.php">DGTI</a> Universidad de Guayaquil
+                            ©2017. Derechos Reservados <a style="font-weight:bold" href="http://www.ug.edu.ec">SIUG</a></p>
+                    </div>
+                    <br><br>
+            </div>
+    </section>
+
+
+
+
+  
+</div>
+
+
+  

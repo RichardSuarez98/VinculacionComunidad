@@ -1,0 +1,259 @@
+<br>
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+
+                <p style="text-align: center; font-size: large; margin-top: 15px;"><b> Evaluación Estudiantil
+                    </b></p>
+                <br />
+
+                <form [formGroup]="form">
+
+                    <div style="justify-content:center ;text-align: center;margin-left: 50px;">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <mat-form-field appearance="legacy" class="ancho">
+                                    <mat-label>Carrera</mat-label>
+                                    <mat-select [(value)]="idCarrera">
+                                        <mat-option *ngFor="let element of listCarrera" [value]="element.idCarrera">
+                                            {{element.nombreCarrera}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <mat-form-field appearance="legacy" class="ancho">
+                                    <mat-label>Periodo Lectivo</mat-label>
+                                    <mat-select [(value)]="idAnioLectivo">
+                                        <mat-option *ngFor="let element of listAnioLectivo"
+                                            [value]="element.idAnioLectivo">
+                                            {{element.nomAnioLectivo}} {{element.nomCiclo}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                            </div>
+
+                            <div class="col-lg-4">
+                                <mat-form-field appearance="legacy" class="ancho">
+                                    <mat-label>Proyecto</mat-label>
+                                    <mat-select [(value)]="idProyecto">
+                                        <mat-option (click)="getEstudiante()" *ngFor="let element of listProyecto"
+                                            [value]="element.idProyecto">
+                                            {{element.tituloProyecto}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div style="justify-content:center ;text-align: center;margin-left: 50px;">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <mat-form-field appearance="legacy" class="ancho">
+                                    <mat-label>Estudiantes</mat-label>
+                                    <mat-select [(value)]="idUsuario">
+                                        <mat-option *ngFor="let element of listEstudiante"
+                                            [value]="element.idEstudiante">
+                                            {{element.nombreEstudiante}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!--mat-dialog-content-- class="mat-typography"-->
+
+
+                        <!--/mat-dialog-content-->
+                    </div>
+
+                    <mat-divider></mat-divider>
+                    <p style="text-align: center; font-size: large; margin-top: 15px;"><b>Valoración</b></p>   
+                    <mat-divider></mat-divider>
+  
+                      <p style="text-align: center; font-size: large; margin-top: 15px;"><b>Conocimientos y Habilidades</b></p>
+                          <div style="justify-content:center ;text-align: center;margin-left: 50px;">
+                              <div class="row">
+                                  <div class="col-lg-4">
+                                      <p>Aplicación de los conocimientos teóricos y prácticos de la carrera.</p>
+                                      <mat-form-field appearance="legacy" class="ancho">
+                                           <mat-select [(value)]="respuesta1" >
+                                            <mat-option *ngFor="let element of lstValoracion"
+                                                [value]="element.valor">
+                                                {{element.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="col-lg-4">
+                                      <p>Capacidad para resolver problemas</p>
+                                      <mat-form-field appearance="legacy" class="ancho">
+                                        <mat-select [(value)]="respuesta2" >
+                                         <mat-option *ngFor="let element of lstValoracion"
+                                             [value]="element.valor">
+                                             {{element.name}}
+                                         </mat-option>
+                                     </mat-select>
+                                 </mat-form-field>
+                                  </div>
+                                  <div class="col-lg-4">
+                                      <p>
+                                          Capacidad para resolver problemas<br></p>
+                                          <mat-form-field appearance="legacy" class="ancho">
+                                            <mat-select [(value)]="respuesta3">
+                                             <mat-option *ngFor="let element of lstValoracion"
+                                                 [value]="element.valor">
+                                                 {{element.name}}
+                                             </mat-option>
+                                         </mat-select>
+                                     </mat-form-field>
+                                  </div>
+                                  <br />
+                              </div>
+                              <br /><br />
+                              <div class="row">
+                                  <div class="col-lg-4">
+                                      <p>Utilización adecuada de procedimientos metodológicos</p>
+                                      <mat-form-field appearance="legacy" class="ancho">
+                                        <mat-select [(value)]="respuesta4">
+                                         <mat-option *ngFor="let element of lstValoracion"
+                                             [value]="element.valor">
+                                             {{element.name}}
+                                         </mat-option>
+                                     </mat-select>
+                                 </mat-form-field>
+                                  </div>
+                                  <div class="col-lg-4">
+                                      <p>Integración del grupo y trabajo en equipo</p>
+                                      <mat-form-field appearance="legacy" class="ancho">
+                                        <mat-select [(value)]="respuesta5">
+                                         <mat-option *ngFor="let element of lstValoracion"
+                                             [value]="element.valor">
+                                             {{element.name}}
+                                         </mat-option>
+                                     </mat-select>
+                                 </mat-form-field>
+                                  </div>
+                                  <br>
+                              </div>                    
+                              <br>
+
+                              <mat-form-field appearance="outline" style="width: 100%;">
+                                  <mat-label>Observación</mat-label>
+                                  <textarea  matInput></textarea>
+                              </mat-form-field>
+                          </div>
+                      
+  
+                      <br><br>     
+                      <mat-divider></mat-divider>
+  
+  
+                      <p style="text-align: center; font-size: large; margin-top: 15px;"><b>Asistencia
+                          </b></p>
+  
+                      <div style="justify-content:center ;text-align: center;margin-left: 50px;">
+                          <div class="row">
+                              <div class="col-lg-4">
+                                  <p>Puntualidad del estudiante</p>
+                                  <mat-form-field appearance="legacy" class="ancho">
+                                    <mat-select [(value)]="respuesta6">
+                                     <mat-option *ngFor="let element of lstValoracion"
+                                         [value]="element.valor">
+                                         {{element.name}}
+                                     </mat-option>
+                                 </mat-select>
+                             </mat-form-field>
+                              </div>
+                              <div class="col-lg-4">
+                                  <p>Responsabilidad, disposición y cumplimiento en la ejecución de las tareas</p>
+                                  <mat-form-field appearance="legacy" class="ancho">
+                                    <mat-select [(value)]="respuesta7" >
+                                     <mat-option *ngFor="let element of lstValoracion"
+                                         [value]="element.valor">
+                                         {{element.name}}
+                                     </mat-option>
+                                 </mat-select>
+                             </mat-form-field>
+                              </div>
+                              <br>
+                              <mat-form-field appearance="outline" style="width: 100%;">
+                                  <mat-label>Observación</mat-label>
+                                  <textarea  matInput></textarea>
+                              </mat-form-field>
+                          </div>
+                      </div>
+                    
+                        
+                        <br><br>
+                        <mat-divider></mat-divider>
+  
+                      <p style="text-align: center; font-size: large; margin-top: 15px;"><b>Participación Comunitaria
+                      </b></p>
+  
+                      <div style="justify-content:center ;text-align: center;margin-left: 50px;">
+                          <div class="row">
+                              <div class="col-lg-6">
+                                  <p>Predisposición y participación de la comunidad/beneficiarios en el proyecto</p>
+                                  <mat-form-field appearance="legacy" class="ancho">
+                                    <mat-select [(value)]="respuesta8">
+                                     <mat-option *ngFor="let element of lstValoracion"
+                                         [value]="element.valor">
+                                         {{element.name}}
+                                     </mat-option>
+                                 </mat-select>
+                             </mat-form-field>
+                              </div>
+                              <div class="col-lg-6">
+                                  <p>Facilidad para integrar ideas con la comunidad/beneficarios para el desarrollo del proyecto</p>
+                                  <mat-form-field appearance="legacy" class="ancho">
+                                    <mat-select [(value)]="respuesta9">
+                                     <mat-option *ngFor="let element of lstValoracion"
+                                         [value]="element.valor">
+                                         {{element.name}}
+                                     </mat-option>
+                                 </mat-select>
+                             </mat-form-field>
+                              </div>
+                              <br>
+                              <mat-form-field appearance="outline" style="width: 100%;">
+                                  <mat-label>Observación</mat-label>
+                                  <textarea  matInput></textarea>
+                              </mat-form-field>
+                          </div>
+                      </div>
+                  
+                      <mat-divider></mat-divider>
+                      <br /><br />
+          
+  
+                      <p style="font-size: large; margin-left: 50px;"><b>Indique sus sugerencias a la Universidad para que está pueda mejorar sus procesos académicos formativos</b></p>
+                      <div style="justify-content:center ;text-align: center;margin-left: 50px;">
+                          <div class="row">
+                             
+                      <mat-form-field appearance="outline" style="width: 100%;">
+                          <mat-label>Descripción
+                          </mat-label>
+                          <textarea formControlName="descripcion" matInput></textarea>
+                      </mat-form-field>
+                          </div>
+                      </div>
+                  
+                </form>
+
+
+                <mat-dialog-actions align="end">
+                    <button mat-button>Cancelar</button>
+                    <button mat-button (click)="GuardarActividad()">Registrar</button>
+                </mat-dialog-actions>
+
+            </div>
+        </div>
+    </div>
+
+</div>

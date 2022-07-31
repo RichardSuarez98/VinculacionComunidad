@@ -1,0 +1,15 @@
+img.izquierda {
+    float: left;
+    width: 2.3cm;
+    height: 2.25cm;
+  }
+  
+  img.derecha {
+    float: right;
+    width: 2.73cm;
+    height: 1.65cm;
+  }
+
+  .table, tr, th{
+    border: 1px solid black;
+  }

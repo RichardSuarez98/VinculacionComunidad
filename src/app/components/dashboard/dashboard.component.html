@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+
+<mat-sidenav-container autosize>
+     
+    <mat-sidenav  mode="side" opened="true">
+        <mat-nav-list>
+            <mat-list-item>
+                <mat-icon mat-list-icon  matTooltip="Inicio"  matTooltipPosition="after" routerLink="/dashboard">home</mat-icon>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon matTooltip="Supervisor"  matTooltipPosition="after" routerLink="/dashboard/supervisor">engineering</mat-icon>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon matTooltip="Docente"  matTooltipPosition="after"  routerLink="/dashboard/docente" >assignment_ind</mat-icon>  
+            </mat-list-item>
+         
+            <mat-list-item>
+                <mat-icon mat-list-icon matTooltip="Estudiante"  matTooltipPosition="after" routerLink="/dashboard/estudiante" >school</mat-icon>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon matTooltip="Director"  matTooltipPosition="after" routerLink="/dashboard/director">person</mat-icon>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon matTooltip="Administración"  matTooltipPosition="after" routerLink="/dashboard/administracion">settings</mat-icon>
+            </mat-list-item>
+
+
+</mat-nav-list>
+    </mat-sidenav>
+
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+    
+</mat-sidenav-container>
+
+
+<!--
+      <mat-list-item>
+                <mat-icon mat-list-icon matTooltip="Asistencia"  matTooltipPosition="after" routerLink="/dashboard/asistencia" >assignment_ind</mat-icon>
+            </mat-list-item>
+            
+            <mat-list-item>
+                <mat-icon mat-list-icon matTooltip="Evaluacion Estudiantil"  matTooltipPosition="after" routerLink="/dashboard/registroEvaluacionEstudiantil">assignment_ind</mat-icon>
+            </mat-list-item>
+        <mat-list-item>
+            <mat-icon mat-list-icon matTooltip="Evaluacion Rendimiento"  matTooltipPosition="after" routerLink="/dashboard/registroEvaluacionRendimiento">assignment_ind</mat-icon>
+        </mat-list-item>
+    
+    <mat-list-item>
+        <mat-icon mat-list-icon matTooltip="Monitoreo Docente"  matTooltipPosition="after" routerLink="/dashboard/registroMonitoreoDocente">assignment_ind</mat-icon>
+    </mat-list-item>
+-->

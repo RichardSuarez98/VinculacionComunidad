@@ -1,0 +1,167 @@
+<br>
+<div class="row justify-content-center" style="margin-top: 35px;">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+
+                <p style="text-align: center; font-size: large; margin-top: 15px;"><b> Registro de Actividades Diarias
+                    </b></p>
+
+                <form [formGroup]="form">
+
+                    <div style="justify-content:center ;text-align: center;margin-left: 50px;">
+                        <div class="row">
+                            <div class="col-lg-6">
+
+                                <div class="input-group mb-3">
+                                    <mat-form-field appearance="legacy">
+                                        <mat-label>Carrera</mat-label>
+                                        <mat-select [(value)]="idCarrera" name="food">
+                                            <mat-option *ngFor="let element of listCarrera" [value]="element.idCarrera">
+                                                {{element.nombreCarrera}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="input-group mb-3">
+                                    <mat-form-field appearance="legacy">
+                                        <mat-label>Periodo Lectivo</mat-label>
+                                        <mat-select [(value)]="idAnioLectivo" name="food">
+                                            <mat-option *ngFor="let element of listAnioLectivo"
+                                                [value]="element.idAnioLectivo">
+                                                {{element.nomAnioLectivo}} {{element.nomCiclo}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="input-group mb-3">
+
+                                    <mat-form-field appearance="legacy">
+                                        <mat-label>Proyecto</mat-label>
+                                        <mat-select name="food">
+                                            <mat-option (click)="getActividad()" *ngFor="let element of listProyecto"
+                                                [value]="element.idProyecto">
+                                                {{element.tituloProyecto}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!--#region INICIO FILTRO-->
+                        <mat-form-field appearance="standard">
+                            <mat-label>Filtrar</mat-label>
+                            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+                        </mat-form-field>
+                        <!--#endregion -->
+                        <!-- #region BOTON REGISTRAR- OPENDIALOG-->
+                        <span>
+                            <button mat-button color="primary" class="button" (click)="openDialog()">Registrar</button>
+                        </span>
+                        <!-- #endregion -->
+                    </div>
+
+
+                    <table mat-table [dataSource]="datasource" class="mat-elevation-z8" style="text-align: center;">
+
+                        <!--ng-container matColumnDef="idDocente" style="text-align: center;">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> id </th>
+                            <td mat-cell *matCellDef="let element"> {{element.idDocente}} </td>
+                        </!--ng-container-->
+
+                        <ng-container matColumnDef="nombreDocente" style="text-align: center;">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Tutor Responsable </th>
+                            <td mat-cell *matCellDef="let element"> {{element.nombreDocente}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="nombreSupervisor" style="text-align: center;">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Supervisor Responsable </th>
+                            <td mat-cell *matCellDef="let element"> {{element.nombreSupervisor}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="numeroSemana" style="text-align: center;">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Semana </th>
+                            <td mat-cell *matCellDef="let element"> {{element.numeroSemana}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="totalHoras" style="text-align: center;">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;">Horas Totales </th>
+                            <td mat-cell *matCellDef="let element"> {{element.totalHoras}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="estadoDocente" style="text-align: center;">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;">Estado Docente</th>
+                            <td mat-cell *matCellDef="let element"> 
+                                <mat-form-field appearance="legacy">
+                                      <mat-select  [(value)]="element.estadoDocente"  > 
+                                        <mat-option *ngFor="let estadoDocente of lstEstados" [value]="estadoDocente.valor" (click)="cambiarEstadoActividad(element)" >
+                                            {{estadoDocente.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>    
+                            </td>
+                        </ng-container>
+                        
+
+                        <ng-container matColumnDef="estadoSupervisor" style="text-align: center;">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;">Estado Supervisor </th>
+                            <td mat-cell *matCellDef="let element">
+                                <mat-form-field appearance="legacy">
+                                    <mat-select  [(value)]="element.estadoSupervisor" > <!--    [(value)]="idCarrera" name="food"    [(ngModel)]="element.estadoSupervisor"  -->
+                                      <mat-option  *ngFor="let elemento of lstEstados" [value]="elemento.valor" (click)="cambiarEstadoActividad(element)">
+                                          {{elemento.name}}
+                                      </mat-option>
+                                  </mat-select>
+                              </mat-form-field>  
+                            </td>
+                        </ng-container>
+
+                        <!--
+                             <ng-container matColumnDef="active">
+                                <th mat-header-cell *matHeaderCellDef> Activo </th>
+                                <td mat-cell *matCellDef="let element">
+                                  <mat-slide-toggle [(ngModel)]="element.active"  (change)="onChange(element)" ></mat-slide-toggle>
+                                <!--<td mat-cell *matCellDef="let element"> {{element.active}} 
+                                </td>
+                                
+                            </ng-container>
+                        -->
+
+                        <ng-container matColumnDef="accion">
+                            <th mat-header-cell *matHeaderCellDef> Acción </th>
+                            <td mat-cell *matCellDef="let element">
+                                <button mat-button color="primary" class="button">Editar</button>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    </table>
+
+                    <mat-paginator [pageSizeOptions]="[10, 20]" aria-label="Select page of periodic elements">
+                    </mat-paginator>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
