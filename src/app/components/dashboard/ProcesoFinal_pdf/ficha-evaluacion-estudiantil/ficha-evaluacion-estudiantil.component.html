@@ -1,3 +1,5 @@
+<button  class="btn btn-outline-secondary" mat-button  (click)="pol()" >Descargar</button>
+<br> <br>
 <div class="container">
     <div class="row">
       <div id="htmlData" >
@@ -9,8 +11,8 @@
              PRÁCTICAS DE SERVICIO COMUNITARIO</span>
         </span>
         </div>
-        
-        <br/> <br/>
+
+        <br/>
 
         <table style="border: 1px solid black; justify-content: center; text-align: center; width: 100%;">
                 <tr>
@@ -18,123 +20,62 @@
                 </tr>
         </table>
 
-       <br/><br/>
-        
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span>LUGAR Y FECHA:</span>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">GUAYAQUIL 18 DE MARZO DE 2022</span>
-                </div>
-            </div>
-        </div>
+       <br/>
 
+       <table style="width: 100%;border-color: white;">
+        <tr style="border-color: white;">
+          <th style="border-color: white;">LUGAR Y FECHA:</th>
+          <th style="border-color: white;color: blue;">GUAYAQUIL {{fechaGeneracion}}</th>
+        </tr>
+        <tr style="border-color: white;">
+          <th style="border-color: white;">NOMBRE Y APELLIDOS DEL ESTUDIANTE:</th>
+          <th style="border-color: white;color: blue;">{{nombreEstudiante}}</th>
+        </tr>
+        <tr style="border-color: white;">
+          <th style="border-color: white;">FACULTAD:</th>
+          <th style="border-color: white;color: blue;">CIENCIAS MATEMÁTICAS Y FÍSICAS</th>
+        </tr>
+        <tr style="border-color: white;">
+          <th style="border-color: white;">CARRERA:</th>
+          <th style="border-color: white;color: blue;">{{nombreCarrera}}</th>
+        </tr>
+        <tr style="border-color: white;">
+          <th style="border-color: white;">NOMBRE DE LA INSTITUCIÓN:</th>
+          <th style="border-color: white;color: blue; ">{{nombreInstitucion}}</th>
+        </tr>
+        <tr style="border-color: white;">
+          <th style="border-color: white;">ÁREA DE DESEMPEÑO:</th>
+          <th style="border-color: white;color: blue; ">{{areaDepartamento}}</th>
+        </tr>
+        <tr style="border-color: white;">
+          <th style="border-color: white;">NOMBRE DEL SUPERVISOR:</th>
+          <th style="border-color: white;color: blue; ">{{nombreSupervisor}}</th>
+        </tr>
+        <tr style="border-color: white;">
+          <th style="border-color: white;">NOMBRE DEL DOCENTE:</th>
+          <th style="border-color: white;color: blue; ">{{nombreDocente}}</th>
+        </tr>
+      </table>
+      <!---
+cedEstudiante: "0981203639"
+cedulaSupervisor: "0954158742"
+e: ""
+fechaGeneracion: null
+ms: ""
+nombreCarrera: "Ingeniería de Sistemas Computacionales"
+nombreDocente: "Victor  Estrada "
+nombreEstudiante: "Cristina Isabel Contreras Guerrero"
+nombreSupervisor: "Julio Ferico Vinueza Jacome"
+ns: ""
+ps: "PS"
+s: ""
+        --->
 
+         <br/>
 
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span>NOMBRE Y APELLIDOS DEL ESTUDIANTE:</span>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">RICHARD ADRIÁN SUÁREZ JÁCOME</span>
-                </div>
-            </div>
-         </div>
-
-
-         <div class="row">
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span>FACULTAD:</span>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">CIENCIAS MATEMÁTICAS Y FÍSICAS</span>
-                </div>
-            </div>
-         </div>
-
-
-         <div class="row">
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span>CARRERA:</span>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">INGENIERÍA DE SISTEMAS COMPUTACIONALES</span>
-                </div>
-            </div>
-         </div>
-
-
-         <div class="row">
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span>NOMBRE DE LA INSTITUCIÓN:</span>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">GAD DE ISIDRO AYORA</span>
-                </div>
-            </div>
-         </div>
-
-         <div class="row">
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span>ÁREA DE DESEMPEÑO:</span>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">GESTIÓN SOCIAL Y PARTICIPACIÓN CIUIDADANA</span>
-                </div>
-            </div>
-         </div>
-
-
-         <div class="row">
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span>NOMBRE DEL SUPERVISOR:</span>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">LCDO. NICOLÁS MARTILLO PIGUAVE</span>
-                </div>
-            </div>
-         </div>
-
-         <div class="row">
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span>NOMBRE DEL DOCENTE:</span>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">ING. JENNY ALEXANDRA ORTIZ ZAMBRANO MSC.</span>
-                </div>
-            </div>
-         </div>
-
-         <br/> <br/>
-        
          <span>Indique con una X la calificación que usted considere adecuada, según la siguiente escala:</span>
 
-         <br/> <br/>
+         <br/>
 
          <div style="margin-left: 8%;">
             <b>E</b>  <span style="margin-left: 3%;">EXCELENTE</span>  <br/>
@@ -144,102 +85,77 @@
             <b>NS</b> <span style="margin-left: 2%;">NADA SATISFACTORIO</span>  <br/>
          </div>
 
-         <br/> <br/>
+         <br/>
 
          <table style="width: 100%;">
 
-            <tr align="center">      
-              <th colspan="2" >VALORACIÓN</th>   
-              <th class="col-lg-1">NS</th>
-              <th class="col-lg-1">PS</th>
-              <th class="col-lg-1">S</th>
-              <th class="col-lg-1">MS</th>
-              <th class="col-lg-1">E</th>
+            <tr align="center">
+              <th class="col-lg-6">VALORACIÓN</th>
+              <th class="col-lg-3">CALIFICACIÓN</th>
               <th class="col-lg-3">OBSERVACIONES</th>
             </tr>
-          
-            <tr>   
-                <th rowspan="4" width="20%" style="text-align: center;">CONOCIMIENTOS Y HABILIDADES</th>         
-                <th class="col" width="30%">Aplicación de los conocimientos teóricos y prácticos de la carrera</th>      
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th rowspan="4" ></th>
+
+            <tr align="center">
+              <th colspan="3">ASPECTO TÉCNICO</th>
+            </tr>
+
+            <tr>
+                <th class="col" >Aplicación de los conocimientos teóricos y prácticos de la carrera</th>
+                <th style="text-align: center;">{{calificacion1}}</th>
+                <th rowspan="4"></th>
+          </tr>
+
+
+              <tr>
+                <th class="col">Capacidad para resolver problemas</th>
+                <th style="text-align: center;">{{calificacion2}}</th>
               </tr>
 
-              <tr>      
-                <th class="col">Capacidad para resolver problemas</th>      
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-              </tr>
-       
-              <tr>      
-                <th class="col">Utilización adecuada de procedimientos metodológicos</th>      
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
+              <tr>
+                <th class="col">Utilización adecuada de procedimientos metodológicos</th>
+                <th style="text-align: center;">{{calificacion3}}</th>
               </tr>
 
-              <tr>      
-                <th class="col">Integración del grupo y trabajo en equipo</th>      
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
+              <tr>
+                <th class="col">Integración del grupo y trabajo en equipo</th>
+                <th style="text-align: center;">{{calificacion4}}</th>
               </tr>
 
-              <tr>      
-                <th rowspan="2" style="text-align: center;">ASISTENCIA</th>
-                <th class="col-lg-1">Puntualidad del estudiante</th>      
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
+              <tr align="center">
+                <th colspan="3">ASISTENCIA</th>
+            </tr>
+
+              <tr>
+                <th class="col-lg-1">Puntualidad del estudiante</th>
+                <th class="col-lg-1" style="text-align: center;">{{calificacion5}}</th>
                 <th rowspan="2" ></th>
               </tr>
 
-              <tr>      
-                <th class="col">Responsabilidad, disposición y cumplimiento en la ejecución de las tareas</th>      
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
+              <tr>
+                <th class="col">Responsabilidad, disposición y cumplimiento en la ejecución de las tareas</th>
+                <th class="col-lg-1" style="text-align: center;">{{calificacion6}}</th>
               </tr>
 
-              <tr>      
-                <th rowspan="2" style="text-align: center;">PARTICIPACIÓN COMUNITARIA</th>
-                <th class="col-lg-1">Predisposición y participación de la comunidad/beneficiarios en el proyecto</th>      
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
+              <tr align="center">
+                <th colspan="3">PARTICIPACIÓN COMUNITARIA</th>
+            </tr>
+
+
+              <tr>
+                <th class="col-lg-1">Predisposición y participación de la comunidad/beneficiarios en el proyecto</th>
+                <th class="col-lg-1" style="text-align: center;">{{calificacion7}}</th>
                 <th rowspan="2" ></th>
               </tr>
 
 
-              <tr>      
-                <th class="col">Facilidad para integrar ideas con la comunidad/beneficarios para el desarrollo del proyecto </th>      
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
-                <th class="col-lg-1"></th>
+              <tr>
+                <th class="col">Facilidad para integrar ideas con la comunidad/beneficarios para el desarrollo del proyecto </th>
+                <th class="col-lg-1" style="text-align: center;">{{calificacion8}}</th>
               </tr>
-   
+
           </table>
 
-          <br/> 
+          <br/>
           <p>Indique sus sugerencias a la Universidad para que ésta pueda mejorar sus procesos académicos formativos.</p>
 
           <br/> <br/> <br/>
@@ -263,14 +179,13 @@
          <div class="row">
             <div class="col-lg-6">
                 <div class="input-group mb-6">
-                    <p>RICHARD ADRIÁM SUÁREZ JÁCOME</p>
+                    <b>{{nombreEstudiante}}</b>
                 </div>
-                <b>C.I.  <span>0951836592</span></b>
+                <b>C.I.  <span>{{this.cedEstudiante}}</span></b>
             </div>
          </div>
 
       </div>
     </div>
   </div>
-  
-  <button (click)="pol()" >descargar</button>
+

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
@@ -9,7 +10,7 @@ import jsPDF from 'jspdf';
 })
 export class EvidenciasComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public list:any,) { }
 
   ngOnInit(): void {
   }
@@ -17,20 +18,11 @@ export class EvidenciasComponent implements OnInit {
 
 
   async pol(){
-    /*const doc = new jsPDF({
-      orientation: "landscape",
-      unit: "in",
-      format: [4, 2]
-    });
-    
-    doc.text("Hello world!", 1, 1);
-    doc.save("two-by-four.pdf");*/
-
      const DATA = document.getElementById('htmlData');
     const doc = new jsPDF('p','mm','A4'); //jsPDF('p', 'pt', 'a4');
     doc.addFont('ArialMS', 'Arial', 'normal');
     doc.setFont('Arial');
-    
+
     const options = {
       background: 'white',
       scale: 1,
@@ -50,8 +42,13 @@ export class EvidenciasComponent implements OnInit {
     }).then((docResult) => {
        docResult.save(`${new Date().toISOString()}_FichaDeEvaluacionyRendimiento.pdf`);
     });
-
   }
+
+
+
+
+
+
 
 
 

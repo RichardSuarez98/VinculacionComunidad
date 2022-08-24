@@ -1,7 +1,56 @@
 <app-navbar></app-navbar>
 
-<mat-sidenav-container autosize>
-     
+<mat-toolbar style="background-color: #3a4f63; color: #dde4ec;">
+    <div style="justify-content: center; text-align: center;flex: 1 1 auto;">
+
+        <button mat-button routerLink="/dashboard" >Inicio</button>
+
+        <button mat-button [matMenuTriggerFor]="menuEstudiante">Estudiante</button>
+                <mat-menu #menuEstudiante="matMenu">
+                <button mat-menu-item>Asistencia</button>
+                <button mat-menu-item>Consultar Actividad</button>
+                </mat-menu>
+
+            <button mat-button [matMenuTriggerFor]="menuDocente">Docente</button>
+                <mat-menu #menuDocente="matMenu">
+                <button mat-menu-item  routerLink="/dashboard/asistencia" >Asistencia</button>
+                <button mat-menu-item  routerLink="/dashboard/registroActividadesDiarias">Cronograma</button>
+                <button mat-menu-item  routerLink="/dashboard/registroEvaluacionEstudiantil" >Evaluación Estudiantil</button>
+                <button mat-menu-item  routerLink="/dashboard/registroEvaluacionRendimiento" >Evaluación y Rendimiento</button>
+                <button mat-menu-item  routerLink="/dashboard/registroMonitoreoDocente" >Monitoreo</button>
+                <button mat-menu-item  routerLink="/dashboard/cronograma">Registrar Cronograma</button>
+                <button mat-menu-item  routerLink="/dashboard/docenteDirector">Modulo de Director de Proyecto</button>
+                <button mat-menu-item  routerLink="/dashboard/gestorVinculacion">Modulo de Gestor Vinculación</button>
+                <button mat-menu-item  routerLink="/dashboard/docenteTutor">Modulo de Docente Tutor</button>
+                <button mat-menu-item  routerLink="/dashboard/estudiante">Modulo de estudiante</button>
+              </mat-menu>
+
+                <button mat-button [matMenuTriggerFor]="menuSupervisor">Supervisor</button>
+                <mat-menu #menuSupervisor="matMenu">
+                <button mat-menu-item>Item 1</button>
+                <button mat-menu-item>Item 2</button>
+                </mat-menu>
+
+                <button mat-button [matMenuTriggerFor]="menuDirector">Director</button>
+                <mat-menu #menuDirector="matMenu">
+                <button mat-menu-item>Item 1</button>
+                <button mat-menu-item>Item 2</button>
+                </mat-menu>
+
+                <button mat-button [matMenuTriggerFor]="menuAdmin">Administración</button>
+                <mat-menu #menuAdmin="matMenu">
+                <button mat-menu-item>Item 1</button>
+                <button mat-menu-item>Item 2</button>
+                </mat-menu>
+
+    </div>
+  </mat-toolbar>
+
+<div>
+    <router-outlet></router-outlet>
+</div>
+<!--mat-sidenav-container autosize>
+
     <mat-sidenav  mode="side" opened="true">
         <mat-nav-list>
             <mat-list-item>
@@ -11,9 +60,9 @@
                 <mat-icon mat-list-icon matTooltip="Supervisor"  matTooltipPosition="after" routerLink="/dashboard/supervisor">engineering</mat-icon>
             </mat-list-item>
             <mat-list-item>
-                <mat-icon mat-list-icon matTooltip="Docente"  matTooltipPosition="after"  routerLink="/dashboard/docente" >assignment_ind</mat-icon>  
+                <mat-icon mat-list-icon matTooltip="Docente"  matTooltipPosition="after"  routerLink="/dashboard/docente" >assignment_ind</mat-icon>
             </mat-list-item>
-         
+
             <mat-list-item>
                 <mat-icon mat-list-icon matTooltip="Estudiante"  matTooltipPosition="after" routerLink="/dashboard/estudiante" >school</mat-icon>
             </mat-list-item>
@@ -28,25 +77,23 @@
 </mat-nav-list>
     </mat-sidenav>
 
-    <div>
-        <router-outlet></router-outlet>
-    </div>
-    
-</mat-sidenav-container>
+
+
+</!--mat-sidenav-container-->
 
 
 <!--
       <mat-list-item>
                 <mat-icon mat-list-icon matTooltip="Asistencia"  matTooltipPosition="after" routerLink="/dashboard/asistencia" >assignment_ind</mat-icon>
             </mat-list-item>
-            
+
             <mat-list-item>
                 <mat-icon mat-list-icon matTooltip="Evaluacion Estudiantil"  matTooltipPosition="after" routerLink="/dashboard/registroEvaluacionEstudiantil">assignment_ind</mat-icon>
             </mat-list-item>
         <mat-list-item>
             <mat-icon mat-list-icon matTooltip="Evaluacion Rendimiento"  matTooltipPosition="after" routerLink="/dashboard/registroEvaluacionRendimiento">assignment_ind</mat-icon>
         </mat-list-item>
-    
+
     <mat-list-item>
         <mat-icon mat-list-icon matTooltip="Monitoreo Docente"  matTooltipPosition="after" routerLink="/dashboard/registroMonitoreoDocente">assignment_ind</mat-icon>
     </mat-list-item>

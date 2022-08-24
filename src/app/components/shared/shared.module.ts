@@ -1,11 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
-
 //modulos
 import { ReactiveFormsModule } from '@angular/forms';
-
 //Angular Material
 //import { MatSliderModule } from '@angular/material/slider';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -14,11 +10,11 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatMenuModule} from '@angular/material/menu'; 
-import {MatIconModule} from '@angular/material/icon'; 
-import {MatPaginatorModule} from '@angular/material/paginator'; 
-import {MatTableModule} from '@angular/material/table'; 
-import {MatSelectModule} from '@angular/material/select'; 
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
+import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FormsModule} from '@angular/forms';
@@ -32,11 +28,17 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatCardModule} from '@angular/material/card';
-
-
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
+import { NgChartsModule } from 'ng2-charts';
+import {MatTabsModule} from '@angular/material/tabs';
 
+/********** PRIME NG  ************/
+import {DropdownModule} from 'primeng/dropdown';
+import {ChartModule} from 'primeng/chart';
+import {CalendarModule} from 'primeng/calendar';
 
 
 
@@ -66,7 +68,12 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
      MatDividerModule,
      MatTooltipModule,MatCheckboxModule,
      MatDatepickerModule,MatRadioModule,
-     MatBottomSheetModule,MatCardModule,MatSlideToggleModule
+     MatBottomSheetModule,MatCardModule,MatSlideToggleModule,
+     ScrollingModule,MatProgressBarModule, NgChartsModule,MatTabsModule,
+
+     DropdownModule,
+     ChartModule,
+     CalendarModule
      //jsPDF
   ], exports: [
  /*sngulsr material */
@@ -90,8 +97,13 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
       MatExpansionModule,
       MatDividerModule,
       MatTooltipModule,MatCheckboxModule,
-      MatDatepickerModule,MatRadioModule,MatBottomSheetModule,MatCardModule,MatSlideToggleModule
-      
+      MatDatepickerModule,MatRadioModule,MatBottomSheetModule,MatCardModule,MatSlideToggleModule,
+      ScrollingModule,MatProgressBarModule, NgChartsModule,MatTabsModule,
+
+
+      DropdownModule,
+      ChartModule,
+      CalendarModule
       //jsPDF
   ]
 })

@@ -58,17 +58,17 @@ isTrue! :boolean;
       }
       const usu2 : any={
         userId:element.userId,
-        active:this.isTrue,     
+        active:this.isTrue,
       }
      // userId
      // active
-      
+
 
      this._usuarioService.putUsuario(usu2).subscribe(user =>{
         console.log(user);
     });
 
-    } 
+    }
 */
 
 //isChecked :boolean[]=[];
@@ -90,7 +90,7 @@ isTrue! :boolean;
     this.getProyecto();
   }
 
-  
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.datasource.filter = filterValue.trim().toLowerCase();
@@ -107,7 +107,7 @@ isTrue! :boolean;
           console.log('The dialog was closed');
           // this.animal = result;
         });
-   
+
       }
 
 
@@ -144,7 +144,7 @@ isTrue! :boolean;
         /*if(response.data!.estadoDocente === 1){
 
         }*/
-        
+
         if (response.codigo == 1) {
           this.listActividad = response.data!;
           this.datasource = new MatTableDataSource(this.listActividad);
@@ -165,6 +165,10 @@ isTrue! :boolean;
     })
     console.log(actividad)
   }
+
+
+ 
+
 
 
 }

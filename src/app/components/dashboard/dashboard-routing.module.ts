@@ -9,18 +9,20 @@ import { ListarEvaluacionRendimientoComponent } from './crud-evaluacion-rendimie
 import { CrudMonitoreoDocenteComponent } from './crud-monitoreo-docente/crud-monitoreo-docente.component';
 import { ListarMonitoreoDocenteComponent } from './crud-monitoreo-docente/listar-monitoreo-docente/listar-monitoreo-docente.component';
 import { DashboardComponent } from './dashboard.component';
-import { DocenteComponent } from './Modulos/docente/docente.component';
 import { InicioComponent } from './inicio/inicio.component';
-import { EstudianteComponent } from './Modulos/estudiante/estudiante.component';
-import { SupervisorComponent } from './Modulos/supervisor/supervisor.component';
-import { AdministracionComponent } from './Modulos/administracion/administracion.component';
-import { DirectorComponent } from './Modulos/director/director.component';
-import { ListarModuloEstudianteComponent } from './Modulos/estudiante/listar-modulo-estudiante/listar-modulo-estudiante.component';
+import { RoleGuard } from '../security/role.guard';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { CronogramaComponent } from './cronograma/cronograma.component';
+import { DirectorProyectoModuloComponent } from './director-proyecto-modulo/director-proyecto-modulo.component';
+import { GestorVinculacionmoduloComponent } from './gestor-vinculacionmodulo/gestor-vinculacionmodulo.component';
+import { DocenteTutorModuloComponent } from './docente-tutor-modulo/docente-tutor-modulo.component';
+import { ActividadEstudianteModuloComponent } from './actividad-estudiante-modulo/actividad-estudiante-modulo.component';
+import { EstudianteModuloComponent } from './estudiante-modulo/estudiante-modulo.component';
 
 const routes: Routes = [
   {path:'',component:DashboardComponent,children:[
     {path:'', component:InicioComponent},
-    {path:'asistencia', component:AsistenciaComponent},
+   // {path:'asistencia', component:AsistenciaComponent},
     {path:'registroActividadesDiarias', component:CrudActividadesDiariasComponent},
     {path:'registroEvaluacionEstudiantil', component:ListarEvaluacionEstudiantilComponent},
     {path:'registroEvaluacionEstudiantillistado', component:CrudEvaluacionEstudiantilComponent},
@@ -28,17 +30,26 @@ const routes: Routes = [
     {path:'registroMonitoreoDocente', component:ListarMonitoreoDocenteComponent},
 
 
-    {path:'docente', component:DocenteComponent},
-    {path:'estudiante', component:EstudianteComponent},
-    {path:'supervisor', component:SupervisorComponent},
-    {path:'administracion', component:AdministracionComponent},
-    {path:'director', component:DirectorComponent},
+    // MODULO
+    {path:'docenteDirector', component:DirectorProyectoModuloComponent,canActivate:[RoleGuard]},//,canActivate:[RoleGuard]
+    {path:'gestorVinculacion', component:GestorVinculacionmoduloComponent,canActivate:[RoleGuard]},//,canActivate:[RoleGuard]
+    {path:'docenteTutor', component:DocenteTutorModuloComponent,canActivate:[RoleGuard]},//,canActivate:[RoleGuard]
+    {path:'actividadEvaluar', component:ActividadEstudianteModuloComponent,canActivate:[RoleGuard]},
+    {path:'estudiante', component:EstudianteModuloComponent},  //,canActivate:[RoleGuard]
 
 
+    //{path:'cronograma', component:CronogramaComponent},
 
-    {path:'consultaFichaEstudiantil',component:ListarModuloEstudianteComponent}
-    //  {path:'registrarusuario', component:RegistrarUsuarioComponent},
-   // {path:'registrarusuario/:id', component:RegistrarUsuarioComponent},
+    {path:'pagenotfound', component:PagenotfoundComponent},
+
+//  {path:'usuarios', component:UsuarioComponent,canActivate:[RoleGuard]},
+
+    /*{path:'docente', component:DocenteComponent,canActivate:[RoleGuard]},
+    {path:'estudiante', component:EstudianteComponent,canActivate:[RoleGuard]},
+    {path:'supervisor', component:SupervisorComponent,canActivate:[RoleGuard]},
+    {path:'administracion', component:AdministracionComponent,canActivate:[RoleGuard]},
+    {path:'director', component:DirectorComponent,canActivate:[RoleGuard]},*/
+
   ]}
 ];
 

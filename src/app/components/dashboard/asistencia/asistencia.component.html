@@ -1,9 +1,8 @@
-<br>
-<div class="row justify-content-center">
-    <div class="col-lg-8">
-        <div class="card">
-            <div class="card-body">
-
+<div style="margin: 25px;">
+  <div class="row justify-content-center">
+      <div class="col-lg-12">
+          <div class="card">
+              <br>
                 <p style="text-align: center; font-size: large;"><b> Asistencia de Estudiante </b></p>
                 <form [formGroup]="form">
                     <div style="justify-content:center ;text-align: center;margin-left: 50px;">
@@ -59,7 +58,7 @@
                             <div class="col-lg-5">
                                 <div class="input-group mb-3">
                                     <input atInput formControlName="fecha" class="form-control form-control-lg form-control-solid" type="date"
-                                        style="font-size: medium;">
+                                        style="font-size: medium;" (change)="mostrarFecha()">
                                 </div>
                             </div>
                         </div>
@@ -70,7 +69,7 @@
                     <table mat-table [dataSource]="datasource" class="mat-elevation-z8" style="text-align: center;">
 
                         <ng-container matColumnDef="idAsigP" style="text-align: center;">
-                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> id </th>
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Código </th>
                             <td mat-cell *matCellDef="let element"> {{element.idEstudiante}} </td>
                         </ng-container>
 
@@ -100,10 +99,10 @@
                     <mat-paginator [pageSizeOptions]="[10, 20]" aria-label="Select page of periodic elements">
                     </mat-paginator>
 
-                    <span>
-                        <button mat-button color="primary" class="button" (click)="GuardarAsistencia()">Guardar</button>
-                    </span>
-
+                    <div style="text-align: right; margin-right: 15px;" >
+                        <button mat-button color="primary" class="button" (click)="GuardarAsistencia()" *ngIf="ocultarBoton">{{nombreBoton}}</button>
+                    </div>
+                    <br>
                 </form>
             </div>
         </div>

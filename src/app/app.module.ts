@@ -7,6 +7,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { SharedModule } from './components/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { NgChartsModule } from 'ng2-charts';
+//import { DirectorProyectoModuloComponent } from './components/director-proyecto-modulo/director-proyecto-modulo.component';
 //import { InicioComponent } from './components/inicio/inicio.component';
 
 
@@ -16,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     LoginComponent,
+   // DirectorProyectoModuloComponent,
     
   ],
   imports: [
@@ -23,7 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     NoopAnimationsModule,
     SharedModule,//jsPDF
-    HttpClientModule,
+    HttpClientModule, NgChartsModule,
     //
   ],
   providers: [],

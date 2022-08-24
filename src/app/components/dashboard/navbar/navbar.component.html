@@ -5,8 +5,8 @@
   </button>
     <span>Vinculación con la Comunidad</span>
     <span class="example-spacer"></span>
-    <span>  Bienvenido Richard Suarez </span>
+    <span>   Bienvenido {{nomusu.nombreUsuario}} </span>
     <button  mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon >logout</mat-icon>
+        <mat-icon (click)="logout()" >logout</mat-icon>
       </button>
   </mat-toolbar>

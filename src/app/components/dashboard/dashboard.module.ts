@@ -6,7 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './dashboard.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { DialogEliminarComponent } from './dialog-eliminar/dialog-eliminar.component';
+//import { DialogEliminarComponent } from './dialog-eliminar/dialog-eliminar.component';
 import { FichaEvaluacionRendimientoEstudianteComponent } from './ProcesoFinal_pdf/ficha-evaluacion-rendimiento-estudiante/ficha-evaluacion-rendimiento-estudiante.component';
 import { FichaEvaluacionEstudiantilComponent } from './ProcesoFinal_pdf/ficha-evaluacion-estudiantil/ficha-evaluacion-estudiantil.component';
 import { FichaDatosGeneralesComponent } from './ProcesoFinal_pdf/ficha-datos-generales/ficha-datos-generales.component';
@@ -26,12 +26,15 @@ import { ListarEvaluacionRendimientoComponent } from './crud-evaluacion-rendimie
 import { CrudMonitoreoDocenteComponent } from './crud-monitoreo-docente/crud-monitoreo-docente.component';
 import { ListarMonitoreoDocenteComponent } from './crud-monitoreo-docente/listar-monitoreo-docente/listar-monitoreo-docente.component';
 
-import { SupervisorComponent } from './Modulos/supervisor/supervisor.component';
-import { EstudianteComponent } from './Modulos/estudiante/estudiante.component';
-import { DocenteComponent } from './Modulos/docente/docente.component';
-import { DirectorComponent } from './Modulos/director/director.component';
-import { AdministracionComponent } from './Modulos/administracion/administracion.component';
-import { ListarModuloEstudianteComponent } from './Modulos/estudiante/listar-modulo-estudiante/listar-modulo-estudiante.component';
+
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { CronogramaComponent } from './cronograma/cronograma.component';
+import { DirectorProyectoModuloComponent } from './director-proyecto-modulo/director-proyecto-modulo.component';
+import { GestorVinculacionmoduloComponent } from './gestor-vinculacionmodulo/gestor-vinculacionmodulo.component';
+import { DocenteTutorModuloComponent } from './docente-tutor-modulo/docente-tutor-modulo.component';
+import { ActividadEstudianteModuloComponent } from './actividad-estudiante-modulo/actividad-estudiante-modulo.component';
+import { EstudianteModuloComponent } from './estudiante-modulo/estudiante-modulo.component';
+//import { SupervisorModuloComponent } from './supervisor-modulo/supervisor-modulo.component';
 //import { FichaEvaluacionRendimientoEstudianteComponent } from './FichasTecnicas/ficha-evaluacion-rendimiento-estudiante/ficha-evaluacion-rendimiento-estudiante.component';
 //import { NavbarComponent } from '../navbar/navbar.component';
 
@@ -41,7 +44,7 @@ import { ListarModuloEstudianteComponent } from './Modulos/estudiante/listar-mod
     DashboardComponent,
     InicioComponent,
     NavbarComponent,
-    DialogEliminarComponent,
+    //DialogEliminarComponent,
     FichaEvaluacionRendimientoEstudianteComponent,
     FichaEvaluacionEstudiantilComponent,
     FichaDatosGeneralesComponent,
@@ -60,19 +63,21 @@ import { ListarModuloEstudianteComponent } from './Modulos/estudiante/listar-mod
     ListarEvaluacionRendimientoComponent,
     CrudMonitoreoDocenteComponent,
     ListarMonitoreoDocenteComponent,
-    DocenteComponent,
-    EstudianteComponent,
-    SupervisorComponent,
-    DirectorComponent,
-    AdministracionComponent,
-    ListarModuloEstudianteComponent,
+    PagenotfoundComponent,
+         CronogramaComponent,
+         DirectorProyectoModuloComponent,
+         GestorVinculacionmoduloComponent,
+         DocenteTutorModuloComponent,
+         ActividadEstudianteModuloComponent,
+         EstudianteModuloComponent,
+       //  SupervisorModuloComponent
     //NavbarComponent
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
-    
+
   ]
 })
 export class DashboardModule { }

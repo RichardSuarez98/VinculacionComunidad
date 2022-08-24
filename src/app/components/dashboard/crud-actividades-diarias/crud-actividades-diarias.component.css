@@ -14,10 +14,7 @@ table {
  
   .button{
     /*height: 35px;*/
-    background: linear-gradient(to right, #F6B668, #F48353);
-    background: linear-gradient(to right, #FCDF6B, #F99742);
-    background: linear-gradient(to right, #339CE9, #1D5BDF);
-    background: linear-gradient(to right, #1B1464);
+    background-color: #00539F;
     color: white;
 }
 

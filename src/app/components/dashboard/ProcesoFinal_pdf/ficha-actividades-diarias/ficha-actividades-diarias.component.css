@@ -3,7 +3,7 @@ img.izquierda {
     width: 2.3cm;
     height: 2.25cm;
   }
-  
+
   img.derecha {
     float: right;
     width: 2.73cm;
@@ -12,4 +12,14 @@ img.izquierda {
 
   .table, tr, th{
     border: 1px solid black;
+  }
+
+
+
+  .linea {
+    border-top: 2px solid black;
+    height: 2px;
+    max-width: 300px;
+    padding: 0;
+    /*margin: 20px auto 0 auto;*/
   }

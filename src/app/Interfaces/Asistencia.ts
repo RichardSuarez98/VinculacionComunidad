@@ -9,13 +9,15 @@ export interface IAsistenciaQuery {
 }
 
 export interface DetaAsistencia {
-    idAsistenciaDe?: number;
+    //IdAsistenciaDet?:        number;
+    idAsistenciaDet?:  number;
     idEstudiante?:    number;
     idAsistencia?:    number;
     asistencia?:      boolean;
 }
 
 export interface IAsistenciaResponse {
+    idAsistenciaDet?:        number;
     idEstudiante:     number;
     nombreEstudiante: string;
     cedula:           string;

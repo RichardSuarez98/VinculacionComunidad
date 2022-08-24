@@ -13,41 +13,7 @@ table {
   
  
   .button{
-    /*height: 35px;*/
-    background: linear-gradient(to right, #F6B668, #F48353);
-    background: linear-gradient(to right, #FCDF6B, #F99742);
-    background: linear-gradient(to right, #339CE9, #1D5BDF);
-    background: linear-gradient(to right, #1B1464);
+    background-color: #00539F;
     color: white;
-}
-
-.buttonNegro{
-    background-color: black;
-    color: white;
-}
-  
-table {
-  width: 100%;
-}
-
-.mat-form-field {
-  font-size: 16px;
-  width: 80%;
-}
-
-.fi{
-  text-align: center;
-}
-
-
-.button{
-  /*height: 35px;*/
-  background-color: #1D5BDF;
-  color: white;
-}
-
-.buttonNegro{
-  background-color: black;
-  color: white;
 }
 

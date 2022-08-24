@@ -14,13 +14,24 @@ export class AsistenciaServiceService {
   private urlCargaaniolectivo = 'https://localhost:5001/api/asistencia/cargarAnioLectivo';
   private urlCargaProyecto='https://localhost:5001/api/asistencia/cargarproyecto';
 
+ ///actualizarAsistencia
+
+
 
   constructor(private http:HttpClient) { }
 
   get (asistencia:IAsistenciaQuery):Observable<IResponse> {
     return this.http.post<IResponse>(this.urlEstudiante,asistencia);
   }
- 
+
+  getDocente (asistencia:IAsistenciaQuery):Observable<IResponse> {
+    return this.http.post<IResponse>(this.url+"/docenteAsistencia",asistencia);
+  }
+
+  getSupervisor (asistencia:IAsistenciaQuery):Observable<IResponse> {
+    return this.http.post<IResponse>(this.url+"/supervisorAsistencia",asistencia);
+  }
+
   getCarrera ():Observable<any> {
     return this.http.get<any>(this.urlCarrera);
   }
@@ -36,6 +47,11 @@ export class AsistenciaServiceService {
   postAsistencia(asistencia:IAsistenciaQuery):Observable<IResponse>{
     return this.http.post<IResponse>(this.url,asistencia);
   }
+
+  putAsistencia(asistencia:IAsistenciaQuery):Observable<IResponse>{
+    return this.http.post<IResponse>(this.url+"/actualizarAsistencia",asistencia);
+  }
+
 
 
 

@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { DetaAsistencia, IAsistenciaQuery, IAsistenciaResponse } from 'src/app/Interfaces/Asistencia';
+//import swal from 'sweetalert';
 import { AsistenciaServiceService } from '../../Service/asistencia-service.service';
 
 @Component({
@@ -29,14 +31,15 @@ export class AsistenciaComponent implements OnInit {
   idProyecto = 0;
 
   deta: any[] = []
-
+  nombreBoton: any
+  ocultarBoton!: boolean
 
   constructor(private _asistenciaService: AsistenciaServiceService,
-    public dialog: MatDialog, private fb: FormBuilder,) {
+    public dialog: MatDialog, private fb: FormBuilder, private _snackBar: MatSnackBar) {
     this.form = this.fb.group({
       idCarrera: [0],
       idAnioLectivo: [0],
-      idProyecto: [0],
+      idProyecto: [0, Validators.required],
       fecha: ['', Validators.required]
 
     })
@@ -61,7 +64,8 @@ export class AsistenciaComponent implements OnInit {
 
     this.addConcepto();
 
-
+    this.nombreBoton = "Guardar"
+    this.ocultarBoton=false;
   }
 
   getEstudiante() {
@@ -70,7 +74,7 @@ export class AsistenciaComponent implements OnInit {
 
       this._asistenciaService.get(solicitud).subscribe(response => {
         if (response.codigo == 1) {
-
+          this.ocultarBoton=true;
           this.listEstudiante = response.data!;
           this.datasource = new MatTableDataSource(this.listEstudiante);
           this.datasource.paginator = this.paginator;
@@ -81,47 +85,119 @@ export class AsistenciaComponent implements OnInit {
 
   }
 
+  mostrarFecha() {
+    console.log(this.form.value.fecha);
+
+    const solicitud: IAsistenciaQuery = { idAnioLectivo: this.idAnioLectivo, idCarrera: this.idCarrera, idProyecto: this.idProyecto, fecha: this.form.value.fecha };
+
+    this._asistenciaService.get(solicitud).subscribe(response => {
+      if (response.codigo == 1) {
+        this.nombreBoton = "Guardar";
+        console.log(response.data);
+        this.listEstudiante = response.data!;
+        this.datasource = new MatTableDataSource(this.listEstudiante);
+        this.datasource.paginator = this.paginator;
+      }
+      else if (response.codigo == 2) {
+        console.log(response.data);
+        this.nombreBoton = "Actualizar";
+        this.listEstudiante = response.data!;
+        this.datasource = new MatTableDataSource(this.listEstudiante);
+        this.datasource.paginator = this.paginator;
+      }
+
+    })
+
+
+  }
+
+
   checkear(element: IAsistenciaResponse) {
-
-    /*  this.datasource.filteredData.forEach((c: {
-        idEstudiante: number;
-        nombreEstudiante: string;
-        cedula: string;
-        asistencia: boolean;
-      }))*/
-
     this.listEstudiante.forEach(e => {
       if (e.idEstudiante == element.idEstudiante) {
         e.asistencia = !e.asistencia;
       }
     })
   }
+
+
   GuardarAsistencia() {
-    let detalleAistencia: DetaAsistencia[] = []
-    this.listEstudiante.forEach(e => {
-      const detalle: DetaAsistencia = {
-        idEstudiante: e.idEstudiante,
-        asistencia: e.asistencia
-      }
-      detalleAistencia.push(detalle)
-    })
-    const solicitud: IAsistenciaQuery = {
-      idAnioLectivo: this.idAnioLectivo,
-      idCarrera: this.idCarrera,
-      idProyecto: this.idProyecto,
-      fecha: this.form.value.fecha,
-      detaAsistencia: detalleAistencia
-    };
+    if (this.listEstudiante[0].idAsistenciaDet == 0 || this.listEstudiante[0].idAsistenciaDet == null) {
+      let detalleAistencia: DetaAsistencia[] = []
 
-    this._asistenciaService.postAsistencia(solicitud).subscribe(response => {
-      if (response.codigo ==1){
-        alert(response.mensaje)
-        this.listProyecto= [];
-        this.datasource = new MatTableDataSource(this.listProyecto)
-      }
-    })
+      this.listEstudiante.forEach(e => {
+        const detalle: DetaAsistencia = {
+          //idAsistenciaDet :e.idAsistenciaDet,
+          idEstudiante: e.idEstudiante,
+          asistencia: e.asistencia
+        }
+        detalleAistencia.push(detalle)
+      })
+      const solicitud: IAsistenciaQuery = {
+        idAnioLectivo: this.idAnioLectivo,
+        idCarrera: this.idCarrera,
+        idProyecto: this.idProyecto,
+        fecha: this.form.value.fecha,
+        detaAsistencia: detalleAistencia
+      };
+      this._asistenciaService.postAsistencia(solicitud).subscribe(response => {
+        console.log(response);
+        if (response.codigo == 1) {
+          this._snackBar.open(response.mensaje, '', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom'
+          });
+          this.getProyecto();
+          this.ocultarBoton=false;
+          this.form.reset();
+          this.listProyecto = [];
+          this.datasource = new MatTableDataSource(this.listProyecto)
+        } else if (response.codigo == 2) {
+          this._snackBar.open(response.mensaje, '', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom'
+          });
+        }
+      })
+    } else {
+      let detalleAistencia: DetaAsistencia[] = []
 
+      this.listEstudiante.forEach(e => {
+        const detalle: DetaAsistencia = {
+          idAsistenciaDet: e.idAsistenciaDet,
+          idEstudiante: e.idEstudiante,
+          asistencia: e.asistencia
+        }
+        detalleAistencia.push(detalle)
+      })
+      const solicitud: IAsistenciaQuery = {
+        idAnioLectivo: this.idAnioLectivo,
+        idCarrera: this.idCarrera,
+        idProyecto: this.idProyecto,
+        fecha: this.form.value.fecha,
+        detaAsistencia: detalleAistencia
+      };
+      this._asistenciaService.putAsistencia(solicitud).subscribe(response => {
+        if (response.codigo == 1) {
+          this._snackBar.open('Asistencia Actualizado con èxito', '', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom'
+          });
+          this.ocultarBoton=false;
+          this.getProyecto();
+          this.form.reset();
+          this.listProyecto = [];
+          this.nombreBoton = "Guardar";
+          this.datasource = new MatTableDataSource(this.listProyecto)
+        }
+      });
+    }
   }
+
+  
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.datasource.filter = filterValue.trim().toLowerCase();
@@ -159,19 +235,6 @@ export class AsistenciaComponent implements OnInit {
 
 
 
-  openDialog(/*fac:IFactura*/) {
 
-    /* const dialogo=this.dialog.open(DialogVComponent,{
-       width:'700px',
-      data:fac
-     })
-     dialogo.afterClosed().subscribe(result => {
-       console.log('The dialog was closed');
-      // this.animal = result;
-     });
-   
-      }*/
-
-  }
 
 }

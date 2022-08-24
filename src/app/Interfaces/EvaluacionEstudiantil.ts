@@ -11,11 +11,12 @@ export interface IEvaluacionEstudiantil {
 export interface DetaEvaluacionEstudiantil {
     idFevaDeta?:               number;
     idFevaluacionEstudiantil?: number;
-    ns?:                       string;
+    calificacion?:              string;
+    /*ns?:                       string;
     ps?:                       string;
     s?:                        string;
     ms?:                       string;
-    e?:                        string;
+    e?:                        string;*/
 }
 
 /*export interface IEvaluacionEstudiantil {
