@@ -1,0 +1,292 @@
+<br>
+
+<div class="row justify-content-center">
+  <div class="row" >
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body" style="background-color: white;">
+          <div class="row justify-content-center">
+            <div style="margin: 35px;">
+              <div class="card-body" style="background-color: #3a4f63;color: white;" >
+                <span style="font-size: large;"><b>Reportes</b></span>
+              </div>
+              <br>
+
+              <div class="row" style="justify-content: center;">
+                <div class="col-lg-1">
+                  <label for="inputPassword" class="col-form-label" style="font-weight: bold;">* Reportes a elegir:</label>
+                </div>
+                <div class="col-lg-5">
+                  <mat-form-field class="col-sm-12" appearance="legacy">
+                    <mat-label>Seleccione el Reporte</mat-label>
+                    <mat-select [(value)]="valor" name="food" > <!--  -->
+                        <mat-option  *ngFor="let element of lstReporte" [value]="element.valor" (click)="habilitarInputFecha(element)" >
+                            {{element.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                </div>
+              </div>
+
+
+              <div class="row" style="justify-content: center;">
+                <div class="col-lg-1">
+                  <label for="inputPassword" class="col-form-label" style="font-weight: bold;">* Carrera:</label>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field class="col-sm-12" appearance="legacy">
+                    <mat-label>Seleccione la Carrera</mat-label>
+                    <mat-select [(value)]="idCarrera" name="food"> <!--  -->
+                        <mat-option  *ngFor="let element of listCarrera" [value]="element.idCarrera">
+                            {{element.nombreCarrera}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                </div>
+                <div class="col-lg-1">
+                  <label for="inputPassword" class="col-form-label" style="font-weight: bold;">* Período Lectivo:</label>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field appearance="legacy" class="col-sm-12">
+                    <mat-label>Seleccione el Período Lectivo</mat-label>
+                    <mat-select  [(value)]="idAnioLectivo" name="food" >
+                        <mat-option *ngFor="let element of listAnioLectivo"
+                            [value]="element.idAnioLectivo">
+                            {{element.nomAnioLectivo}} {{element.nomCiclo}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                </div>
+              </div>
+
+
+              <div class="row" style="justify-content: center;">
+                <div class="col-lg-1">
+                  <label for="inputPassword" class="col-form-label" style="font-weight: bold;">* Proyecto:</label>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field appearance="legacy" class="col-sm-12">
+                    <mat-label>Seleccione el Proyecto</mat-label>
+                    <mat-select [(value)]="idProyecto" name="food">
+                        <mat-option   (click)="getEstudiante()" *ngFor="let element of listProyecto"
+                            [value]="element.idProyecto">
+                            {{element.tituloProyecto}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                </div>
+                <div class="col-lg-1" >
+                  <label for="inputPassword" class="col-form-label" style="font-weight: bold;" *ngIf="ocultarEstudiante">* Estudiante:</label>
+                </div>
+                <div class="col-lg-2" >
+                  <mat-form-field appearance="legacy" class="col-sm-12" *ngIf="ocultarEstudiante">
+                    <mat-label>Seleccione el Estudiante</mat-label>
+                    <mat-select  [(value)]="idEstudiante" name="food">
+                        <mat-option  *ngFor="let element of listEstudiante"
+                            [value]="element.idEstudiante">
+                            {{element.nombreEstudiante}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row" style="justify-content: center;" *ngIf="ocultarfechas">
+                <div class="col-lg-1">
+                  <label for="inputPassword" class="col-form-label" style="font-weight: bold;">* Fecha desde:</label>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field appearance="legacy" class="col-sm-12">
+                    <input matInput type="date"  [(ngModel)]="fechaDesde">
+                </mat-form-field>
+                </div>
+                <div class="col-lg-1">
+                  <label for="inputPassword" class="col-form-label" style="font-weight: bold;" >* Fecha Hasta:</label>
+                </div>
+                <div class="col-lg-2">
+                  <mat-form-field appearance="legacy" class="col-sm-12">
+                    <input matInput type="date" [(ngModel)]="fechaHasta">
+                </mat-form-field>
+                </div>
+              </div>
+
+<br>
+              <div class="row" style="justify-content: center;">
+                <button style="margin-left: 5px;" mat-button class="botonColorido col-sm-6" (click)="getReporte()" >Generar Reportes</button>
+                <button style="margin-left: 5px;" mat-button class="col-sm-6" (click)="limpiarPantalla()" >Limpiar</button>
+                </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<div style="background-color: white;margin: 30px;" *ngIf="ocultarReporte">
+  <br> <br>
+  <div style="margin-left: 25px;">
+    <span class="flex" style="margin-left: 20px;">
+      <button type="button" class="btn btn-success" (click)="exportExcel(this.lstReporte[valor].name)">Excel</button>
+      <button style="margin-left: 5px;" type="button" class="btn btn-danger" (click)="descargarPdf(this.lstReporte[valor].name)">PDF</button>
+    </span>
+  </div>
+  <br> <br>
+  <div class="container rau" >
+    <div class="row">
+      <div id="htmlData">
+        <div style="text-align:center;">
+          <span><img src="./assets/img/logoUg.png" class="izquierda"><img src="./assets/img/logoCisc.jpg" class="derecha">
+            <span style="font-size: large"><b>UNIVERSIDAD DE GUAYAQUIL <br />
+                {{nombreCarrera}} </b></span><br />
+            <span style="font-size: large"> DEPARTAMENTO DE VINCULACIÓN <br />
+              CON LA SOCIEDAD</span>
+          </span>
+        </div>
+        <br />
+        <table style="border: 1px solid black; justify-content: center; text-align: center; width: 100%;">
+          <tr>
+            <th>{{this.lstReporte[valor].name}}</th>
+          </tr>
+        </table>
+        <div [ngSwitch]="tablaReporte">
+          <div *ngSwitchCase="0">
+            <table class="far table" > <!--table-hover-->
+              <tbody>
+                  <td><b>Proyecto</b></td>
+                  <td><b>Docente</b></td>
+                  <td><b>Estudiante</b></td>
+                  <td><b>Cedula</b></td>
+                  <td><b>Celular</b></td>
+                  <td><b>Correo</b></td>
+                  <tr *ngFor="let list of listEstudianteAsignado" >
+                      <td>{{list.nombreProyecto}}</td>
+                      <td>{{list.nombreDocente}}</td>
+                      <td>{{list.nombreEstudiante}}</td>
+                      <td>{{list.cedula}}</td>
+                      <td>{{list.celular}}</td>
+                      <td>{{list.correo}}</td>
+                  </tr>
+              </tbody>
+          </table>
+          </div>
+          <div *ngSwitchCase="1">
+            <table class="far table"> <!--table-hover-->
+              <tbody>
+                  <td>Estudiante</td>
+                  <td>Docente</td>
+                  <td>Supervisor</td>
+                  <td>Fecha Inicio</td>
+                  <td>Fecha Fin</td>
+                  <td>Total Horas</td>
+                  <td>Porcentaje</td>
+                  <tr *ngFor="let list of lstPorcentajeActividadEstudiante" >
+                    <td>{{list.nombreEstudiante}}</td>
+                      <td>{{list.nombreDocente}}</td>
+                      <td>{{list.nombreSupervisor}}</td>
+                      <td>{{list.fechaInicio}}</td>
+                      <td>{{list.fechaFin}}</td>
+                      <td>{{list.totalHoras}}</td>
+                      <td>{{list.porcentaje}}%</td>
+                  </tr>
+              </tbody>
+          </table>
+          </div>
+          <div *ngSwitchCase="2">
+            <table class="far table">
+              <tbody>
+                  <td>Actividad</td>
+                  <td>Estudiante</td>
+                  <td>Docente</td>
+                  <td>Fecha</td>
+                  <td>Fecha Real</td>
+                  <td>Horas</td>
+                  <td>Cumplió</td>
+                  <tr *ngFor="let list of lstActividadCumplida" >
+                    <td>{{list.descripcion}}</td>
+                      <td>{{list.estudiante}}</td>
+                      <td>{{list.docente}}</td>
+                      <td>{{list.fecha}}</td>
+                      <td>{{list.fechaReal}}</td>
+                      <td>{{list.horas}}</td>
+                      <td>{{list.cumplio}}</td>
+                  </tr>
+              </tbody>
+          </table>
+          </div>
+
+          <div *ngSwitchCase="3">
+            <table class="far table">
+              <tbody>
+                  <td>Actividad</td>
+                  <td>Estudiante</td>
+                  <td>Docente</td>
+                  <td>Fecha</td>
+                  <td>Fecha Real</td>
+                  <td>Horas</td>
+                  <td>Cumplió</td>
+                  <tr *ngFor="let list of lstActividadInCumplida" >
+                    <td>{{list.descripcion}}</td>
+                      <td>{{list.estudiante}}</td>
+                      <td>{{list.docente}}</td>
+                      <td>{{list.fecha}}</td>
+                      <td>{{list.fechaReal}}</td>
+                      <td>{{list.horas}}</td>
+                      <td>{{list.cumplio}}</td>
+                  </tr>
+              </tbody>
+          </table>
+          </div>
+
+          <div *ngSwitchCase="4">
+            <table class="far table">
+              <tbody>
+                  <td>Actividad</td>
+                  <td>Estudiante</td>
+                  <td>Docente</td>
+                  <td>Supervisor</td>
+                  <td>Fecha</td>
+                  <td>Fecha Real</td>
+                  <td>Horas</td>
+                  <td>Cumplió</td>
+                  <tr *ngFor="let list of lstActividadPorEstudiante" >
+                    <td>{{list.descripcion}}</td>
+                      <td>{{list.estudiante}}</td>
+                      <td>{{list.nombreDocente}}</td>
+                      <th style="font-weight: normal;">{{list.nombreSupervisor}}</th>
+                      <td>{{list.fecha}}</td>
+                      <td>{{list.fechaReal}}</td>
+                      <td>{{list.horas}}</td>
+                      <td>{{list.cumplio}}</td>
+                  </tr>
+              </tbody>
+          </table>
+          </div>
+
+
+        </div>
+
+
+
+
+
+      </div>
+    </div>
+    </div>
+    <br> <br>
+</div>
+
+
+
+
+
+
+
+
+
+
+

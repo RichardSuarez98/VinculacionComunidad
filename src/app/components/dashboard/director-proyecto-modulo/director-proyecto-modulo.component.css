@@ -41,3 +41,46 @@ mat-select[aria-selected="AP"] {
   background: red !important;
 }*/
 
+
+.customer-badge.status-qualified {
+  background-color: #c8e6c9;
+  color: #256029;
+}
+
+.th{
+  background-color: #3a4f63!important;
+}
+
+
+.classSucces
+{
+font-family: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',Geneva, Verdana, sans-serif";
+text-align: center;
+border: #256029 2px solid;
+border-radius: 10px;
+color: #256029;
+width: 50px;
+font-weight: bold;
+}
+
+.classWarning
+{
+font-family: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',Geneva, Verdana, sans-serif";
+text-align: center;
+border: #CE2B08 2px solid;
+border-radius: 10px;
+color: red;
+width: 50px;
+font-weight: bold;
+}
+
+.example-container {
+  height: 670px;
+  overflow: auto;
+}
+
+
+.botonColorido{
+  background-color: #3a4f63;
+  color: white;
+}

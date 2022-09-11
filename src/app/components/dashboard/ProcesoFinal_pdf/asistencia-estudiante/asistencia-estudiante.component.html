@@ -5,57 +5,47 @@
         <div style="text-align:center;">
         <span><img src="./assets/img/logoUg.png" class="izquierda"><img src="./assets/img/logoCisc.jpg" class="derecha"> <span style="font-size: 14px;"><b>UNIVERSIDAD DE GUAYAQUIL <br/>
             FACULTAD DE CIENCIAS MATEMÁTICAS Y FÍSICAS </b></span><br/>
-            <b style="font-size: 12px;"> CARRERA DE INGENIERÍA EN SISTEMAS COMPUTACIONALES <br/>
+            <b style="font-size: 12px;"> CARRERA DE {{nombreCarrera}} <br/>
              CONTROL DE ASISTENCIAS COMUNITARIAS</b>
         </span>
         </div>
-        
-        <br/> 
+
+        <br/>
 
         <table width="100%" style="text-align: center;">
             <tr>
                 <th>Estudiante: </th>
-                <th colspan="6">SUAREZ JACOME RICHARD ADRIAN</th>
+                <th colspan="6" style="color: blue;">{{nombreEstudiante}}</th>
             </tr>
             <tr>
                 <th class="col-lg-2">INSTITUCIÓN</th>
-                <th class="col-lg-3">GAD DE ISIDRO AYORA</th>
+                <th class="col-lg-3" style="color: blue;">{{nombreInstitucion}}</th>
                 <th class="col-lg-2">DEPARTAMENTO</th>
-                <th class="col-lg-5" colspan="4">GESTIÓN SOCIAL Y PARTICIPACIÓN CIUDADANA</th>
+                <th class="col-lg-5" colspan="4" style="color: blue;">{{departamento}}</th>
             </tr>
             <tr>
                 <th class="col-lg-2">FECHA INICIAL</th>
-                <th class="col-lg-3">06/06/2021</th>
+                <th class="col-lg-3" style="color: blue;">{{fechaInicio}}</th>
                 <th class="col-lg-2">FECHA FINAL</th>
-                <th class="col-lg-5" colspan="4">18/03/2022</th>
+                <th class="col-lg-5" colspan="4" style="color: blue;">{{fechaFin}}</th>
             </tr>
             <tr>
-                <th>SEMANA</th>
                 <th>FECHA</th>
-                <th>HORA INICIO</th>
-                <th>HORA SALIDA</th>
-                <th>TOTAL HORAS</th>
+                <th>Asistió</th>
+                <th>HORAS</th>
+                <th>FIRMA DEL ESTUDIANTE</th>
                 <th>OBSERVACIÓN</th>
             </tr>
-            <tr>
-                <th>1</th>
-                <th>26 de mayo del 2022</th>
-                <th>13:00</th>
-                <th>14:00</th>
-                <th>1:00</th>
-                <th></th>
-            </tr>
-            <tr>
-                <th>2</th>
-                <th>26 de mayo del 2022</th>
-                <th>13:00</th>
-                <th>14:00</th>
-                <th>1:00</th>
-                <th></th>
+            <tr *ngFor="let item of detalleAsistencia">
+                <th style="font-weight: normal;">{{item.fecha}}</th>
+                <th style="font-weight: normal;">{{item.asistencia ? "Sí" : "No"}}</th>
+                <th style="font-weight: normal;">{{item.horas}}</th>
+                <th style="font-weight: normal;"></th>
+                <th style="font-weight: normal;"></th>
             </tr>
         </table>
 
-      
+
 
  <br />
 
@@ -85,7 +75,7 @@
     </div>
  </div>
 
- <div class="row" style="justify-content: center; margin-top: -10px;"> 
+ <div class="row" style="justify-content: center; margin-top: -10px;">
     <div class="col-lg-4">
         <div class="input-group mb-6">
             <p style="margin-inline-start: 30px;">(RESPONSABLE AREA/DPTO/FCI)</p>
@@ -99,7 +89,7 @@
 
     </div>
   </div>
-  
+
 
     </div>
 </div>

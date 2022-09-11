@@ -1,0 +1,26 @@
+table {
+  width: 100%;
+}
+
+
+.fi{
+  text-align: center;
+}
+
+
+.button{
+  /*height: 35px;*/
+  background-color: #00539F;
+  color: white;
+}
+
+.buttonNegro{
+  background-color: black;
+  color: white;
+}
+
+.negro{
+  font-weight: bold;
+  background-color: #3a4f63 ;
+  color: white;
+}

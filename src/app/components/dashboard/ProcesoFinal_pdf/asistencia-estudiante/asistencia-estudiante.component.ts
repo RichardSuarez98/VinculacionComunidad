@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { EstudianteService } from 'src/app/components/Service/estudiante.service';
+import { DetalleEstudianteAsis, IDescargarAsistenciaEstudiante, IEstudianteQuery } from 'src/app/Interfaces/Estudiante';
 
 @Component({
   selector: 'app-asistencia-estudiante',
@@ -9,38 +12,60 @@ import jsPDF from 'jspdf';
 })
 export class AsistenciaEstudianteComponent implements OnInit {
 
-  constructor() { }
+  listFichaAsistencia!: IDescargarAsistenciaEstudiante
+  detalleAsistencia: DetalleEstudianteAsis[]=[];
+
+  nombreCarrera!: string
+  nombreEstudiante!: string;
+  nombreInstitucion!: string;
+  departamento!: string;
+  fechaInicio!: Date
+  fechaFin!: Date
+
+  constructor(@Inject(MAT_DIALOG_DATA) public list:any,private _estudianteService: EstudianteService) { }
 
   ngOnInit(): void {
+    this.listarAsistenciaEstudianteDescargar();
   }
 
 
 
+listarAsistenciaEstudianteDescargar(){
+  let numeroEstudiante: IEstudianteQuery={
+    idEstudiante:this.list.idEstudiante
+}
+this._estudianteService.DescargarfichaAsistenciaEstudiantil(numeroEstudiante).subscribe(resp=>{
+  if(resp.codigo==1){
+    this.listFichaAsistencia=resp.data!;
+    this.nombreCarrera=this.listFichaAsistencia.nombreCarrera!;
+    this.nombreEstudiante= this.listFichaAsistencia.nombreEstudiante!;
+    this.nombreInstitucion= this.listFichaAsistencia.nombreInstitucion!;
+    this.departamento=this.listFichaAsistencia.areaDesempenio!;
+    this.fechaInicio=this.listFichaAsistencia.fechaInicio!;
+    this.fechaFin=this.listFichaAsistencia.fechaFin!;
+
+    console.log(this.listFichaAsistencia);
+    this.listFichaAsistencia.detalle?.forEach(element => {
+      this.detalleAsistencia.push(element);
+    });
+  }
+})
+}
+
+
 
   async pol(){
-    /*const doc = new jsPDF({
-      orientation: "landscape",
-      unit: "in",
-      format: [4, 2]
-    });
-    
-    doc.text("Hello world!", 1, 1);
-    doc.save("two-by-four.pdf");*/
-
-     const DATA = document.getElementById('htmlData');
-    const doc = new jsPDF('p','mm','A4'); //jsPDF('p', 'pt', 'a4');
+    const DATA = document.getElementById('htmlData');
+    const doc = new jsPDF('p','mm','A4');
     doc.addFont('ArialMS', 'Arial', 'normal');
     doc.setFont('Arial');
-    
+
     const options = {
       background: 'white',
       scale: 1,
     };
     html2canvas(DATA!, options).then((canvas) => {
-
       const img = canvas.toDataURL('image/PNG');
-
-      // Add image Canvas to PDF
       const bufferX = 15;
       const bufferY = 15;
       const imgProps = (doc as any).getImageProperties(img);
@@ -53,6 +78,10 @@ export class AsistenciaEstudianteComponent implements OnInit {
     });
 
   }
+
+
+
+
 
 
 }

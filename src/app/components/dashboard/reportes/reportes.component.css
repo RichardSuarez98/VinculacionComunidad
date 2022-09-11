@@ -1,0 +1,47 @@
+img.izquierda {
+  float: left;
+  width: 2.3cm;
+  height: 2.25cm;
+}
+
+img.derecha {
+  float: right;
+  width: 2.73cm;
+  height: 1.65cm;
+}
+
+.table, tr, th{
+  border: 1px solid black;
+  text-align: center;
+}
+
+.linea {
+  border-top: 2px solid black;
+  height: 2px;
+  max-width: 300px;
+  padding: 0;
+  /*margin: 20px auto 0 auto;*/
+}
+
+.rau{
+  font-size: large;
+}
+
+
+mat-form-field {
+  margin-right: 12px;
+}
+
+
+.botonColorido
+{
+  background-color: #3a4f63;
+  color: white;
+}
+
+
+.botonColorido2
+{
+  background-color: #00539F;
+  color: white;
+}

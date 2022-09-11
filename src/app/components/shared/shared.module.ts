@@ -39,6 +39,10 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {DropdownModule} from 'primeng/dropdown';
 import {ChartModule} from 'primeng/chart';
 import {CalendarModule} from 'primeng/calendar';
+import {ButtonModule} from 'primeng/button';
+import {KnobModule} from 'primeng/knob';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import {SpeedDialModule} from 'primeng/speeddial';
 
 
 
@@ -73,7 +77,9 @@ import {CalendarModule} from 'primeng/calendar';
 
      DropdownModule,
      ChartModule,
-     CalendarModule
+     CalendarModule,
+     ButtonModule,
+     KnobModule,SplitButtonModule,SpeedDialModule
      //jsPDF
   ], exports: [
  /*sngulsr material */
@@ -103,7 +109,9 @@ import {CalendarModule} from 'primeng/calendar';
 
       DropdownModule,
       ChartModule,
-      CalendarModule
+      CalendarModule,
+      ButtonModule,
+      KnobModule,SplitButtonModule,SpeedDialModule
       //jsPDF
   ]
 })

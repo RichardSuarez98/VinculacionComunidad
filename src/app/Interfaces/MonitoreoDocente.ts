@@ -1,3 +1,5 @@
+import { Time } from "@angular/common";
+
 export interface IMonitoreoDocente {
     idFmonitoreoDocente?: number;
     idUsuario?:           number;
@@ -15,9 +17,11 @@ export interface IMonitoreoDocente {
 export interface DetaeMonitoreoDocente {
     idMoniDeta?:          number;
     idFmonitoreoDocente?: number;
-    ns?:                  string;
+    calificacion?:              string;
+    /*ns?:                  string;
     ps?:                  string;
     s?:                   string;
     ms?:                  string;
-    e?:                   string;
+    e?:                   string;*/
 }
+

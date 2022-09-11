@@ -1,0 +1,421 @@
+<br>
+<div class="row justify-content-center">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+
+        <p style="text-align: center; font-size: large; margin-top: 15px;"><b> Registrar Monitoreo Docente</b></p>
+        <br />
+
+        <form [formGroup]="form">
+
+          <div style="justify-content:center ;text-align: center;margin-left: 50px;">
+            <div class="row">
+              <div class="col-lg-4">
+                <mat-form-field appearance="legacy" class="ancho">
+                  <mat-label>Carrera</mat-label>
+                  <mat-select [(value)]="idCarrera">
+                    <mat-option *ngFor="let element of listCarrera" [value]="element.idCarrera">
+                      {{element.nombreCarrera}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-4">
+                <mat-form-field appearance="legacy" class="ancho">
+                  <mat-label>Periodo Lectivo</mat-label>
+                  <mat-select [(value)]="idAnioLectivo">
+                    <mat-option *ngFor="let element of listAnioLectivo" [value]="element.idAnioLectivo">
+                      {{element.nomAnioLectivo}} {{element.nomCiclo}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+              </div>
+
+              <div class="col-lg-4">
+                <mat-form-field appearance="legacy" class="ancho">
+                  <mat-label>Proyecto</mat-label>
+                  <mat-select [(value)]="idProyecto">
+                    <mat-option (click)="getEstudiante()" *ngFor="let element of listProyecto"
+                      [value]="element.idProyecto">
+                      {{element.tituloProyecto}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div style="justify-content:center ;text-align: center;margin-left: 50px;">
+            <div class="row">
+              <div class="col-lg-4">
+                <mat-form-field appearance="legacy" class="ancho">
+                  <mat-label>Estudiantes</mat-label>
+                  <mat-select [(value)]="idUsuario">
+                    <mat-option *ngFor="let element of listEstudiante" [value]="element.idEstudiante">
+                      {{element.nombreEstudiante}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+
+          <div style="justify-content:center ;text-align: center;margin-left: 50px;">
+            <div class="row">
+              <div class="col-lg-4">
+                <mat-form-field appearance="legacy" class="ancho">
+                  <mat-label>Número de Visita</mat-label>
+                  <input matInput type="number" [(ngModel)]="visita" formControlName="visita">
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4">
+                <mat-form-field appearance="legacy" class="ancho">
+                  <mat-label>Fecha de Visita</mat-label>
+                  <input matInput type="date" [(ngModel)]="fecha" formControlName="fecha">
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4">
+                <mat-form-field appearance="legacy" class="ancho">
+                  <mat-label>Hora de Visita</mat-label>
+                  <input matInput type="time" [(ngModel)]="horaVisita" formControlName="horaVisita">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <mat-divider></mat-divider>
+          <p style="text-align: center; font-size: large; margin-top: 15px;"><b>Valoración</b></p>
+          <mat-divider></mat-divider>
+
+          <br />
+          <span>Indique con una X la calificación que usted considere adecuada, según la siguiente escala:</span>
+          <br />
+          <div style="margin-left: 8%;">
+            <b>E</b> <span style="margin-left: 3%;">EXCELENTE</span> <br />
+            <b>MS</b> <span style="margin-left: 2%;">MUY SATISFACTORIO</span> <br />
+            <b>S</b> <span style="margin-left: 3%;">SATISFACTORIO</span> <br />
+            <b>PS</b> <span style="margin-left: 2%;">POCO SATISFACTORIO</span> <br />
+            <b>NS</b> <span style="margin-left: 2%;">NADA SATISFACTORIO</span> <br />
+          </div>
+
+          <p style="text-align: center; font-size: large; margin-top: 15px;"><b>Aspecto Técnico</b></p>
+          <div>
+            <!-- style="justify-content:center ;text-align: center;margin-left: 50px;"-->
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>Los conocimientos del estudiante aseguran una exitosa realización del proyecto.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion1" formControlName="calificacion1">
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Demuestra interés y entusiasmo en aprender.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion2" formControlName="calificacion2">
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Posee iniciativa, constantemente pregunta por nuevas actividades.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion3" formControlName="calificacion3">
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Demuestra capacidad en la realización de sus actividades.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion4" formControlName="calificacion4">
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Es hábil para poner en práctica ideas propias o ajenas.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion5" formControlName="calificacion5">
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <br>
+          </div>
+
+
+          <br><br>
+          <mat-divider></mat-divider>
+
+
+          <p style="text-align: center; font-size: large; margin-top: 15px;"><b>Aspecto Operativo</b></p>
+          <div>
+            <!-- style="justify-content:center ;text-align: center;margin-left: 50px;"-->
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>Demuestra compromiso en la realización de sus trabajos.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion6" formControlName="calificacion6">
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Es constante y siempre muy predispuesto a desempeñar la labor.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion7" formControlName="calificacion7">
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Cumple con exactitud, esmero y orden los trabajos.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion8" formControlName="calificacion8">
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Actúa voluntariamente en las actividades.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion9" formControlName="calificacion9">
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <br>
+          </div>
+
+          <br><br>
+          <mat-divider></mat-divider>
+
+          <p style="text-align: center; font-size: large; margin-top: 15px;"><b>Aspecto Social</b></p>
+          <div>
+            <!-- style="justify-content:center ;text-align: center;margin-left: 50px;"-->
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>Su actitud es proactiva y facilita la tarea en equipo.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion10" formControlName="calificacion10">
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Coopera de manera permanente y espontánea.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion11"  formControlName="calificacion11" >
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Es respetuoso.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion12" formControlName="calificacion12" >
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Demuestra habilidades de liderazgo en los trabajos en equipo.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion13" formControlName="calificacion13" >
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Demuestra ser cuidadoso en su presentación personal.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion14" formControlName="calificacion14" >
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <p style="text-align: center; font-size: large; margin-top: 15px;"><b>Aspecto Estratégico</b></p>
+          <div>
+            <!-- style="justify-content:center ;text-align: center;margin-left: 50px;"-->
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>Demuestra ser eficaz en el análisis y resolución de problemas.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion15" formControlName="calificacion15" >
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Tiene la habilidad para evaluar datos y de tomar decisiones lógicas de manera imparcial y desde el
+                    punto de vista racional.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion16" formControlName="calificacion16" >
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Es perseverante, cuando debe enfrentar situaciones difíciles, hasta que éste quede resuelto.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion17" formControlName="calificacion17" >
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Es puntual.</td>
+                  <td>
+                    <mat-form-field appearance="legacy" class="ancho">
+                      <mat-select [(value)]="calificacion18" formControlName="calificacion18" >
+                        <mat-option *ngFor="let element of lstValoracion" [value]="element.valor">
+                          {{element.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </div>
+
+
+          <mat-divider></mat-divider>
+
+          <br /><br />
+
+
+          <p style="font-size: large; margin-left: 50px;"><b>Observaciones Generales</b></p>
+          <div style="justify-content:center ;text-align: center;margin-left: 50px;">
+            <div class="row">
+
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Descripción
+                </mat-label>
+                <textarea formControlName="descripcion" matInput></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <br /><br />
+
+
+          <p style="font-size: large; margin-left: 50px;"><b>Recomendaciones</b></p>
+          <div style="justify-content:center ;text-align: center;margin-left: 50px;">
+            <div class="row">
+
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Descripción
+                </mat-label>
+                <textarea formControlName="recomendacion" matInput ></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+
+
+          <mat-dialog-actions align="end">
+            <button mat-button>Cancelar</button>
+            <button mat-button (click)="GuardarEvaluacionRendimiento()" [disabled]="form.invalid" >Registrar</button>
+          </mat-dialog-actions>
+
+
+        </form>
+
+
+
+      </div>
+    </div>
+  </div>
+
+</div>

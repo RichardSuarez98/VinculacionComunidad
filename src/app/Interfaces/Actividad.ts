@@ -17,11 +17,46 @@ export interface IActividades {
 export interface DetaActividad {
   idActividadDiDeta?:    number;
   idActividadesDiarias?: number;
-  fecha?:                Date;
+  fecha?:                string;
   descripcionActividad?: string;
   horas?:                number;
   estadoDocente?:        string;
   estadoSupervisor?:     string;
   observacion?:          string;
+  estadoActividad?:       boolean;
 }
 
+
+export interface IActividadesDetallePrueba {
+  idActividadesDiarias: number;
+  idCarrera:            number;
+  idAnioLectivo:        number;
+  idProyecto:           number;
+  idDocente:            number;
+  idEstudiante:         number;
+  idSupervisor:         number;
+  idActividadDiDeta:    number;
+  fecha:                Date;
+  descripcionActividad: string;
+  horas:                number;
+}
+
+
+
+
+export interface IActividadConsulta {
+  descripcionActividad:    string;
+  fecha:                   Date;
+  idActividadesDiarias:    number;
+  idEstudiante:            number;
+  nombreEstudiante:        string;
+  idDocente:               number;
+  nombreDocente:           string;
+  idSupervisor:            number;
+  nombreSupervisor:        string;
+  estadoGestorVinculacion: string;
+  porcentaje:              number;
+  horas:                   number;
+  estadoDocente:           string;
+  idActividadDiDeta?:      number;
+}

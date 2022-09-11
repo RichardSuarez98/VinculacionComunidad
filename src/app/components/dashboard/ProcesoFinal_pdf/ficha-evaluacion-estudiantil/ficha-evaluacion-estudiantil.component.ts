@@ -107,7 +107,7 @@ export class FichaEvaluacionEstudiantilComponent implements OnInit {
       doc.addImage(img, 'SVG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
       return doc;
     }).then((docResult) => {
-       docResult.save(`${new Date().toISOString()}_FichaDeEvaluacionyRendimiento.pdf`);
+       docResult.save(`${new Date().toISOString()}_FichaDeEvaluacionEstudiantil.pdf`);
     });
 
   }

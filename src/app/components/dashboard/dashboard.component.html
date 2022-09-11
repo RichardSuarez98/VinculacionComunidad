@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>
 
+<!----
 <mat-toolbar style="background-color: #3a4f63; color: #dde4ec;">
     <div style="justify-content: center; text-align: center;flex: 1 1 auto;">
 
@@ -13,12 +14,6 @@
 
             <button mat-button [matMenuTriggerFor]="menuDocente">Docente</button>
                 <mat-menu #menuDocente="matMenu">
-                <button mat-menu-item  routerLink="/dashboard/asistencia" >Asistencia</button>
-                <button mat-menu-item  routerLink="/dashboard/registroActividadesDiarias">Cronograma</button>
-                <button mat-menu-item  routerLink="/dashboard/registroEvaluacionEstudiantil" >Evaluación Estudiantil</button>
-                <button mat-menu-item  routerLink="/dashboard/registroEvaluacionRendimiento" >Evaluación y Rendimiento</button>
-                <button mat-menu-item  routerLink="/dashboard/registroMonitoreoDocente" >Monitoreo</button>
-                <button mat-menu-item  routerLink="/dashboard/cronograma">Registrar Cronograma</button>
                 <button mat-menu-item  routerLink="/dashboard/docenteDirector">Modulo de Director de Proyecto</button>
                 <button mat-menu-item  routerLink="/dashboard/gestorVinculacion">Modulo de Gestor Vinculación</button>
                 <button mat-menu-item  routerLink="/dashboard/docenteTutor">Modulo de Docente Tutor</button>
@@ -45,6 +40,9 @@
 
     </div>
   </mat-toolbar>
+
+  --->
+
 
 <div>
     <router-outlet></router-outlet>

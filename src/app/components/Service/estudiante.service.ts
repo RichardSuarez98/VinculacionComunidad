@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IEstudianteQuery } from 'src/app/Interfaces/Estudiante';
+import { IEstudianteQuery, queryMonitoreoDocenteBuscar } from 'src/app/Interfaces/Estudiante';
 import { IResponse } from 'src/app/Interfaces/Response';
 
 @Injectable({
@@ -23,6 +23,9 @@ export class EstudianteService {
     return this.http.post<IResponse>(this.url+"/guardarEvidencia",estudiante);
   }
 
+  getVerAsistenciaEstudiante(estudiante:IEstudianteQuery){
+    return this.http.post<IResponse>(this.url+"/verAsistencia",estudiante);
+  }
 /*********************************************   AQUI CAMBIA LA URL               */
 
   fichaActividadDiaria (estudiante:IEstudianteQuery):Observable<IResponse> {
@@ -60,6 +63,25 @@ export class EstudianteService {
 
   DescargarCertificacionSupervisor(estudiante:IEstudianteQuery):Observable<IResponse> {
     return this.http.post<IResponse>(this.urlFicha+"/certificadoSupervisor",estudiante);
+  }
+
+
+   ////  ************************************** FICHA DE MONITOREO
+   fichaEvaluacionMonitoreoDocente(estudiante:IEstudianteQuery):Observable<IResponse> {
+    return this.http.post<IResponse>(this.urlFicha+"/fichaMonitoreoDocente",estudiante);
+  }
+
+  DescargarfichafichaMonitoreoDocente(estudiante:queryMonitoreoDocenteBuscar):Observable<IResponse> {
+    return this.http.post<IResponse>(this.urlFicha+"/DescargarfichaMonitoreoDocente",estudiante);
+  }
+
+
+/*  ficha de asistencia   */
+fichaEstudianteAsistencia(estudiante:IEstudianteQuery):Observable<IResponse> {
+  return this.http.post<IResponse>(this.urlFicha+"/fichaAsistencia",estudiante);
+}
+  DescargarfichaAsistenciaEstudiantil(estudiante:IEstudianteQuery):Observable<IResponse> {
+    return this.http.post<IResponse>(this.urlFicha+"/DescargarFichaAsistencia",estudiante);
   }
 
 

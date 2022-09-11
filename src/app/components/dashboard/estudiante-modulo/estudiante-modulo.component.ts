@@ -3,14 +3,18 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IEstudianteLista, IEstudianteQuery, IFichaActividadDiaria } from 'src/app/Interfaces/Estudiante';
+import { IDescargarAsistenciaEstudiante, IEstudianteLista, IEstudianteQuery, IFichaActividadDiaria } from 'src/app/Interfaces/Estudiante';
 import { ICertificacion, ICertificacionSupervisor } from 'src/app/Interfaces/ICertificacion';
 import { EstudianteService } from '../../Service/estudiante.service';
+import { CrudEvaluacionEstudiantilComponent } from '../docente-tutor-modulo/crud-fichas-evaluativas/crud-evaluacion-estudiantil/crud-evaluacion-estudiantil.component';
+import { AsistenciaEstudianteComponent } from '../ProcesoFinal_pdf/asistencia-estudiante/asistencia-estudiante.component';
 import { CertificadoSupervisorComponent } from '../ProcesoFinal_pdf/certificado-supervisor/certificado-supervisor.component';
 import { CertificadoTutorComponent } from '../ProcesoFinal_pdf/certificado-tutor/certificado-tutor.component';
 import { FichaActividadesDiariasComponent } from '../ProcesoFinal_pdf/ficha-actividades-diarias/ficha-actividades-diarias.component';
 import { FichaEvaluacionEstudiantilComponent } from '../ProcesoFinal_pdf/ficha-evaluacion-estudiantil/ficha-evaluacion-estudiantil.component';
 import { FichaEvaluacionRendimientoEstudianteComponent } from '../ProcesoFinal_pdf/ficha-evaluacion-rendimiento-estudiante/ficha-evaluacion-rendimiento-estudiante.component';
+import { FichaMonitoreoDocenteComponent } from '../ProcesoFinal_pdf/ficha-monitoreo-docente/ficha-monitoreo-docente.component';
+import { VerAsistenciaComponent } from './ver-asistencia/ver-asistencia.component';
 
 @Component({
   selector: 'app-estudiante-modulo',
@@ -51,12 +55,6 @@ export class EstudianteModuloComponent implements OnInit {
       idAnioLectivo: [0],
       idProyecto: [0],
       estadoDocente:[0],
-
-     /* evidenciaActividad:[''],
-      asistenciaInicio:[''],
-      asistenciaFin:['']*/
-
-      // active:[''],
     })
   }
 
@@ -67,7 +65,9 @@ export class EstudianteModuloComponent implements OnInit {
     this.listarFichaEvaluacionEstudiantil(_finaldata.idUsuario);
     this.listarFichaEvaluacionRendimiento(_finaldata.idUsuario);
     this.listarCertificadoTutor(_finaldata.idUsuario);
-    this.listarCertificacionSupervisor(_finaldata.idUsuario)
+    this.listarCertificacionSupervisor(_finaldata.idUsuario);
+    this.listarMonitoreoDocente(_finaldata.idUsuario);
+    this.listarAsistenciaEstudianteDescargar(_finaldata.idUsuario);
   }
 
   /*applyFilter(event: Event) {
@@ -86,18 +86,8 @@ export class EstudianteModuloComponent implements OnInit {
           this.nombreDocente=this.listActividad[0].nombreDocente!;
           this.nombreSupervisor=this.listActividad[0].nombreSupervisor!;
           this.porcentaje=this.listActividad[0].porcentaje!;
-
-         // this.listActividad.paginator = this.paginator;
-          console.log(this.listActividad);
         }
     })
-  }
-
-
-
-
-  alert0(){
-    alert("bien hecho");
   }
 
   Guardarevidenciar(item:IEstudianteLista){
@@ -114,7 +104,6 @@ export class EstudianteModuloComponent implements OnInit {
         this.mensaje(resp.mensaje);
       }
     })
-    console.log(item);
   }
 
 
@@ -141,7 +130,6 @@ export class EstudianteModuloComponent implements OnInit {
     this._estudianteService.fichaActividadDiaria(numeroEstudiante).subscribe(resp=>{
       if(resp.codigo==1){
         this.listFichaActividadDiaria=resp.data!;
-        console.log(resp.data);
       }
     })
   }
@@ -155,7 +143,6 @@ export class EstudianteModuloComponent implements OnInit {
   this._estudianteService.fichaEvaluacionEstudiantil(numeroEstudiante).subscribe(resp=>{
     if(resp.codigo==1){
       this.listFichaEvaluacionEstudiantil=resp.data!;
-      console.log(resp.data);
     }
   })
   }
@@ -179,7 +166,6 @@ export class EstudianteModuloComponent implements OnInit {
   this._estudianteService.fichaEvaluacionRendimiento(numeroEstudiante).subscribe(resp=>{
     if(resp.codigo==1){
       this.listFichaEvaluacionRendimiento=resp.data!;
-      console.log(resp.data);
     }
   })
   }
@@ -206,7 +192,6 @@ export class EstudianteModuloComponent implements OnInit {
   this._estudianteService.DescargarCertificacionTutor(numeroEstudiante).subscribe(resp=>{
     if(resp.codigo==1){
       this.listCertificadoTutor=resp.data!;
-      console.log(resp.data);
     }
   })
   }
@@ -222,10 +207,6 @@ export class EstudianteModuloComponent implements OnInit {
     });
   }
 
-/*
-ICertificacionSupervisor
-*/
-
 
 listCertificacionSupervisor: ICertificacionSupervisor[]=[]
 listarCertificacionSupervisor(idEstudiante:number){
@@ -235,14 +216,63 @@ listarCertificacionSupervisor(idEstudiante:number){
 this._estudianteService.DescargarCertificacionSupervisor(numeroEstudiante).subscribe(resp=>{
   if(resp.codigo==1){
     this.listCertificacionSupervisor=resp.data!;
-    console.log(resp.data);
   }
 })
 }
 
 openDialogCertificacionSupervisor(element:any) {
-
   const dialogo=this.dialog.open(CertificadoSupervisorComponent,{
+    width:'50%',
+    height:'90%',
+    data:element
+  })
+  dialogo.afterClosed().subscribe(result => {
+  });
+}
+
+
+
+
+
+listMonitoreoDocente: any[]=[]
+listarMonitoreoDocente(idEstudiante:number){
+  let numeroEstudiante: IEstudianteQuery={
+    idEstudiante:idEstudiante
+}
+this._estudianteService.fichaEvaluacionMonitoreoDocente(numeroEstudiante).subscribe(resp=>{
+  if(resp.codigo==1){
+    this.listMonitoreoDocente=resp.data!;
+  }
+})
+}
+
+openDialogFichaMonitoreoDocente(element:any) {
+  const dialogo=this.dialog.open(FichaMonitoreoDocenteComponent,{
+    width:'50%',
+    height:'90%',
+    data:element
+  })
+  dialogo.afterClosed().subscribe(result => {
+  });
+}
+
+
+
+listFichaAsistencia: any[]=[]
+listarAsistenciaEstudianteDescargar(idEstudiante:number){
+  let numeroEstudiante: IEstudianteQuery={
+    idEstudiante:idEstudiante
+}
+this._estudianteService.fichaEstudianteAsistencia(numeroEstudiante).subscribe(resp=>{
+  if(resp.codigo==1){
+    this.listFichaAsistencia=resp.data!;
+  }
+})
+}
+
+
+openDialogFichaAsistencia(element:any) {
+  const dialogo=this.dialog.open(AsistenciaEstudianteComponent,{
     width:'50%',
     height:'90%',
     data:element
@@ -263,6 +293,8 @@ openDialogCertificacionSupervisor(element:any) {
 
 
 
+
+
   mensaje(mensaje:string){
     this._snackBar.open(mensaje, '', {
       duration: 5000,
@@ -270,6 +302,30 @@ openDialogCertificacionSupervisor(element:any) {
       verticalPosition: 'bottom'
     });
   }
+
+
+  openDialogVerAsistencia() {
+    const dialogo=this.dialog.open(VerAsistenciaComponent,{
+      width:'25%',
+      height:'50%'
+      //data:fac
+    })
+    dialogo.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openDialogEvaluacionEstudiantil(){
+    const dialogo=this.dialog.open(CrudEvaluacionEstudiantilComponent,{
+      width:'50%',
+      height:'90%',
+     // data:element
+    })
+    dialogo.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+   }
+
 
 
 

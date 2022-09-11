@@ -4,13 +4,22 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ChartData, ChartEvent, ChartType } from 'chart.js';
+import * as FileSaver from 'file-saver';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import { IActividades } from 'src/app/Interfaces/Actividad';
+import swal from 'sweetalert';
 import { AsistenciaServiceService } from '../../Service/asistencia-service.service';
+import { ExcelServiceService } from '../../Service/excel-service.service';
 import { ServiceActividad } from '../../Service/service-actividad.service';
-import { ActividadEstudianteModuloComponent } from '../actividad-estudiante-modulo/actividad-estudiante-modulo.component';
-import { AsistenciaComponent } from '../asistencia/asistencia.component';
-import { CrudEvaluacionEstudiantilComponent } from '../crud-evaluacion-estudiantil/crud-evaluacion-estudiantil.component';
-import { CrudMonitoreoDocenteComponent } from '../crud-monitoreo-docente/crud-monitoreo-docente.component';
+import { ReportesComponent } from '../reportes/reportes.component';
+import { ActividadEstudianteModuloComponent } from './actividad-estudiante-modulo/actividad-estudiante-modulo.component';
+import { AsistenciaComponent } from './asistencia/asistencia.component';
+import { CrudEvaluacionEstudiantilComponent } from './crud-fichas-evaluativas/crud-evaluacion-estudiantil/crud-evaluacion-estudiantil.component';
+import { CrudEvaluacionRendimientoComponent } from './crud-fichas-evaluativas/crud-evaluacion-rendimiento/crud-evaluacion-rendimiento.component';
+import { CrudMonitoreoDocenteComponent } from './crud-fichas-evaluativas/crud-monitoreo-docente/crud-monitoreo-docente.component';
+//import { CrudEvaluacionEstudiantilComponent } from '../crud-fichas-evaluativas/crud-evaluacion-estudiantil/crud-evaluacion-estudiantil.component';
+//import { CrudMonitoreoDocenteComponent } from '../crud-fichas-evaluativas/crud-monitoreo-docente/crud-monitoreo-docente.component';
 
 @Component({
   selector: 'app-docente-tutor-modulo',
@@ -18,7 +27,7 @@ import { CrudMonitoreoDocenteComponent } from '../crud-monitoreo-docente/crud-mo
   styleUrls: ['./docente-tutor-modulo.component.css']
 })
 export class DocenteTutorModuloComponent implements OnInit {
-  displayedColumns: string[] = ['idActividadesDiarias','nombreEstudiante','nombreDocente','nombreSupervisor','totalHoras','actividadProgress','accion'];
+  displayedColumns: string[] = ['idActividadesDiarias','nombreEstudiante','nombreDocente','nombreSupervisor','totalHoras','fechaInicio','fechaFin','actividadProgress','accion'];
   datasource: any
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -34,7 +43,8 @@ export class DocenteTutorModuloComponent implements OnInit {
   idProyecto = 0;
 
   botonHabilitar!: boolean
-  habilitarBotonSupervisor!: boolean
+  habilitarBotonSupervisor: boolean=false
+  habilitarBotonMonitoreo: boolean=false
 
   deta: any[] = []
 
@@ -46,21 +56,20 @@ export class DocenteTutorModuloComponent implements OnInit {
 
     idEstado: any
 
-    onChanges(element:any){
+   /* onChanges(element:any){
       console.log("hoy es 29 de julio");
       console.log(element);
       console.log(this.idEstado);
-    }
+    }*/
 
   constructor(private _asistenciaService: AsistenciaServiceService,private _actividadService: ServiceActividad,
-    public dialog: MatDialog, private fb: FormBuilder,
+    public dialog: MatDialog, private fb: FormBuilder, private excelService: ExcelServiceService
    ) {
     this.form = this.fb.group({
       idCarrera: [0],
       idAnioLectivo: [0],
       idProyecto: [0],
       estadoDocente:[0]
-      // active:[''],
     })
   }
 
@@ -70,9 +79,11 @@ export class DocenteTutorModuloComponent implements OnInit {
     this.getProyecto();
     var _finaldata=JSON.parse(localStorage.getItem('usuario')!);
     if(_finaldata.idRol===5){// docente supervisor
-      this.habilitarBotonSupervisor=true;
-     }else if(_finaldata.idRol===4){// docente tutor
       this.habilitarBotonSupervisor=false;
+      this.habilitarBotonMonitoreo=true;
+     }else if(_finaldata.idRol===4){// docente tutor
+      this.habilitarBotonSupervisor=true;
+      this.habilitarBotonMonitoreo=false;
      }
   }
 
@@ -111,10 +122,7 @@ export class DocenteTutorModuloComponent implements OnInit {
     if (this.idProyecto != 0 && this.idCarrera != 0 && this.idAnioLectivo != 0) {
       const solicitud: IActividades = { idAnioLectivo: this.idAnioLectivo, idCarrera: this.idCarrera, idProyecto: this.idProyecto };
       console.log(solicitud);
-      this._actividadService.get(solicitud).subscribe(response => {
-        /*if(response.data!.estadoDocente === 1){
-
-        }*/
+      this._actividadService.getActividadesEstudianteTotales(solicitud).subscribe(response => {
         if (response.codigo == 1) {
           this.listActividad = response.data!;
           console.log(this.listActividad);
@@ -122,10 +130,8 @@ export class DocenteTutorModuloComponent implements OnInit {
           this.datasource.paginator = this.paginator; console.log(this.listActividad);
           this.cargarPorcentajeProyecto();
         }
-
       })
     }
-
   }
 
   cambiarEstadoActividad(actividad:IActividades){
@@ -140,101 +146,189 @@ export class DocenteTutorModuloComponent implements OnInit {
 
 
 
+//#region OpenDialog
+openDialog(element:any) {
+  const dialogo=this.dialog.open(ActividadEstudianteModuloComponent,{
+    width:'50%',
+    height:'90%',
+    data:element
+  })
+  dialogo.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+    this.getActividad();
+    this.cargarPorcentajeProyecto();
+  });
+}
 
-  openDialog(element:any) {
-       const dialogo=this.dialog.open(ActividadEstudianteModuloComponent,{
-         width:'50%',
-         height:'90%',
-         data:element
-       })
-       dialogo.afterClosed().subscribe(result => {
-         console.log('The dialog was closed');
-         // this.animal = result;
-       });
-     }
+openDialogAsistencia(){
+ const dialogo=this.dialog.open(AsistenciaComponent,{
+   width:'50%',
+   height:'90%',
+ })
+ dialogo.afterClosed().subscribe(result => {
+   console.log('The dialog was closed');
+ });
+}
 
+openDialogMonitoreo(){
+ const dialogo=this.dialog.open(CrudMonitoreoDocenteComponent,{
+   width:'50%',
+   height:'90%',
+ })
+ dialogo.afterClosed().subscribe(result => {
+   console.log('The dialog was closed');
+ });
+}
 
-     openDialogAsistencia(){
-      const dialogo=this.dialog.open(AsistenciaComponent,{
-        width:'50%',
-        height:'90%',
-       // data:element
-      })
-      dialogo.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-      });
-     }
+openDialogEvaluacionRendimiento(){
+ const dialogo=this.dialog.open(CrudEvaluacionRendimientoComponent,{
+   width:'50%',
+   height:'90%',
+ })
+ dialogo.afterClosed().subscribe(result => {
+   console.log('The dialog was closed');
+ });
+}
+//#endregion
 
-     openDialogEvaluacionEstudiantil(){
-      const dialogo=this.dialog.open(CrudEvaluacionEstudiantilComponent,{
-        width:'50%',
-        height:'90%',
-       // data:element
-      })
-      dialogo.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-      });
-     }
-
-     openDialogMonitoreo(){
-      const dialogo=this.dialog.open(CrudMonitoreoDocenteComponent,{
-        width:'50%',
-        height:'90%',
-       // data:element
-      })
-      dialogo.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-      });
-     }
-
-
-
-     data: any;
-     chartOptions: any;
-     porcentajeProyecto:number []=[]
-     cargarPorcentajeProyecto(){
-      const solicitud: IActividades = { idAnioLectivo: this.idAnioLectivo, idCarrera: this.idCarrera, idProyecto: this.idProyecto };
-      this._actividadService.getMostrarPorcentajeProyecto(solicitud).subscribe(response=>{
-        if(response.codigo==1){
-          this.porcentajeProyecto=response.data!;
-          this.data = {
-            labels: ['Actividades completadas','Actividades por Completar'],
-            datasets: [
-                {
-                    data: [this.porcentajeProyecto[0],this.porcentajeProyecto[1]],
-                    backgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                    ],
-                    hoverBackgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                    ]
-                }
-            ]
-        }
-        }else{
-          console.log(response.mensaje);
-        }
-      });
-     }
-
-
-     /*public doughnutChartLabels: string[] = [ 'Actividades completadas', 'Actividades por Completar' ];
-     public doughnutChartData: ChartData<'doughnut'> = {
-       labels: this.doughnutChartLabels,
+//#region Cargar Porcentaje de Proyecto
+data: any;
+chartOptions: any;
+porcentajeProyecto:number []=[]
+cargarPorcentajeProyecto(){
+ const solicitud: IActividades = { idAnioLectivo: this.idAnioLectivo, idCarrera: this.idCarrera, idProyecto: this.idProyecto };
+ this._actividadService.getMostrarPorcentajeProyecto(solicitud).subscribe(response=>{
+   if(response.codigo==1){
+     this.porcentajeProyecto=response.data!;
+     this.data = {
+       labels: ['Actividades completadas','Actividades por Completar'],
        datasets: [
-         { data: [100] }
+           {
+               data: [this.porcentajeProyecto[0],this.porcentajeProyecto[1]],
+               backgroundColor: [
+                   "#36A2EB",
+                   "#3a4f63",
+               ],
+               hoverBackgroundColor: [
+                 "#36A1EB",
+                 "#3a4f53",
+               ]
+           }
        ]
-     };
-     public doughnutChartType: ChartType = 'doughnut';
-     // events
-     public chartClicked({ event, active }: { event: ChartEvent, active: {}[] }): void {
-       console.log(event, active);
+   }
+   }else{
+     console.log(response.mensaje);
+   }
+ });
+}
+//#endregion
+
+
+
+     downloadExcel() {
+      this.excelService.exportAsExcelFile(this.listActividad, 'ListadoEstudiantesActividades');
+    }
+
+
+
+// GENERAMOS LAS FICHAS
+
+
+    generarFichaActividadDiaria(element:IActividades){
+      let solicitud:IActividades={
+        totalHoras:element.totalHoras,
+        idAnioLectivo:this.idAnioLectivo,
+        idProyecto:this.idProyecto,
+        idCarrera:this.idCarrera,
+        idDocente:element.idDocente,
+        idSupervisor:element.idSupervisor,
+        idEstudiante:element.idEstudiante
+      }
+      this.excelService.generarFichaActividadesDiarias(solicitud).subscribe(resp=>{
+        if(resp.codigo==1){
+          swal("Buen trabajo!", resp.mensaje, "success");
+          this.getActividad();
+        }else if(resp.codigo==0){
+          swal("Oops..!",  resp.mensaje, "warning");  //warning
+        }
+      });
+    }
+
+
+    generarCertificadoTutor(element:IActividades){
+      let solicitud:IActividades={
+        totalHoras:element.totalHoras,
+        idAnioLectivo:this.idAnioLectivo,
+        idProyecto:this.idProyecto,
+        idCarrera:this.idCarrera,
+        idDocente:element.idDocente,
+        idSupervisor:element.idSupervisor,
+        idEstudiante:element.idEstudiante
+      }
+      this.excelService.generarCertificadoTutor(solicitud).subscribe(resp=>{
+        if(resp.codigo==1){
+          swal("Buen trabajo!", resp.mensaje, "success");
+          this.getActividad();
+        }else if(resp.codigo==0){
+          swal("Oops..!",  resp.mensaje, "warning");  //warning
+        }
+      });
+    }
+
+
+    generarCertificadoSupervisor(element:IActividades){
+      let solicitud:IActividades={
+        totalHoras:element.totalHoras,
+        idAnioLectivo:this.idAnioLectivo,
+        idProyecto:this.idProyecto,
+        idCarrera:this.idCarrera,
+        idDocente:element.idDocente,
+        idSupervisor:element.idSupervisor,
+        idEstudiante:element.idEstudiante
+      }
+      this.excelService.generarCertificadoSupervisor(solicitud).subscribe(resp=>{
+        if(resp.codigo==1){
+          swal("Buen trabajo!", resp.mensaje, "success");
+          this.getActividad();
+        }else if(resp.codigo==0){
+          swal("Oops..!",  resp.mensaje, "warning");  //warning
+        }
+      });
+    }
+
+
+
+
+    exportPdf(){
+      const doc = new jsPDF();
+      doc.text("Planificación",20,20);
+      autoTable(doc, { html: '#my-table',  margin:{ top: 25 } } )
+      doc.save('planificacion.pdf')
      }
 
-     public chartHovered({ event, active }: { event: ChartEvent, active: {}[] }): void {
-       console.log(event, active);
-     }*/
+
+     saveAsExcelFile(buffer: any, fileName: string): void {
+      let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+      let EXCEL_EXTENSION = '.xlsx';
+      const data: Blob = new Blob([buffer], {
+          type: EXCEL_TYPE
+      });
+      FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+
+
+
+  dialogReporte(){
+    const dialogo=this.dialog.open(ReportesComponent,{
+      width:'90%',
+      height:'100%',
+     // data:element
+    })
+    dialogo.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+
 
 }

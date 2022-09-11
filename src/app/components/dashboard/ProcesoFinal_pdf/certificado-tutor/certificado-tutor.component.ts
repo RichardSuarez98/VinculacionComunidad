@@ -91,7 +91,7 @@ export class CertificadoTutorComponent implements OnInit {
       }
       return pdf;
     }).then((docResult) => {
-      docResult.save(`${new Date().toISOString()}_FichaDeEvaluacionyRendimiento.pdf`);
+      docResult.save(`${new Date().toISOString()}_CertificadoTutor.pdf`);
    });
 
 

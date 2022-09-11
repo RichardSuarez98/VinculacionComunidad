@@ -5,10 +5,17 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ChartData, ChartEvent, ChartType } from 'chart.js';
-import { IActividades } from 'src/app/Interfaces/Actividad';
+import { IActividadConsulta, IActividades } from 'src/app/Interfaces/Actividad';
 import { AsistenciaServiceService } from '../../Service/asistencia-service.service';
 import { ServiceActividad } from '../../Service/service-actividad.service';
-import { DetalleADComponent } from '../crud-actividades-diarias/detalle-ad/detalle-ad.component';
+import { ActualizarDetaActividadComponent } from './actualizar-deta-actividad/actualizar-deta-actividad.component';
+import { DetalleADComponent } from './detalle-ad/detalle-ad.component';
+import * as FileSaver from 'file-saver';
+
+import  jsPDF  from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import swal from 'sweetalert';
+import { ReportesComponent } from '../reportes/reportes.component';
 
 @Component({
   selector: 'app-director-proyecto-modulo',
@@ -16,12 +23,13 @@ import { DetalleADComponent } from '../crud-actividades-diarias/detalle-ad/detal
   styleUrls: ['./director-proyecto-modulo.component.css']
 })
 export class DirectorProyectoModuloComponent implements OnInit {
-  displayedColumns: string[] = ['idActividadesDiarias','nombreEstudiante','nombreDocente','nombreSupervisor','totalHoras','estadoGestorVinculacion','actividadProgress','accion'];
+  displayedColumns: string[] = ['descripcion','fecha','nombreEstudiante','nombreDocente','nombreSupervisor','totalHoras','estadoGestorVinculacion','actividadProgress','accion'];
   datasource: any
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  listActividad: IActividades[] = [];
+  //listActividad: IActividades[] = [];
+  listActividad: IActividadConsulta[]=[];
   listCarrera: any[] = [];
   listAnioLectivo: any[] = [];
   listProyecto: any[] = [];
@@ -32,15 +40,16 @@ export class DirectorProyectoModuloComponent implements OnInit {
   idProyecto = 0;
 
   deta: any[] = []
-
+  habilitarBoton:boolean=true
+  habilitarBotonAprobarPlanificacion:boolean=true
   lstEstados:any[] =[
-    {valor:'RP',name:'Reprobado',colorbox:'red'},
-    {valor:'AP',name:'Aprobado',colorbox:'green'},
+    {valor:'NO',name:'Reprobado',colorbox:'red'},
+    {valor:'SI',name:'Aprobado',colorbox:'green'},
     {valor:'SV',name:'Sin Verificar',colorbox:'black'},
     ]
 
     idEstado: any
-
+    numberEstadProyecto: number=0
     onChanges(element:any){
       console.log("hoy es 29 de julio");
       console.log(element);
@@ -67,12 +76,17 @@ export class DirectorProyectoModuloComponent implements OnInit {
     if(_finaldata.idRol===6){
       this.route.navigate(['dashboard/pagenotfound']);
     }
-    else if(_finaldata.idRol===5){// idUsuario
+    else if(_finaldata.idRol===2){// idUsuario   // el      rol 2 pertence al de gestor de vinculacion
+      this.getCarrera();
+      this.getAnioLectivo();
+      this.getProyecto();
+      this.habilitarBoton=false;
      // this.habilitarBotonSupervisor=true;
-     }else if(_finaldata.idRol===4){ //Docente Tutor
+     }else if(_finaldata.idRol===3){//DIRECTOR DE PROYECTO    ----------  //Docente Tutor
        this.getCarrera();
        this.getAnioLectivo();
        this.getProyecto();
+       this.habilitarBotonAprobarPlanificacion=false
       //this.habilitarBotonSupervisor=false;
      }
   }
@@ -136,6 +150,7 @@ export class DirectorProyectoModuloComponent implements OnInit {
           this.datasource = new MatTableDataSource(this.listActividad);
           this.datasource.paginator = this.paginator;
           console.log( this.listActividad);
+          this.cargarPorcentajeProyecto();
         }
 
       })
@@ -156,17 +171,62 @@ export class DirectorProyectoModuloComponent implements OnInit {
 
 
   editarActividad(element:any) {
-
-
-    const dialogo=this.dialog.open(DetalleADComponent,{
+    const dialogo=this.dialog.open(ActualizarDetaActividadComponent,{
       width:'50%',
-      height:'90%',
+      height:'30%',
       data:element
     })
     dialogo.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // this.animal = result;
     });
+  }
+
+  dialogReporte(){
+    const dialogo=this.dialog.open(ReportesComponent,{
+      width:'90%',
+      height:'100%',
+     // data:element
+    })
+    dialogo.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+
+  aprobarPlanificacion(numero:number){
+    if(numero===1){
+      const solicitud: IActividadesGestorAprobarPlanificacion = {
+        idAnioLectivo: this.idAnioLectivo,
+         idCarrera: this.idCarrera,
+          idProyecto: this.idProyecto,
+          estadoPlanifiacion: "SI"
+         };
+      this._actividadService.actualizarPlanificacionGestor(solicitud).subscribe(resp=>{
+        if(resp.codigo==1){
+          swal("Buen Trabajo!", resp.mensaje, "success");
+          this.getActividad();
+        }else if(resp.codigo==0){
+          swal("Oops..!",  resp.mensaje, "warning");  //warning
+        }
+
+      });
+
+    }else if(numero===0){
+      const solicitud: IActividadesGestorAprobarPlanificacion = {
+        idAnioLectivo: this.idAnioLectivo,
+         idCarrera: this.idCarrera,
+          idProyecto: this.idProyecto,
+          estadoPlanifiacion: "NO"
+         };
+         this._actividadService.actualizarPlanificacionGestor(solicitud).subscribe(resp=>{
+          if(resp.codigo==1){
+            swal("Buen trabajo!",  resp.mensaje, "success");  //warning
+            this.getActividad();
+          }else if(resp.codigo==0){
+            swal("Oops..!",  resp.mensaje, "warning");  //warning
+          }
+        });
+    }
 
   }
 
@@ -182,7 +242,7 @@ export class DirectorProyectoModuloComponent implements OnInit {
     });
   }*/
 
-
+/*
   porcentajeProyecto:number []=[]
   cargarPorcentajeProyecto(){
    const solicitud: IActividades = { idAnioLectivo: this.idAnioLectivo, idCarrera: this.idCarrera, idProyecto: this.idProyecto };
@@ -197,38 +257,79 @@ export class DirectorProyectoModuloComponent implements OnInit {
      }
    });
   }
+*/
 
 
 
 
-  public doughnutChartLabels: string[] = [ 'Porcentaje de Actividades completadas', 'Porcentaje de Actividades por Completar' ];
-  public doughnutChartData: ChartData<'doughnut'> = {
-    labels: this.doughnutChartLabels,
-    datasets: [
-      { data: [100] }
-    ]
-  };
-  public doughnutChartType: ChartType = 'doughnut';
-  public chartColors: any[] = [
-   {
-     backgroundColor:["#FF7360", "#6FC8CE"]
-   }];
+  data: any;
+     chartOptions: any;
+     porcentajeProyecto:number []=[]
+     cargarPorcentajeProyecto(){
+      const solicitud: IActividades = { idAnioLectivo: this.idAnioLectivo, idCarrera: this.idCarrera, idProyecto: this.idProyecto };
+      this._actividadService.getMostrarPorcentajeProyecto(solicitud).subscribe(response=>{
+        if(response.codigo==1){
+          this.porcentajeProyecto=response.data!;
+          this.data = {
+            labels: ['Actividades completadas','Actividades por Completar'],
+            datasets: [
+                {
+                    data: [this.porcentajeProyecto[0],this.porcentajeProyecto[1]],
+                    backgroundColor: [
+                        "#36A2EB",
+                        "#3a4f63",
+                    ],
+                    hoverBackgroundColor: [
+                      "#36A1EB",
+                      "#3a4f53",
+                    ]
+                }
+            ]
+        }
+        this.numberEstadProyecto=this.porcentajeProyecto[0]
+        }else{
+          console.log(response.mensaje);
+        }
+      });
+     }
 
-  public options: any = {
-   legend: { position: 'rigth' }
- }
-  // events
-  public chartClicked({ event, active }: { event: ChartEvent, active: {}[] }): void {
-    console.log(event, active);
+
+
+     exportExcel(){
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.listActividad);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "products");
+    });
+     }
+
+    exportPdf(){
+      const doc = new jsPDF();
+      doc.text("Planificación",20,20);
+      autoTable(doc, { html: '#my-table',  margin:{ top: 25 } } )
+      doc.save('table.pdf')
+     }
+
+
+     saveAsExcelFile(buffer: any, fileName: string): void {
+      let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+      let EXCEL_EXTENSION = '.xlsx';
+      const data: Blob = new Blob([buffer], {
+          type: EXCEL_TYPE
+      });
+      FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
 
-  public chartHovered({ event, active }: { event: ChartEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
+
+
+}
 
 
 
-
-
-
+export interface IActividadesGestorAprobarPlanificacion{
+  idAnioLectivo?: number;
+   idCarrera?:    number;
+    idProyecto?:  number;
+    estadoPlanifiacion?: string;
 }

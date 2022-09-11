@@ -1,0 +1,22 @@
+<mat-dialog-content class="mat-typography" style="margin: 20px;">
+  <h2 mat-dialog-title>Configuración</h2>
+  <div class="mb-3">
+    <mat-form-field class="col-sm-12" appearance="legacy">
+      <mat-label>Rol</mat-label>
+      <mat-select  [(value)]="idRol">  <!--   -->
+          <mat-option  *ngFor="let element of listRoles" [value]="element.idRol"> {{element.rolName}}
+          </mat-option>
+      </mat-select>
+  </mat-form-field>
+  </div>
+  <div class="mb-3">
+    <mat-form-field appearance="legacy" style="width: 100%;">
+      <mat-label>Actualizar Contraseña</mat-label>
+      <input matInput class="form-control"  [(ngModel)]="password" value="{{password}}">
+    </mat-form-field>
+  </div>
+<mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button (click)="guardarCambios()">Guadar Cambios</button>
+  </mat-dialog-actions>

@@ -61,3 +61,56 @@ export interface IFichaEvaluacionEstudiantil {
   ms?:                string;
   e?:                 string;*/
 }
+
+
+
+export interface asistenciaEstudianteList {
+  fecha?:   Date;
+  asistencia?:  string;
+  asis?:  boolean
+
+}
+
+
+export interface queryMonitoreoDocenteBuscar {
+  idFmonitoreoDocente?: number;
+  idUsuario?:           number;
+}
+
+
+export interface IDescargarFichaMonitoreoDocente {
+  visita:            number;
+  hora:              string;
+  nombreDocente:     string;
+  nombreEstudiante:  string;
+  nombreCarrera:     string;
+  nombreInstitucion: string;
+  areaDesempenio:    string;
+  nombreSupervisor:  string;
+  cargoSupervisor:   string;
+  valoracion:        string;
+  observacion:       string;
+  fecha:             Date;
+}
+
+
+
+
+
+
+
+export interface IDescargarAsistenciaEstudiante {
+  nombreCarrera?:     string;
+  nombreEstudiante?:  string;
+  nombreInstitucion?: string;
+  areaDesempenio?:    string;
+  fechaInicio?:       Date;
+  fechaFin?:          Date;
+  detalle?:           DetalleEstudianteAsis[];
+}
+
+export interface DetalleEstudianteAsis {
+  fecha?:      Date;
+  horas?:      number;
+  asistencia?: boolean;
+}

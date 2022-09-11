@@ -23,3 +23,15 @@ export interface IAsistenciaResponse {
     cedula:           string;
     asistencia:       boolean;
 }
+
+
+
+export interface IAsistenciaEvidencia {
+  idAsistenciaDet?:  number;
+  idEstudiante?:     number;
+  nombreEstudiante?: string;
+  cedula?:           string;
+  asistencia?:       boolean;
+  evidenciaInicio?:  string;
+  evidenciaFin?:     string;
+}

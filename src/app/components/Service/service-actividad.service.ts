@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DetaActividad, IActividades } from 'src/app/Interfaces/Actividad';
 import { IResponse } from 'src/app/Interfaces/Response';
+import { IActividadesGestorAprobarPlanificacion } from '../dashboard/director-proyecto-modulo/director-proyecto-modulo.component';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,15 @@ private url='https://localhost:5001/api/actividad';
     return this.http.post<IResponse>(this.url+"/consultarActividad",actividad);
   }
 
+  getActividadesEstudianteTotales (actividad:IActividades):Observable<IResponse> {
+    return this.http.post<IResponse>(this.url+"/consultarActividadEstudianteTotal",actividad);
+  }
+
   post (actividad:IActividades):Observable<IResponse> {
     return this.http.post<IResponse>(this.url,actividad);
+  }
+  ActualizarActividad (actividad:IActividades):Observable<IResponse> {
+    return this.http.post<IResponse>(this.url+"/actualizarActividad",actividad);
   }
 
   putEstadoActividad (actividad:IActividades):Observable<IResponse> {
@@ -56,7 +64,17 @@ putActualizarObservacion (actividad:DetaActividad):Observable<IResponse> {
 }
 
 
+putActualizarDetalleActividad (actividad:DetaActividad):Observable<IResponse> {
+  return this.http.post<IResponse>(this.url+"/actualizarDetalleActividad",actividad);
+}
 
+
+
+
+///// EL GESTOR DE VINCULACION ACTUALIZA EL ESTADO DE LA PLANIFICACION
+actualizarPlanificacionGestor(numero:IActividadesGestorAprobarPlanificacion):Observable<IResponse>{
+  return this.http.post<IResponse>(this.url+"/aprobarpla",numero);
+}
 
 
 

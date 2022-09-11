@@ -1,0 +1,196 @@
+<div style="margin: 25px;">
+  <div class="row justify-content-center">
+    <div class="row" style="margin: 20px;">
+
+
+      <div class="row" style="background-color: white;">
+        <mat-tab-group>
+          <mat-tab label="Administración">
+
+            <div style="margin: 25px;">
+              <mat-form-field appearance="legacy" class="col-sm-12">
+                <mat-label>Buscador</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+            </mat-form-field>
+
+              <table mat-table [dataSource]="datasource" class="mat-elevation-z8" >
+
+                <ng-container matColumnDef="idUsuario" >
+                    <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;" > Id </th>
+                    <td mat-cell *matCellDef="let element"> {{element.idUsuario}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombreUsuario" >
+                  <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;">Nombres Completos</th>
+                  <td mat-cell *matCellDef="let element">{{element.nombres}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="cedula" >
+                  <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;">Cedula</th>
+                  <td mat-cell *matCellDef="let element">{{element.cedula}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="celular" >
+                <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;">Celular</th>
+                <td mat-cell *matCellDef="let element">{{element.celular}} </td>
+            </ng-container>
+
+                <ng-container matColumnDef="correo" >
+                    <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;">Correo</th>
+                    <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="carrera" >
+                  <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;">Carrera</th>
+                  <td mat-cell *matCellDef="let element"> {{element.carrera}} </td>
+              </ng-container>
+              <ng-container matColumnDef="insitucion" >
+                <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;">Institucion</th>
+                <td mat-cell *matCellDef="let element"> {{element.institucion}} </td>
+            </ng-container>
+
+
+                <ng-container matColumnDef="rol" >
+                  <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;">Rol</th>
+                  <td mat-cell *matCellDef="let element" > {{element.rol}}   </td>
+              </ng-container>
+
+                <ng-container matColumnDef="accion">
+                    <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;"> Acción </th>
+                    <td mat-cell *matCellDef="let element" >
+                      <mat-icon style="cursor: pointer;" (click)="configurarUsuario(element)">key</mat-icon>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[10,15,20,25,100]" aria-label="Select page of periodic elements"></mat-paginator>
+
+
+            </div>
+
+          </mat-tab>
+
+          <mat-tab label="Logs">
+            <div style="margin: 25px;">
+              <mat-form-field appearance="legacy" class="col-sm-11">
+                <mat-label>Buscador</mat-label>
+                <input matInput (keyup)="applyFilter2($event)" placeholder="Ex. ium" #input>
+            </mat-form-field>
+            <span style="background-color: white;"> <mat-icon style="cursor: pointer;"  matTooltip="Refrescar" (click)="mostrarLog()" >replay</mat-icon> </span>
+
+              <table mat-table [dataSource]="datasourceLog" class="mat-elevation-z8"  >
+
+                <ng-container matColumnDef="id" >
+                    <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;" > Id </th>
+                    <td mat-cell *matCellDef="let element"> {{element.idLog}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="date" >
+                  <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;"> Fecha </th>
+                  <td mat-cell *matCellDef="let element">{{element.dateLog}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="logs" >
+                  <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;"> Logs </th>
+                  <td mat-cell *matCellDef="let element">{{element.log}} </td>
+              </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[10,15,20,25,100]" aria-label="Select page of periodic elements"></mat-paginator>
+
+            </div>
+          </mat-tab>
+
+
+          <mat-tab label="Fichas Técnicas">
+            <div style="margin: 25px;">
+              <div class="row">
+                <div style="justify-content: center;text-align: center;">
+                  <div class="row" style="text-align: center;justify-content: center;">
+                    <mat-form-field class="col-sm-6" appearance="legacy">
+                      <mat-label>Ficha Técnica</mat-label>
+                      <mat-select [(value)]="idListFicha" >  <!--    -->
+                          <mat-option  *ngFor="let element of listFicha" [value]="element.valor">
+                              {{element.nombre}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  </div>
+
+                  <div class="row" style="text-align: center;justify-content: center">
+                    <mat-form-field appearance="legacy" class="col-sm-6">
+                      <mat-label>Estudiante</mat-label>
+                      <mat-select [(value)]="idEstudiante"  >  <!--   -->
+                          <mat-option *ngFor="let element of listEstudiantes"
+                              [value]="element.idUsuario">
+                              {{element.nombreEstudiante}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+
+
+                  </div>
+
+                  <button mat-button style="background-color:#3a4f63;color: white;" class="button col-sm-4" (click)="mostrarFichasTecnicas()" >Buscar</button>
+                  <br> <br>
+              </div>
+              </div>
+
+              <div *ngIf="datasource3 !=null">
+                <table mat-table [dataSource]="datasource3" class="mat-elevation-z8"  >
+
+                  <ng-container matColumnDef="id" >
+                      <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;" > Id </th>
+                      <td mat-cell *matCellDef="let element"> {{element.idEstudiante}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="fecha" >
+                    <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;"> Se generó el </th>
+                    <td mat-cell *matCellDef="let element">{{element.fechaGeneracion}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="accion" >
+                    <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;"> Descargar </th>
+                    <td mat-cell *matCellDef="let element">
+                      <img src="./assets/img/pdf.png" width="35px" (click)="openDialogGeneral(element)" > <!-- (click)="openDialog(element)" -->
+                    </td>
+                </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
+
+              </table>
+              </div>
+
+            </div>
+          </mat-tab>
+
+
+        </mat-tab-group>
+      </div>
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
