@@ -6,7 +6,7 @@ import { AsistenciaServiceService } from 'src/app/components/Service/asistencia-
 import { EvaluacionRendimientoServiceService } from 'src/app/components/Service/evaluacion-rendimiento-service.service';
 import { IAsistenciaQuery, IAsistenciaResponse } from 'src/app/Interfaces/Asistencia';
 import { DetaevaRendimiento, IEvaluacionRendimientoEstudiantil } from 'src/app/Interfaces/EvaluacionRendimientoEstudiantil';
-import swal from 'sweetalert';
+//import swal from 'sweetalert';
 //import { AsistenciaServiceService } from '../../Service/asistencia-service.service';
 //import { EvaluacionRendimientoServiceService } from '../../Service/evaluacion-rendimiento-service.service';
 
@@ -263,9 +263,9 @@ GuardarEvaluacionRendimiento() {
 
       this._evaluacionRendimiento.post(fevaluacionRendimiento).subscribe(response =>{
         if(response.codigo==1){
-          swal("Buen trabajo!", response.mensaje, "success");
+        //  swal("Buen trabajo!", response.mensaje, "success");
         }else{
-          swal("Oops..!",  response.mensaje, "warning");
+         // swal("Oops..!",  response.mensaje, "warning");
         }
       })
 

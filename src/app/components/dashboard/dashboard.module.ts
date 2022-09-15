@@ -29,9 +29,9 @@ import { EstudianteModuloComponent } from './estudiante-modulo/estudiante-modulo
 import { VerAsistenciaComponent } from './estudiante-modulo/ver-asistencia/ver-asistencia.component';
 import { ActualizarDetaActividadComponent } from './director-proyecto-modulo/actualizar-deta-actividad/actualizar-deta-actividad.component';
 import { ReportesComponent } from './reportes/reportes.component';
-import { FichaAsistenciaEstudianteComponent } from './ProcesoFinal_pdf/ficha-asistencia-estudiante/ficha-asistencia-estudiante.component';
 import { AdminRolComponent } from './admin-rol/admin-rol.component';
 import { EditarUsuarioComponent } from './admin-rol/editar-usuario/editar-usuario.component';
+import { FichaDatosGeneralesMComponent } from './docente-tutor-modulo/ficha-datos-generales-m/ficha-datos-generales-m.component';
 //import { EditarUsuarioComponent } from './adminRol/editar-usuario/editar-usuario.component';
 
 
@@ -63,9 +63,9 @@ import { EditarUsuarioComponent } from './admin-rol/editar-usuario/editar-usuari
          VerAsistenciaComponent,
          ActualizarDetaActividadComponent,
          ReportesComponent,
-         FichaAsistenciaEstudianteComponent,
          AdminRolComponent,
          EditarUsuarioComponent,
+         FichaDatosGeneralesMComponent,
   ],
   imports: [
     CommonModule,

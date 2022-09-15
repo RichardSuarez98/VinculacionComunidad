@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { map, Observable, startWith } from 'rxjs';
 import { IFichaActividadDiaria } from 'src/app/Interfaces/Estudiante';
 import { AdminServiceService, fichaAdmin } from '../../Service/admin-service.service';
@@ -10,6 +11,7 @@ import { AsistenciaEstudianteComponent } from '../ProcesoFinal_pdf/asistencia-es
 import { CertificadoSupervisorComponent } from '../ProcesoFinal_pdf/certificado-supervisor/certificado-supervisor.component';
 import { CertificadoTutorComponent } from '../ProcesoFinal_pdf/certificado-tutor/certificado-tutor.component';
 import { FichaActividadesDiariasComponent } from '../ProcesoFinal_pdf/ficha-actividades-diarias/ficha-actividades-diarias.component';
+import { FichaDatosGeneralesComponent } from '../ProcesoFinal_pdf/ficha-datos-generales/ficha-datos-generales.component';
 import { FichaEvaluacionEstudiantilComponent } from '../ProcesoFinal_pdf/ficha-evaluacion-estudiantil/ficha-evaluacion-estudiantil.component';
 import { FichaEvaluacionRendimientoEstudianteComponent } from '../ProcesoFinal_pdf/ficha-evaluacion-rendimiento-estudiante/ficha-evaluacion-rendimiento-estudiante.component';
 import { FichaMonitoreoDocenteComponent } from '../ProcesoFinal_pdf/ficha-monitoreo-docente/ficha-monitoreo-docente.component';
@@ -31,7 +33,7 @@ export interface lstEstudia {
 export class AdminRolComponent implements OnInit {
   displayedColumns: string[] = ['idUsuario','nombreUsuario','cedula','celular','correo','carrera','insitucion','rol','accion'];
   displayedColumns2: string[] = ['id','date','logs'];
-  displayedColumns3: string[] = ['id','fecha','accion'];
+  displayedColumns3: string[] = [/*'id',*/'fecha','accion'];
 
   listEstudiantes: lstEstudia[]=[]
   idEstudiante!: number;
@@ -47,6 +49,7 @@ export class AdminRolComponent implements OnInit {
     {valor:4,nombre:"Certificado Supervisor"},
     {valor:5,nombre:"Ficha de Monitoreo Docente"},
     {valor:6,nombre:"Ficha de Asistencia"},
+    {valor:7,nombre:"Ficha de Datos Generales"},
   ]
 
   datasource: any
@@ -56,9 +59,10 @@ export class AdminRolComponent implements OnInit {
   listLog: any[]=[]
   listUsuarioTotales:any[]=[]
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('log') paginator!: MatPaginator;
+  @ViewChild('usuarioT') paginator2!: MatPaginator;
 
-  constructor(private _log: AdminServiceService,public dialog: MatDialog,) {
+  constructor(private _log: AdminServiceService,public dialog: MatDialog,private route:Router) {
    }
 
 
@@ -66,7 +70,20 @@ export class AdminRolComponent implements OnInit {
     this.mostrarLog();
     this.mostrarUsuarioTotales();
     this.MostrarEstudiantes();
+    var _finaldata=JSON.parse(localStorage.getItem('usuario')!);
 
+    if(_finaldata.idRol===1){// console.log("Tienes acceso de Director de Carrera");
+     this.route.navigate(['dashboard/']);
+   }else if(_finaldata.idRol===2){//console.log("Tienes acceso de Gestor de Vinculación");
+     this.route.navigate(['dashboard/']);
+   }else if(_finaldata.idRol===3){//console.log("Tienes acces de Director de Proyecto");
+     this.route.navigate(['dashboard/']);
+   }else if(_finaldata.idRol===6){// console.log("Tienes acces de Supervisor");
+     this.route.navigate(['dashboard/']);
+    }
+   else if(_finaldata.idRol===5){// console.log("Tienes acces de Supervisor");
+    this.route.navigate(['dashboard/']);
+   }
 
     // this.mostrarFichasTecnicas();
   }
@@ -95,7 +112,7 @@ export class AdminRolComponent implements OnInit {
     this._log.getUsuarioTotales().subscribe(resp=>{
       this.listUsuarioTotales=resp.data!;
       this.datasource = new MatTableDataSource(this.listUsuarioTotales);
-      this.datasource.paginator = this.paginator;
+      this.datasource.paginator2 = this.paginator2;
     })
   }
 
@@ -218,6 +235,15 @@ openDialogGeneral(element:any){
                 data:element
               })
               dialogo6.afterClosed().subscribe(result => {
+              });
+              break;
+              case 7: //Ficha de Asistencia
+              const dialogo7=this.dialog.open(FichaDatosGeneralesComponent,{
+                width:'50%',
+                height:'90%',
+                data:element
+              })
+              dialogo7.afterClosed().subscribe(result => {
               });
               break;
     default:

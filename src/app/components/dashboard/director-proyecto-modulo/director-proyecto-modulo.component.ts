@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { Data, Router } from '@angular/router';
 import { ChartData, ChartEvent, ChartType } from 'chart.js';
 import { IActividadConsulta, IActividades } from 'src/app/Interfaces/Actividad';
 import { AsistenciaServiceService } from '../../Service/asistencia-service.service';
@@ -14,8 +14,10 @@ import * as FileSaver from 'file-saver';
 
 import  jsPDF  from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import swal from 'sweetalert';
+//import swal from 'sweetalert';
 import { ReportesComponent } from '../reportes/reportes.component';
+import swal from 'sweetalert2';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-director-proyecto-modulo',
@@ -23,13 +25,20 @@ import { ReportesComponent } from '../reportes/reportes.component';
   styleUrls: ['./director-proyecto-modulo.component.css']
 })
 export class DirectorProyectoModuloComponent implements OnInit {
-  displayedColumns: string[] = ['descripcion','fecha','nombreEstudiante','nombreDocente','nombreSupervisor','totalHoras','estadoGestorVinculacion','actividadProgress','accion'];
+  displayedColumns: string[] = ['descripcion','fecha','nombreEstudiante','nombreDirectorProyecto','nombreDocente','nombreSupervisor','totalHoras','estadoGestorVinculacion','actividadProgress'/*,'accion'*/];
+  displayedColumnsProyectos: string[] = ['idActividadesDiarias','nombreEstudiante','nombreDirector','nombreDocente','nombreSupervisor','totalHoras','fechaInicio','fechaFin','actividadProgress','accion'];
+
   datasource: any
+  datasourceSeguimiento: any
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator2!: MatPaginator;
+
 
   //listActividad: IActividades[] = [];
   listActividad: IActividadConsulta[]=[];
+  listActividadSeguimiento: IActividadConsulta[]=[];
+
   listCarrera: any[] = [];
   listAnioLectivo: any[] = [];
   listProyecto: any[] = [];
@@ -73,9 +82,15 @@ export class DirectorProyectoModuloComponent implements OnInit {
     this.getAnioLectivo();
     this.getProyecto();*/
     var _finaldata=JSON.parse(localStorage.getItem('usuario')!);
-    if(_finaldata.idRol===6){
-      this.route.navigate(['dashboard/pagenotfound']);
-    }
+    if(_finaldata.idRol===4){// console.log("Tienes acces de Docente Tutor");
+      this.route.navigate(['dashboard/']);
+     }else if(_finaldata.idRol===5){// console.log("Tienes acces de Supervisor");
+      this.route.navigate(['dashboard/']);
+     }else if(_finaldata.idRol===6){
+       this.route.navigate(['dashboard/']);// asistente administrativo
+     }else if(_finaldata.idRol===7){
+       this.route.navigate(['dashboard/']);// asistente administrativo
+     }
     else if(_finaldata.idRol===2){// idUsuario   // el      rol 2 pertence al de gestor de vinculacion
       this.getCarrera();
       this.getAnioLectivo();
@@ -97,16 +112,26 @@ export class DirectorProyectoModuloComponent implements OnInit {
     this.datasource.filter = filterValue.trim().toLowerCase();
   }
 
-  openDialog(/*fac:IFactura*/) {
-
+  openDialog() {
         const dialogo=this.dialog.open(DetalleADComponent,{
           width:'50%',
           height:'90%',
-          //data:fac
+         // data:element
         })
         dialogo.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
-          // this.animal = result;
+          this.getActividad();
+        });
+
+      }
+
+      openDialogActualizar(element:any) {
+        const dialogo=this.dialog.open(DetalleADComponent,{
+          width:'50%',
+          height:'90%',
+          data:element
+        })
+        dialogo.afterClosed().subscribe(result => {
+          this.getActividad();
         });
 
       }
@@ -149,8 +174,8 @@ export class DirectorProyectoModuloComponent implements OnInit {
           this.listActividad = response.data!;
           this.datasource = new MatTableDataSource(this.listActividad);
           this.datasource.paginator = this.paginator;
-          console.log( this.listActividad);
           this.cargarPorcentajeProyecto();
+          this.getActividadProyecto();
         }
 
       })
@@ -161,11 +186,9 @@ export class DirectorProyectoModuloComponent implements OnInit {
   cambiarEstadoActividad(actividad:IActividades){
     this._actividadService.putEstadoActividad(actividad).subscribe(response =>{
         if(response.codigo==1){
-          console.log(response.mensaje);
           this.getActividad()
         }
     })
-    console.log(actividad)
   }
 
 
@@ -177,7 +200,7 @@ export class DirectorProyectoModuloComponent implements OnInit {
       data:element
     })
     dialogo.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.getActividad();
     });
   }
 
@@ -188,7 +211,6 @@ export class DirectorProyectoModuloComponent implements OnInit {
      // data:element
     })
     dialogo.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 
@@ -203,10 +225,10 @@ export class DirectorProyectoModuloComponent implements OnInit {
          };
       this._actividadService.actualizarPlanificacionGestor(solicitud).subscribe(resp=>{
         if(resp.codigo==1){
-          swal("Buen Trabajo!", resp.mensaje, "success");
+        //  swal("Buen Trabajo!", resp.mensaje, "success");
           this.getActividad();
         }else if(resp.codigo==0){
-          swal("Oops..!",  resp.mensaje, "warning");  //warning
+       //   swal("Oops..!",  resp.mensaje, "warning");  //warning
         }
 
       });
@@ -220,46 +242,15 @@ export class DirectorProyectoModuloComponent implements OnInit {
          };
          this._actividadService.actualizarPlanificacionGestor(solicitud).subscribe(resp=>{
           if(resp.codigo==1){
-            swal("Buen trabajo!",  resp.mensaje, "success");  //warning
+         //   swal("Buen trabajo!",  resp.mensaje, "success");  //warning
             this.getActividad();
           }else if(resp.codigo==0){
-            swal("Oops..!",  resp.mensaje, "warning");  //warning
+        //    swal("Oops..!",  resp.mensaje, "warning");  //warning
           }
         });
     }
 
   }
-
-/*  editarActividad(element:IActividades){
-    //console.log(element);
-    console.log("hola");
-    this._actividadService.getMostrarActividadDialog(element).subscribe(response=>{
-      if(response.codigo==1){
-        console.log(response.data);
-      }else{
-        console.log(response.mensaje);
-      }
-    });
-  }*/
-
-/*
-  porcentajeProyecto:number []=[]
-  cargarPorcentajeProyecto(){
-   const solicitud: IActividades = { idAnioLectivo: this.idAnioLectivo, idCarrera: this.idCarrera, idProyecto: this.idProyecto };
-   this._actividadService.getMostrarPorcentajeProyecto(solicitud).subscribe(response=>{
-     if(response.codigo==1){
-      // console.log(response.data);
-       this.porcentajeProyecto=response.data!;
-      // console.log(this.porcentajeProyecto);
-       this.doughnutChartData.datasets[0].data=response.data!;
-     }else{
-       console.log(response.mensaje);
-     }
-   });
-  }
-*/
-
-
 
 
   data: any;
@@ -320,6 +311,56 @@ export class DirectorProyectoModuloComponent implements OnInit {
       });
       FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
+
+
+  getActividadProyecto() {
+    if (this.idProyecto != 0 && this.idCarrera != 0 && this.idAnioLectivo != 0) {
+      const solicitud: IActividades = { idAnioLectivo: this.idAnioLectivo, idCarrera: this.idCarrera, idProyecto: this.idProyecto };
+      this._actividadService.getActividadesEstudianteTotales(solicitud).subscribe(response => {
+        if (response.codigo == 1) {
+          this.listActividadSeguimiento = response.data!;
+          this.datasourceSeguimiento = new MatTableDataSource(this.listActividadSeguimiento);
+          this.datasourceSeguimiento.paginator2 = this.paginator2;
+          this.cargarPorcentajeProyecto();
+        }
+      })
+    }
+  }
+
+
+
+  eliminarActividad(element:Data){
+  swal.fire({
+  title: '¿Está seguro??',
+  text: "¡No podrás revertir esto!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Sí, Elimínalo!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    this._actividadService.eliminarEstudianteActividad(element).subscribe(resp=>{
+      if(resp.codigo==1){
+        this.getActividad();
+        this.getActividadProyecto();
+        swal.fire(
+          'Eminiado!',
+          'Su actividad ha sido eliminado.',
+          'success'
+        )
+      }else{
+        swal.fire('Oops!...',resp.mensaje,'info');
+      }
+    })
+  }
+})
+  }
+
+
+
+
+
 
 
 

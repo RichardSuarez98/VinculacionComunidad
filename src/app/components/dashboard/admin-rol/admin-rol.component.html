@@ -41,11 +41,11 @@
                 </ng-container>
                 <ng-container matColumnDef="carrera" >
                   <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;">Carrera</th>
-                  <td mat-cell *matCellDef="let element"> {{element.carrera}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.carrera}} {{element.carrera!=null ? element.carrera:'No pertenece a la Universidad de Guayaquil'}} </td>
               </ng-container>
               <ng-container matColumnDef="insitucion" >
                 <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;">Institucion</th>
-                <td mat-cell *matCellDef="let element"> {{element.institucion}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.institucion!=null ? element.institucion:'No es Suepervisor'}}</td>
             </ng-container>
 
 
@@ -66,9 +66,7 @@
 
             </table>
 
-            <mat-paginator [pageSizeOptions]="[10,15,20,25,100]" aria-label="Select page of periodic elements"></mat-paginator>
-
-
+            <mat-paginator #usuarioT [pageSizeOptions]="[5,10,15,20,25,100]" aria-label="Select page of periodic elements"></mat-paginator>
             </div>
 
           </mat-tab>
@@ -90,7 +88,7 @@
 
                 <ng-container matColumnDef="date" >
                   <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;"> Fecha </th>
-                  <td mat-cell *matCellDef="let element">{{element.dateLog}} </td>
+                  <td mat-cell *matCellDef="let element">{{element.dateLog |date: 'dd/MM/yyyy h:mm:ss a'}} </td>
               </ng-container>
 
               <ng-container matColumnDef="logs" >
@@ -104,7 +102,7 @@
 
             </table>
 
-            <mat-paginator [pageSizeOptions]="[10,15,20,25,100]" aria-label="Select page of periodic elements"></mat-paginator>
+            <mat-paginator #log [pageSizeOptions]="[10,15,20,25,100]" aria-label="Select page of periodic elements"></mat-paginator>
 
             </div>
           </mat-tab>
@@ -147,14 +145,14 @@
               <div *ngIf="datasource3 !=null">
                 <table mat-table [dataSource]="datasource3" class="mat-elevation-z8"  >
 
-                  <ng-container matColumnDef="id" >
+                  <!--ng-container matColumnDef="id" >
                       <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;" > Id </th>
                       <td mat-cell *matCellDef="let element"> {{element.idEstudiante}} </td>
-                  </ng-container>
+                  </!--ng-container-->
 
                   <ng-container matColumnDef="fecha" >
                     <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;"> Se generó el </th>
-                    <td mat-cell *matCellDef="let element">{{element.fechaGeneracion}} </td>
+                    <td mat-cell *matCellDef="let element">{{element.fechaGeneracion |date: 'dd/MM/yyyy'}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="accion" >

@@ -20,15 +20,16 @@ const routes: Routes = [
     {path:'docenteDirector', component:DirectorProyectoModuloComponent,canActivate:[RoleGuard]},//,canActivate:[RoleGuard]
     //{path:'gestorVinculacion', component:GestorVinculacionmoduloComponent,canActivate:[RoleGuard]},//,canActivate:[RoleGuard]
     {path:'docenteTutor', component:DocenteTutorModuloComponent,canActivate:[RoleGuard]},//,canActivate:[RoleGuard]
-    {path:'actividadEvaluar', component:ActividadEstudianteModuloComponent,canActivate:[RoleGuard]},
+    //{path:'actividadEvaluar', component:ActividadEstudianteModuloComponent,canActivate:[RoleGuard]},
     {path:'estudiante', component:EstudianteModuloComponent},  //,canActivate:[RoleGuard]
     {path:'pagenotfound', component:PagenotfoundComponent},
-    {path:'reportes', component:ReportesComponent},
-
-    {path:'asistenciaFicha', component:AsistenciaEstudianteComponent},
-
-
     {path:'admin', component:AdminRolComponent},
+
+    //{path:'reportes', component:ReportesComponent},
+
+    //{path:'asistenciaFicha', component:AsistenciaEstudianteComponent},
+
+
 
   ]}
 ];

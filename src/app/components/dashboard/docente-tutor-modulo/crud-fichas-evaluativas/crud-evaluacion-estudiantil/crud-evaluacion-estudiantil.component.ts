@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +8,8 @@ import { EvaluacionEstudiantilServiceService } from 'src/app/components/Service/
 import { DetaActividad, IActividades } from 'src/app/Interfaces/Actividad';
 import { IAsistenciaQuery, IAsistenciaResponse } from 'src/app/Interfaces/Asistencia';
 import { DetaEvaluacionEstudiantil, IEvaluacionEstudiantil } from 'src/app/Interfaces/EvaluacionEstudiantil';
+
+//import swal from 'sweetalert';
 //import { AsistenciaServiceService } from '../../../Service/asistencia-service.service';
 //import { EvaluacionEstudiantilServiceService } from '../../../Service/evaluacion-estudiantil-service.service';
 //import { ServiceActividad } from '../../../Service/service-actividad.service';
@@ -43,29 +45,18 @@ lstValoracion:any[] =[
     private _asistenciaService: AsistenciaServiceService,
     public dialog: MatDialog, private fb: FormBuilder,) {
     this.form = this.fb.group({
-      idCarrera: [0],
-      idAnioLectivo: [0],
-      idProyecto: [0],
-      idUsuario:[0],
-      calificacion1:[''],
-      calificacion2:[''],
-      calificacion3:[''],
-      calificacion4:[''],
-      calificacion5:[''],
-      calificacion6:[''],
-      calificacion7:[''],
-      calificacion8:[''],
-      //ns9:[''],ps9:[''],s9: [''],ms9:[''],e9: [''],
-      /*
-      calificacion1:[''],ps1:[''],s1: [''],ms1:[''],e1: [''],
-      calificacion2:[''],ps2:[''],s2: [''],ms2:[''],e2: [''],
-      calificacion3:[''],ps3:[''],s3: [''],ms3:[''],e3: [''],
-      calificacion4:[''],ps4:[''],s4: [''],ms4:[''],e4: [''],
-      calificacion5:[''],ps5:[''],s5: [''],ms5:[''],e5: [''],
-      calificacion6:[''],ps6:[''],s6: [''],ms6:[''],e6: [''],
-      calificacion7:[''],ps7:[''],s7: [''],ms7:[''],e7: [''],
-      calificacion8:[''],ps8:[''],s8: [''],ms8:[''],e8: [''],
-      */
+     /* idCarrera: [0,Validators.required],
+      idAnioLectivo: [0,Validators.required],
+      idProyecto: [0,Validators.required],
+      idUsuario:[0,Validators.required],*/
+      calificacion1:['',Validators.required],
+      calificacion2:['',Validators.required],
+      calificacion3:['',Validators.required],
+      calificacion4:['',Validators.required],
+      calificacion5:['',Validators.required],
+      calificacion6:['',Validators.required],
+      calificacion7:['',Validators.required],
+      calificacion8:['',Validators.required],
       descripcion:['']
     })
   }
@@ -74,7 +65,8 @@ lstValoracion:any[] =[
     this.getCarrera();
     this.getAnioLectivo();
     this.getProyecto();
-
+    var _finaldata=JSON.parse(localStorage.getItem('usuario')!);
+    this.cargarPeriodoParaFichaEstudiantil(_finaldata.idUsuario);
   }
 
   idCarrera = 0;
@@ -128,6 +120,23 @@ lstValoracion:any[] =[
     })
   }
 
+
+   listDatos:any[]=[]
+  cargarPeriodoParaFichaEstudiantil(idEstudiante:number){
+    const fevaluacion: IEvaluacionEstudiantil={
+      idUsuario: idEstudiante,
+      }
+    this._evaluacionEstudiantil.postCargarDatosParaEvaluacionEstudiantil(fevaluacion).subscribe(resp=>{
+      if(resp.codigo===1){
+        this.listDatos=resp.data!;
+        this.idAnioLectivo=this.listDatos[0].idAnioLectivo;
+        this.idProyecto=this.listDatos[0].idProyecto;
+        this.idCarrera=this.listDatos[0].idCarrera;
+        this.idUsuario=this.listDatos[0].idEstudiante;
+
+      }
+    });
+  }
 
 
 GuardarActividad() {
@@ -190,14 +199,18 @@ GuardarActividad() {
 
       this._evaluacionEstudiantil.post(fevaluacion).subscribe(response =>{
         if(response.codigo==1){
-          alert(response.mensaje);
+          //swal("Buen trabajo!", response.mensaje, "success");
           this.form.reset();
         }else{
-          alert(response.mensaje);
+         // swal("Oops..!",  response.mensaje, "warning");
         }
       })
 
   }
+
+
+
+  /*  /api/evaluacionEstudiantil/mostrarperiodo */
 
 
 

@@ -16,6 +16,23 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.nomusu=JSON.parse(localStorage.getItem('usuario')!);
+    var _finaldata=JSON.parse(localStorage.getItem('usuario')!);
+    if(_finaldata.idRol===1){// console.log("Tienes acceso de Director de Carrera");
+      this.route.navigate(['dashboard/docenteDirector']);
+    }else if(_finaldata.idRol===2){//console.log("Tienes acceso de Gestor de Vinculación");
+      this.route.navigate(['dashboard/docenteDirector']);
+    }else if(_finaldata.idRol===3){//console.log("Tienes acces de Director de Proyecto");
+      this.route.navigate(['dashboard/docenteDirector']);
+    }
+    else if(_finaldata.idRol===4){// console.log("Tienes acces de Docente Tutor");
+     this.route.navigate(['dashboard/docenteTutor']);
+    }else if(_finaldata.idRol===5){// console.log("Tienes acces de Supervisor");
+     this.route.navigate(['dashboard/docenteTutor']);
+    }else if(_finaldata.idRol===6){
+      this.route.navigate(['dashboard/estudiante']);// estudiante
+    }else if(_finaldata.idRol===7){
+      this.route.navigate(['dashboard/admin']);// asistente administrativo
+    }
     /*var _finaldata=JSON.parse(localStorage.getItem('usuario')!);
     if(_finaldata.idRol===1){
      // console.log("Tienes acceso de Director de Carrera");

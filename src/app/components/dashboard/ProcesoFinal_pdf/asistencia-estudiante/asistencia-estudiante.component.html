@@ -1,9 +1,11 @@
+<button  class="btn btn-outline-secondary" mat-button  (click)="pol()" >Descargar</button>
+<br> <br>
 <div class="container">
     <div class="row">
       <div id="htmlData" >
 
         <div style="text-align:center;">
-        <span><img src="./assets/img/logoUg.png" class="izquierda"><img src="./assets/img/logoCisc.jpg" class="derecha"> <span style="font-size: 14px;"><b>UNIVERSIDAD DE GUAYAQUIL <br/>
+        <span><img src="./assets/img/logoUg.png" class="izquierda"><img src="{{logo}}" class="derecha"> <span style="font-size: 14px;"><b>UNIVERSIDAD DE GUAYAQUIL <br/>
             FACULTAD DE CIENCIAS MATEMÁTICAS Y FÍSICAS </b></span><br/>
             <b style="font-size: 12px;"> CARRERA DE {{nombreCarrera}} <br/>
              CONTROL DE ASISTENCIAS COMUNITARIAS</b>
@@ -25,9 +27,9 @@
             </tr>
             <tr>
                 <th class="col-lg-2">FECHA INICIAL</th>
-                <th class="col-lg-3" style="color: blue;">{{fechaInicio}}</th>
+                <th class="col-lg-3" style="color: blue;">{{fechaInicio |date: 'dd/MM/yyyy'}}</th>
                 <th class="col-lg-2">FECHA FINAL</th>
-                <th class="col-lg-5" colspan="4" style="color: blue;">{{fechaFin}}</th>
+                <th class="col-lg-5" colspan="4" style="color: blue;">{{fechaFin |date: 'dd/MM/yyyy'}}</th>
             </tr>
             <tr>
                 <th>FECHA</th>
@@ -37,7 +39,7 @@
                 <th>OBSERVACIÓN</th>
             </tr>
             <tr *ngFor="let item of detalleAsistencia">
-                <th style="font-weight: normal;">{{item.fecha}}</th>
+                <th style="font-weight: normal;">{{item.fecha |date: 'dd/MM/yyyy'}}</th>
                 <th style="font-weight: normal;">{{item.asistencia ? "Sí" : "No"}}</th>
                 <th style="font-weight: normal;">{{item.horas}}</th>
                 <th style="font-weight: normal;"></th>
@@ -94,4 +96,3 @@
     </div>
 </div>
 
-  <button (click)="pol()" >descargar</button>

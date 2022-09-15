@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { IDescargarAsistenciaEstudiante, IEstudianteLista, IEstudianteQuery, IFichaActividadDiaria } from 'src/app/Interfaces/Estudiante';
 import { ICertificacion, ICertificacionSupervisor } from 'src/app/Interfaces/ICertificacion';
 import { EstudianteService } from '../../Service/estudiante.service';
@@ -11,6 +12,7 @@ import { AsistenciaEstudianteComponent } from '../ProcesoFinal_pdf/asistencia-es
 import { CertificadoSupervisorComponent } from '../ProcesoFinal_pdf/certificado-supervisor/certificado-supervisor.component';
 import { CertificadoTutorComponent } from '../ProcesoFinal_pdf/certificado-tutor/certificado-tutor.component';
 import { FichaActividadesDiariasComponent } from '../ProcesoFinal_pdf/ficha-actividades-diarias/ficha-actividades-diarias.component';
+import { FichaDatosGeneralesComponent } from '../ProcesoFinal_pdf/ficha-datos-generales/ficha-datos-generales.component';
 import { FichaEvaluacionEstudiantilComponent } from '../ProcesoFinal_pdf/ficha-evaluacion-estudiantil/ficha-evaluacion-estudiantil.component';
 import { FichaEvaluacionRendimientoEstudianteComponent } from '../ProcesoFinal_pdf/ficha-evaluacion-rendimiento-estudiante/ficha-evaluacion-rendimiento-estudiante.component';
 import { FichaMonitoreoDocenteComponent } from '../ProcesoFinal_pdf/ficha-monitoreo-docente/ficha-monitoreo-docente.component';
@@ -47,7 +49,7 @@ export class EstudianteModuloComponent implements OnInit {
     ]
 
   form!: FormGroup
-   constructor(private _estudianteService: EstudianteService,
+   constructor(private _estudianteService: EstudianteService, private route:Router,
     public dialog: MatDialog, private fb: FormBuilder,private _snackBar: MatSnackBar,
    ) {
     this.form = this.fb.group({
@@ -68,6 +70,22 @@ export class EstudianteModuloComponent implements OnInit {
     this.listarCertificacionSupervisor(_finaldata.idUsuario);
     this.listarMonitoreoDocente(_finaldata.idUsuario);
     this.listarAsistenciaEstudianteDescargar(_finaldata.idUsuario);
+    this.listarDatosGeneralDescargar(_finaldata.idUsuario);
+
+    if(_finaldata.idRol===1){// console.log("Tienes acceso de Director de Carrera");
+      this.route.navigate(['dashboard/']);
+    }else if(_finaldata.idRol===2){//console.log("Tienes acceso de Gestor de Vinculación");
+      this.route.navigate(['dashboard/']);
+    }else if(_finaldata.idRol===3){//console.log("Tienes acces de Director de Proyecto");
+      this.route.navigate(['dashboard/']);
+    }
+    else if(_finaldata.idRol===4){// console.log("Tienes acces de Docente Tutor");
+     this.route.navigate(['dashboard/']);
+    }else if(_finaldata.idRol===5){// console.log("Tienes acces de Supervisor");
+     this.route.navigate(['dashboard/']);
+    }else if(_finaldata.idRol===7){
+      this.route.navigate(['dashboard/']);// asistente administrativo
+    }
   }
 
   /*applyFilter(event: Event) {
@@ -283,7 +301,29 @@ openDialogFichaAsistencia(element:any) {
 
 
 
+listFichaDatosGeneral: any[]=[]
+listarDatosGeneralDescargar(idEstudiante:number){
+  let numeroEstudiante: IEstudianteQuery={
+    idEstudiante:idEstudiante
+}
+this._estudianteService.consultarFichaDatosGeneral(numeroEstudiante).subscribe(resp=>{
+  if(resp.codigo==1){
+    console.log(resp.data);
+    this.listFichaDatosGeneral=resp.data!;
+  }
+})
+}
 
+
+openDialogFichaGeneral(element:any){
+  const dialogo=this.dialog.open(FichaDatosGeneralesComponent,{
+    width:'50%',
+    height:'90%',
+    data:element
+  })
+  dialogo.afterClosed().subscribe(result => {
+  });
+}
 
 
 

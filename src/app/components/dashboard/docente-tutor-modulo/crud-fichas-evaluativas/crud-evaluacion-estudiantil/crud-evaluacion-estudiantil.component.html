@@ -92,7 +92,7 @@
                                     <td>Aplicación de los conocimientos teóricos y prácticos de la carrera.</td>
                                     <td>
                                         <mat-form-field appearance="legacy" class="ancho">
-                                        <mat-select [(value)]="calificacion1" >
+                                        <mat-select [(value)]="calificacion1" formControlName="calificacion1" >
                                          <mat-option *ngFor="let element of lstValoracion"
                                              [value]="element.valor">
                                              {{element.name}}
@@ -104,7 +104,7 @@
                                   <tr>
                                     <td>Capacidad para resolver problemas</td>
                                     <td> <mat-form-field appearance="legacy" class="ancho">
-                                        <mat-select [(value)]="calificacion2" >
+                                        <mat-select [(value)]="calificacion2" formControlName="calificacion2" >
                                          <mat-option *ngFor="let element of lstValoracion"
                                              [value]="element.valor">
                                              {{element.name}}
@@ -116,7 +116,7 @@
                                   <tr>
                                     <td>Utilización adecuada de procedimientos metodológicos</td>
                                     <td>  <mat-form-field appearance="legacy" class="ancho">
-                                        <mat-select [(value)]="calificacion3">
+                                        <mat-select [(value)]="calificacion3" formControlName="calificacion3" >
                                          <mat-option *ngFor="let element of lstValoracion"
                                              [value]="element.valor">
                                              {{element.name}}
@@ -127,7 +127,7 @@
                                   <tr>
                                     <td>Integración del grupo y trabajo en equipo</td>
                                     <td> <mat-form-field appearance="legacy" class="ancho">
-                                        <mat-select [(value)]="calificacion4">
+                                        <mat-select [(value)]="calificacion4" formControlName="calificacion4" >
                                          <mat-option *ngFor="let element of lstValoracion"
                                              [value]="element.valor">
                                              {{element.name}}
@@ -160,7 +160,7 @@
                                 <td>Puntualidad del estudiante</td>
                                 <td>
                                     <mat-form-field appearance="legacy" class="ancho">
-                                        <mat-select [(value)]="calificacion5">
+                                        <mat-select [(value)]="calificacion5" formControlName="calificacion5" >
                                          <mat-option *ngFor="let element of lstValoracion"
                                              [value]="element.valor">
                                              {{element.name}}
@@ -172,7 +172,7 @@
                               <tr>
                                 <td>Responsabilidad, disposición y cumplimiento en la ejecución de las tareas</td>
                                 <td> <mat-form-field appearance="legacy" class="ancho">
-                                    <mat-select [(value)]="calificacion6" >
+                                    <mat-select [(value)]="calificacion6" formControlName="calificacion6" >
                                      <mat-option *ngFor="let element of lstValoracion"
                                          [value]="element.valor">
                                          {{element.name}}
@@ -202,7 +202,7 @@
                                 <td>Predisposición y participación de la comunidad/beneficiarios en el proyecto</td>
                                 <td>
                                     <mat-form-field appearance="legacy" class="ancho">
-                                        <mat-select [(value)]="calificacion7">
+                                        <mat-select [(value)]="calificacion7" formControlName="calificacion7" >
                                          <mat-option *ngFor="let element of lstValoracion"
                                              [value]="element.valor">
                                              {{element.name}}
@@ -214,7 +214,7 @@
                               <tr>
                                 <td>Facilidad para integrar ideas con la comunidad/beneficarios para el desarrollo del proyecto</td>
                                 <td> <mat-form-field appearance="legacy" class="ancho">
-                                    <mat-select [(value)]="calificacion8">
+                                    <mat-select [(value)]="calificacion8" formControlName="calificacion8" >
                                      <mat-option *ngFor="let element of lstValoracion"
                                          [value]="element.valor">
                                          {{element.name}}
@@ -247,14 +247,11 @@
                       </mat-form-field>
                           </div>
                       </div>
-
+                      <mat-dialog-actions align="end">
+                        <button mat-button>Cancelar</button>
+                        <button mat-button (click)="GuardarActividad()" [disabled]="form.invalid" >Registrar</button>
+                    </mat-dialog-actions>
                 </form>
-
-
-                <mat-dialog-actions align="end">
-                    <button mat-button>Cancelar</button>
-                    <button mat-button (click)="GuardarActividad()">Registrar</button>
-                </mat-dialog-actions>
 
             </div>
         </div>

@@ -1,16 +1,18 @@
+<button  class="btn btn-outline-secondary" mat-button  (click)="pol()" >Descargar</button>
+<br> <br>
 <div class="container">
     <div class="row">
       <div id="htmlData" >
 
         <div style="text-align:center;">
-        <span><img src="./assets/img/logoUg.png" class="izquierda"><img src="./assets/img/logoCisc.jpg" class="derecha"> <span style="font-size: 14px;"><b>UNIVERSIDAD DE GUAYAQUIL <br/>
+        <span><img src="./assets/img/logoUg.png" class="izquierda"><img src="{{logo}}" class="derecha"> <span style="font-size: 14px;"><b>UNIVERSIDAD DE GUAYAQUIL <br/>
             FACULTAD DE CIENCIAS MATEMÁTICAS Y FÍSICAS </b></span><br/>
             <span style="font-size: 12px;"> DIRECCIÓN DE GESTIÓN SOCIAL DEL CONOCIMIENTO <br/>
              PRÁCTICAS DE SERVICIO COMUNITARIO</span>
         </span>
         </div>
-        
-        <br/> <br/>
+
+        <br/>
 
         <table style="border: 1px solid black; justify-content: center; text-align: center; width: 100%;">
                 <tr>
@@ -18,207 +20,161 @@
                 </tr>
         </table>
 
-        <br/>
-           <span>NOMBRE DEL PROYECTO:
-           <span style="color: blue;">ESTRATEGIAS TECNOLÓGICAS PARA MEJORAR LAS HABILIDADES DE LECTURA Y REDUCIR LAS BARRERAS EN LA COMPRENSIÓN LECTORA EN NIÑOS Y ADOLESCENTES DEL CANTÓN ISIDRO AYORA.</span></span> 
-       <br/><br/>
+        <table style="width: 100%;border-color: white;">
+          <tr style="border-color: white;">
+            <th style="border-color: white;">NOMBRE DEL PROYECTO:</th>
+            <th style="border-color: white;color: blue;text-align: center;">{{tituloProyecto}}</th>
+          </tr>
+      </table>
 
        <table style="border: 1px solid black; justify-content: center; text-align: center; width: 100%;">
             <tr>
                 <th >DATOS DEL O LOS ESTUDIANTES</th>
             </tr>
         </table>
-        
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span>FACULTAD:</span>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">CIENCIAS MATEMATICAS Y FISICAS</span>
-                </div>
-            </div>
-         </div>
 
-         <div class="row">
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span>CARRERA:</span>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">INGENIERIA EN SISTEMAS COMPUTACIONALES</span>
-                </div>
-            </div>
-         </div>
+        <table style="width: 100%;border-color: white;">
+            <tr style="border-color: white;">
+              <th style="border-color: white;">FACULTAD:</th>
+              <th style="border-color: white;color: blue;text-align: center;">CIENCIAS MATEMATICAS Y FISICAS</th>
+            </tr>
+            <tr style="border-color: white;">
+              <th style="border-color: white;">CARRERA:</th>
+              <th style="border-color: white;color: blue;text-align: center;">{{nombreCarrera}}</th>
+            </tr>
+        </table>
 
 <!--------------- DATOS DEL O LOS ESTUDIANTES REGISTRADOS EN UN PROYECTO------------------------------------------------------>
-         <div class="row">
-            <div class="col-lg-4">
-                <div class="input-group mb-3">
-                    <span>1)NOMBRES Y APELLIDOS</span>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">RICHARD ADRIÁN SUÁREZ JÁCOME</span>
-                </div>
-            </div>
-         </div>
 
-         <div class="row">
-            <div class="col-lg-3">
-                <div class="input-group mb-3">
-                    <span>CEDULA DE CIUDADANÍA</span>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">0951836592</span>
-                </div>
-            </div>
-            <div class="col-lg-1">
-                <div class="input-group mb-3">
-                    <span>E-MAIL:</span>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">richard.suarezj@ug.edu.ec</span>
-                </div>
-            </div>
-            <!--div class="col-lg-1">
-                <div class="input-group mb-3">
-                    <span>Firma</span>
-                </div>
-            </!--div>
-            <div class="col-lg-2">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">richard.suarezj@ug.edu.ec</span>
-                </div>
-            </div>
-         </div-->
+<table style="width: 100%;border-color: white;">
+  <div *ngFor="let item of listFichaGeneral">
+    <tr style="border-color: white;">
+      <th style="border-color: white;">NOMBRES Y APELLIDOS</th>
+      <th style="border-color: white;color: blue;"> {{item.nombreEstudiante}}</th>
+    </tr>
+    <tr style="border-color: white;">
+      <th style="border-color: white;">CEDULA DE CIUDADANÍA:</th>
+      <th style="border-color: white;color: blue;">{{item.cedulaEstudiante}}</th>
+      <th style="border-color: white;">E-MAIL:</th>
+      <th style="border-color: white;color: blue;">{{item.correoEstudiante}}</th>
+      <th style="border-color: white;">Firma:</th>
+      <th style="border-color: white;color: blue;"></th>
+    </tr>
+  </div>
+</table>
 
-
-
-<!---------------F I N      DATOS DEL O LOS ESTUDIANTES REGISTRADOS EN UN PROYECTO------------------------------------------------------>
-
-      </div>
+<br>
 
         <table style="border: 1px solid black; justify-content: center; text-align: center; width: 100%;">
                 <tr>
                     <th >DATOS DE LA INSTITUCION DONDE REALIZA LAS PRACTICAS/PASANTIAS</th>
                 </tr>
         </table>
-                <br/>
         <div class="row">
             <div class="col-lg-6">
                 <div class="input-group mb-3">
-                    <span>NOMBRE DE LA INSTITUCIÓN</span>
+                    <span><b>NOMBRE DE LA INSTITUCIÓN</b></span>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="input-group mb-3">
-                    <span style="color: blue;">GAD DE ISIDRO AYORA</span>
-                </div>
-            </div>
-         </div>
-         <div class="row" style="margin-top: -15px;">
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span>R.U.C.</span>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">206000000310001</span>
+                    <span style="color: blue;">{{nombreInstitucion}}</span>
                 </div>
             </div>
          </div>
          <div class="row" style="margin-top: -15px;">
             <div class="col-lg-6">
                 <div class="input-group mb-3">
-                    <span>DIRECCIÓN</span>
+                    <span><b>R.U.C.</b></span>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="input-group mb-3">
-                    <span style="color: blue;">Cantón Isidro Ayora, 30 de Julio 308 y 22 de Noviembre</span>
-                </div>
-            </div>
-         </div>
-         <div class="row" style="margin-top: -15px;">
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span>TELÉFONOS:</span>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">04-2706171</span>
+                    <span style="color: blue;">{{ruc}}</span>
                 </div>
             </div>
          </div>
          <div class="row" style="margin-top: -15px;">
             <div class="col-lg-6">
                 <div class="input-group mb-3">
-                    <span>CORREO ELECTRÓNICO:</span>
+                    <span><b>DIRECCIÓN</b></span>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="input-group mb-3">
-                    <span style="color: blue;">info@isidroayora.gob.ec</span>
-                </div>
-            </div>
-         </div>
-         <div class="row" style="margin-top: -15px;">
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span>NOMBRE DEL SUPERVISOR:</span>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">LCDO. NICOLAS MARTILLO PIGUAVE</span>
+                    <span style="color: blue;">{{direccion}}</span>
                 </div>
             </div>
          </div>
          <div class="row" style="margin-top: -15px;">
             <div class="col-lg-6">
                 <div class="input-group mb-3">
-                    <span>C.I. DEL SUPERVISOR:</span>
+                    <span><b>TELÉFONOS:</b></span>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="input-group mb-3">
-                    <span style="color: blue;">0951836592</span>
-                </div>
-            </div>
-         </div>
-         <div class="row" style="margin-top: -15px;">
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span>CARGO DEL SUPERVISOR:</span>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">DIRECTOR DE GESTIÓN SOCIAL Y PARTICIPACIÓN CIUDADANA</span>
+                    <span style="color: blue;">{{telefonos}}</span>
                 </div>
             </div>
          </div>
          <div class="row" style="margin-top: -15px;">
             <div class="col-lg-6">
                 <div class="input-group mb-3">
-                    <span>AREA/DPTO:</span>
+                    <span><b>CORREO ELECTRÓNICO:</b></span>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="input-group mb-3">
-                    <span style="color: blue;">GESTIÓN SOCIAL Y PARTICIPACIÓN CIUDADANA</span>
+                    <span style="color: blue;">{{email}}</span>
+                </div>
+            </div>
+         </div>
+         <div class="row" style="margin-top: -15px;">
+            <div class="col-lg-6">
+                <div class="input-group mb-3">
+                    <span><b>NOMBRE DEL SUPERVISOR:</b></span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="input-group mb-3">
+                    <span style="color: blue;">{{nombreSupervisor}}</span>
+                </div>
+            </div>
+         </div>
+         <div class="row" style="margin-top: -15px;">
+            <div class="col-lg-6">
+                <div class="input-group mb-3">
+                    <span><b>C.I. DEL SUPERVISOR:</b></span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="input-group mb-3">
+                    <span style="color: blue;">{{cedulaSupervisor}}</span>
+                </div>
+            </div>
+         </div>
+         <div class="row" style="margin-top: -15px;">
+            <div class="col-lg-6">
+                <div class="input-group mb-3">
+                    <span><b>CARGO DEL SUPERVISOR:</b> </span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="input-group mb-3">
+                    <span style="color: blue;">{{cargoSupervisor}} </span>
+                </div>
+            </div>
+         </div>
+         <div class="row" style="margin-top: -15px;">
+            <div class="col-lg-6">
+                <div class="input-group mb-3">
+                    <span><b>AREA/DPTO:</b> </span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="input-group mb-3">
+                    <span style="color: blue;">{{departamentoSupervisor}}</span>
                 </div>
             </div>
          </div>
@@ -231,92 +187,37 @@
 
          <br />
 
-         <div class="row">
-            <div class="col-lg-2">
-                <div class="input-group mb-3">
-                    <span>FECHA DE INICIO</span>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">07/07/2022</span>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="input-group mb-4">
-                    <span>FECHA PROGRAMADA</span>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">06/05/2023</span>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="input-group mb-3">
-                    <span>FECHA FINAL REAL</span>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="input-group mb-3">
-                    <span style="color: blue;">06/05/2023</span>
-                </div>
-            </div>
-      </div>
-
-
-      <div class="row">
-        <div class="col-lg-2">
-            <div class="input-group mb-3">
-                <span>JORNADA DE LA PRÁCTICA</span>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <div class="input-group mb-3">
-                <span style="color: blue;">NOCTURNO</span>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <div class="input-group mb-3">
-                <span>DIAS DE LA SEMANA</span>
-            </div>
-            <div class="input-group mb-3" style="margin-top: -15px;">
-                <span >HORARIO</span>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <div class="input-group mb-3">
-                <span style="color: blue;">LUNES - VIERNES</span>
-            </div>
-            <div class="input-group mb-3" style="margin-top: -15px;">
-                <span style="color: blue;">18:00 - 20:00</span>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <div class="input-group mb-3">
-                <span>CÓDIGO DEL PROYECTO</span>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <div class="input-group mb-3">
-                <span style="color: blue;">COD-PVC-006</span>
-            </div>
-        </div>
-  </div>
+         <table style="width: 100%;border-color: white;">
+          <tr style="border-color: white;">
+            <th style="border-color: white;">FECHA DE INICIO:</th>
+            <th style="border-color: white;color: blue;text-align: center;">{{fechaInicio |date: 'dd/MM/yyyy'}}</th>
+            <th style="border-color: white;">FECHA PROGRAMADA:</th>
+            <th style="border-color: white;color: blue;text-align: center;">{{fechaProgramada |date: 'dd/MM/yyyy'}}</th>
+            <th style="border-color: white;">FECHAFINAL REAL:</th>
+            <th style="border-color: white;color: blue;text-align: center;">{{fechaFinalReal |date: 'dd/MM/yyyy'}}</th>
+          </tr>
+          <tr style="border-color: white;">
+            <th style="border-color: white;">JORNADA DE LA PRÁCTICA:</th>
+            <th style="border-color: white;color: blue;text-align: center;">{{jornadaPractica}}</th>
+            <th style="border-color: white;">DIAS DE LA SEMANA:</th>
+            <th style="border-color: white;color: blue;text-align: center;">{{diasSemanas}}</th>
+            <th style="border-color: white;">HORARIO:</th>
+            <th style="border-color: white;color: blue;text-align: center;">{{horario}}</th>
+          </tr>
+          <tr style="border-color: white;">
+            <th style="border-color: white;">CÓDIGO DEL PROYECTO:</th>
+            <th style="border-color: white;color: blue;text-align: center;">{{codigoProyecto}}</th>
+         </tr>
+      </table>
 
   <br />
-  <div class="row">
-    <div class="col-lg-6">
-        <div class="input-group mb-3">
-            <span>NOMBFD DEL DOCENTE</span>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="input-group mb-3">
-            <span style="color: blue;">ING. JENNY ALEXANDRA ORTIZ ZAMBRANO MSC.</span>
-        </div>
-    </div>
- </div>
+  <table style="width: 100%;border-color: white;">
+    <tr style="border-color: white;">
+      <th style="border-color: white;">NOMBRE DEL DOCENTE:</th>
+      <th style="border-color: white;color: blue;text-align: center;">ING. {{nombreDocente}}.</th>
+    </tr>
+
+</table>
 
  <br />
 
@@ -331,7 +232,7 @@
  <div class="row">
     <div class="col-lg-6">
         <div class="input-group mb-6">
-            <p>ING. JENNY ALEXANDRA ORTIZ</p>
+            <p><b>ING. {{nombreDocente}}</b></p>
         </div>
     </div>
  </div>
@@ -347,5 +248,4 @@
 
     </div>
   </div>
-  
-  <button (click)="pol()" >descargar</button>
+

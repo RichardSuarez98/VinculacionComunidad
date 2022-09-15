@@ -29,7 +29,9 @@
 
 
 .section {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),image-set("./assets/img/universidad.jpg"); 
+  /*    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),image-set("./assets/img/universidad.jpg");
+*/
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),image-set("https://res.cloudinary.com/guayaquil19980/image/upload/v1663209421/vincomunidad/dgm0fe6ej5y2lxb8lp7k.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
 

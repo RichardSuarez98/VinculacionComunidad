@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IEstudianteQuery, queryMonitoreoDocenteBuscar } from 'src/app/Interfaces/Estudiante';
+import { fichaDatosGeneralResponse, guardarDatosGeneralResponse } from 'src/app/Interfaces/IFichaDatosGenerales';
 import { IResponse } from 'src/app/Interfaces/Response';
 
 @Injectable({
@@ -83,6 +84,31 @@ fichaEstudianteAsistencia(estudiante:IEstudianteQuery):Observable<IResponse> {
   DescargarfichaAsistenciaEstudiantil(estudiante:IEstudianteQuery):Observable<IResponse> {
     return this.http.post<IResponse>(this.urlFicha+"/DescargarFichaAsistencia",estudiante);
   }
+
+
+
+  /* FICHA DE DATOS GENERAL*/
+/* FICHA DE DATOS GENERAL*/
+consultarFichaDatosGeneral(evaluacion:IEstudianteQuery):Observable<IResponse> {
+  return this.http.post<IResponse>(this.urlFicha+"/ConsultarfichaDatosGeneral",evaluacion);
+}
+
+postCargarFichaDatosGenerales (evaluacion:fichaDatosGeneralResponse):Observable<IResponse> {
+  return this.http.post<IResponse>(this.urlFicha+"/fichaDatosGeneral",evaluacion);
+}
+
+
+
+/*   private urlFicha='https://localhost:5001/api/fichas';
+GUARDAR FICHA DE FATOS GENERALES
+*/
+
+
+guardarFichaDatosGenerales(solicitud:guardarDatosGeneralResponse):Observable<IResponse> {
+  return this.http.post<IResponse>(this.urlFicha+"/guardarFichaDatosGenerales",solicitud);
+}
+
+
 
 
 

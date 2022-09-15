@@ -1,0 +1,98 @@
+<div style="margin: 20px;">
+  <p style="text-align: center; font-size: large;"><b>Generar Ficha de Datos Generales</b></p>
+
+  <div>
+    <mat-form-field class="col-sm-12" appearance="legacy">
+      <mat-label>Carrera</mat-label>
+      <mat-select [(value)]="idCarrera" name="food">
+          <mat-option  *ngFor="let element of listCarrera" [value]="element.idCarrera">
+              {{element.nombreCarrera}}
+          </mat-option>
+      </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" class="col-sm-12">
+      <mat-label>Periodo Lectivo</mat-label>
+      <mat-select  [(value)]="idAnioLectivo" name="food">
+          <mat-option *ngFor="let element of listAnioLectivo"
+              [value]="element.idAnioLectivo">
+              {{element.nomAnioLectivo}} {{element.nomCiclo}}
+          </mat-option>
+      </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" class="col-sm-12">
+      <mat-label>Proyecto</mat-label>
+      <mat-select name="food" [(value)]="idProyecto">
+          <mat-option style="width: 100%;"  *ngFor="let element of listProyecto"
+          [value]="element.idProyecto">
+          {{element.tituloProyecto}}
+      </mat-option>
+      </mat-select>
+  </mat-form-field>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="mb-3 row">
+        <label  class="col-sm-6 col-form-label"><b>Fecha Inicio:</b></label>
+        <div class="col-sm-6">
+          <input type="date"  class="form-control-plaintext" [(ngModel)]="fechaInicio" >
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="mb-3 row">
+        <label  class="col-sm-6 col-form-label"><b>Fecha Programada</b> </label>
+        <div class="col-sm-6">
+          <input type="date"  class="form-control-plaintext" [(ngModel)]="fechaProgramada" >
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="mb-3 row">
+        <label  class="col-sm-6 col-form-label"><b>Fecha Fin Real</b> </label>
+        <div class="col-sm-6">
+          <input type="date"  class="form-control-plaintext" [(ngModel)]="fechaFinReal" >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="mb-3 row">
+        <label  class="col-sm-6 col-form-label"><b>Jornada:</b></label>
+        <div class="col-sm-6">
+          <input type="text"  class="form-control-plaintext" [(ngModel)]="jornada" >
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="mb-3 row">
+        <label  class="col-sm-6 col-form-label"><b>Dias de Semana </b> </label>
+        <div class="col-sm-6">
+          <input type="text"  class="form-control-plaintext" [(ngModel)]="diasSema" >
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="mb-3 row">
+        <label  class="col-sm-6 col-form-label"><b>Horario</b> </label>
+        <div class="col-sm-6">
+          <input type="text"  class="form-control-plaintext"  [(ngModel)]="horario" >
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <button style="margin: 5px ; width: 170px;" mat-button color="primary" (click)="guardarFicha()"  >Generar Ficha</button> <!-- routerLink="/dashboard/reportes" -->
+
+
+</div>
+
+
+
+
+

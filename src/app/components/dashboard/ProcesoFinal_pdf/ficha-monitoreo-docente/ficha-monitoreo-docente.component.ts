@@ -45,15 +45,14 @@ export class FichaMonitoreoDocenteComponent implements OnInit {
   calificacion17!: string
   calificacion18!: string
 
+  logo!: string
+
   constructor(@Inject(MAT_DIALOG_DATA) public list:any,
   private _estudianteService: EstudianteService,) { }
 
   ngOnInit(): void {
     this.fichaGeneralCorrespondienteMonitoreoDocente();
     }
-
-
-
 
     async fichaGeneralCorrespondienteMonitoreoDocente(){
     let numeroEstudiante: queryMonitoreoDocenteBuscar={
@@ -64,6 +63,18 @@ export class FichaMonitoreoDocenteComponent implements OnInit {
       if(resp.codigo==1){
         this.listFichaMonitoreoDocente=resp.data!;
         this.nombreCarrera=this.listFichaMonitoreoDocente[0].nombreCarrera!;
+        if(this.nombreCarrera=="INGENIERÍA DE SISTEMAS COMPUTACIONALES"){
+          // this.logo="./assets/img/logoCisc.jpg"
+           this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/wakmxaj5cwzb5s11kqf1.jpg"
+         }else if(this.nombreCarrera=="SOFTWARE"){
+              //this.logo="./assets/img/csoft.png"
+              this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209421/vincomunidad/b0ygbfe9h2oqrw4vmsrp.png"
+         }
+       /* if(this.nombreCarrera=="INGENIERÍA DE SISTEMAS COMPUTACIONALES"){
+          this.logo="./assets/img/logoCisc.jpg"
+        }else if(this.nombreCarrera=="SOFTWARE"){
+             this.logo="./assets/img/csoft.png"
+        }*/
         this.nombreEstudiante=this.listFichaMonitoreoDocente[0].nombreEstudiante!;
         this.nombreDocente=this.listFichaMonitoreoDocente[0].nombreDocente!;
         this.nombreSupervisor=this.listFichaMonitoreoDocente[0].nombreSupervisor!;
@@ -72,6 +83,7 @@ export class FichaMonitoreoDocenteComponent implements OnInit {
         this.numeroVisita=this.listFichaMonitoreoDocente[0].visita!;
         this.horaVisita=this.listFichaMonitoreoDocente[0].hora!;
         this.cargoSupervisor=this.listFichaMonitoreoDocente[0].cargoSupervisor!;
+       // this.fechaGeneracion=this.listFichaMonitoreoDocente[0].fecha!;
 
         this.calificacion1=this.listFichaMonitoreoDocente[0].valoracion!;
         this.calificacion2=this.listFichaMonitoreoDocente[1].valoracion!;

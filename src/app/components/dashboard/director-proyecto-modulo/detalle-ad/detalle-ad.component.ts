@@ -9,6 +9,7 @@ import { ServiceActividad } from 'src/app/components/Service/service-actividad.s
 import { DetaActividad, IActividades, IActividadesDetallePrueba } from 'src/app/Interfaces/Actividad';
 import { IAsistenciaQuery, IAsistenciaResponse } from 'src/app/Interfaces/Asistencia';
 import { AsistenciaServiceService } from '../../../Service/asistencia-service.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detalle-ad',
@@ -35,15 +36,19 @@ export class DetalleADComponent implements OnInit {
   //  listActividadCompleta: IActividades[] = [];
   listActividadCompleta!: IActividades //IActividadesDetallePrueba[] = [];
 
+  botonVoyActualizar:boolean=false
   constructor(
     private _actividadDiaria: ServiceActividad,
     private _asistenciaService: AsistenciaServiceService, private _snackBar: MatSnackBar,
     public dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public list: any) {
     this.form = this.fb.group({
-      idCarrera: [0],
-      idAnioLectivo: [0],
-      idProyecto: [0],
-      semana: [0],
+      idCarrera: [0,Validators.required],
+      idAnioLectivo: [0,Validators.required],
+      idProyecto: [0,Validators.required],
+      idUsuario:[0,Validators.required],
+      idDocente:[0,Validators.required],
+      idSupervisor:[0,Validators.required],
+    //  semana: [0],
 
       fecha: ['', Validators.required],
       horas: [1, Validators.required],
@@ -57,6 +62,10 @@ export class DetalleADComponent implements OnInit {
     this.getAnioLectivo();
     this.getProyecto();
     this.getEstudiante();
+    if(this.list!=null){
+      this.botonVoyActualizar=true
+    }
+
   }
 
   idCarrera = 0;
@@ -165,16 +174,29 @@ export class DetalleADComponent implements OnInit {
   totales: number = 0
   addConeptoDetalleActividad() {
     //console.log(this.form.value);
-    this.addConceptoActividad.push(this.form.value);
-    //this.addConceptoActividad = response.data!;
-    this.datasource = new MatTableDataSource(this.addConceptoActividad);
-    this.datasource.paginator = this.paginator;
+    if(this.list ==null){
+      this.addConceptoActividad.push(this.form.value);
+      //this.addConceptoActividad = response.data!;
+      this.datasource = new MatTableDataSource(this.addConceptoActividad);
+      this.datasource.paginator = this.paginator;
 
-    let total: number = 0
-    this.addConceptoActividad.forEach(element => {
-      total += element.horas!;
-    });
-    this.totales = total;
+      let total: number = 0
+      this.addConceptoActividad.forEach(element => {
+        total += element.horas!;
+      });
+      this.totales = total;
+    }
+
+    else{
+      let detas2:DetaActividad={
+        fecha:this.form.value.fecha,
+        horas:this.form.value.horas,
+        descripcionActividad:this.form.value.descripcionActividad
+      }
+      this.listActividadCompleta.detaActividad?.push(detas2);
+      this.datasource = new MatTableDataSource(this.listActividadCompleta.detaActividad);
+      this.datasource.paginator = this.paginator;
+    }
     //console.log(this.totales);
     /*this.form.reset();*/
   }
@@ -194,8 +216,10 @@ export class DetalleADComponent implements OnInit {
       this.addConceptoActividad.splice(this.indiceDetalle, 1);
       this.addConceptoActividad.push(this.form.value);
       this.datasource = new MatTableDataSource(this.addConceptoActividad);
+      this.nombreBoton = "Agregar Actividad";
+    this.nuevo = true;
     }
-
+    //this.nombreBoton="Agregar";
   }
 
   remove(id: number, actividad: DetaActividad) {
@@ -238,7 +262,6 @@ export class DetalleADComponent implements OnInit {
 
     this.nuevo = false;
     this.indiceDetalle = this.list != null ? element.idActividadDiDeta! : i;
-
     //value.horas = element.horas;
   }
 
@@ -259,14 +282,11 @@ export class DetalleADComponent implements OnInit {
 
     this._actividadDiaria.post(Actividades).subscribe(response => {
       if (response.codigo == 1) {
-        this.mensaje(response.mensaje);
-        //alert(response.mensaje)
-        this.form.reset();
+        swal.fire("Buen trabajo!", response.mensaje, "success");
       } else if (response.codigo == 2) {
-        this.mensaje(response.mensaje);
-        //alert(response.mensaje)
+      //  swal("Oops..!",  response.mensaje, "warning");
       } else if (response.codigo == 0) {
-        this.mensaje(response.mensaje);
+        swal.fire("Oops..!",  response.mensaje, "warning");
       }
     })
   }
@@ -280,23 +300,19 @@ export class DetalleADComponent implements OnInit {
       idDocente: this.idDocente,
       idSupervisor: this.idSupervisor,
       idActividadesDiarias:this.listActividadCompleta.idActividadesDiarias,
-      //numeroSemana: this.form.value.semana,
       detaActividad:  this.listActividadCompleta.detaActividad!
     }
 
-    //console.log(Actividades);
 
     this._actividadDiaria.ActualizarActividad(Actividades).subscribe(response => {
       if (response.codigo == 1) {
-        this.mensaje(response.mensaje);
+        swal.fire("Buen trabajo!", response.mensaje, "success");
         this.cargarDatosForm();
-        //alert(response.mensaje)
-        this.form.reset();
+        //this.form.reset();
       } else if (response.codigo == 2) {
-        this.mensaje(response.mensaje);
-        //alert(response.mensaje)
+        swal.fire("Oops..!",  response.mensaje, "warning");
       } else if (response.codigo == 0) {
-        this.mensaje(response.mensaje);
+        swal.fire("Oops..!",  response.mensaje, "warning");
       }
     })
 

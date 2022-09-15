@@ -8,8 +8,8 @@ import { IResponse } from 'src/app/Interfaces/Response';
   providedIn: 'root'
 })
 export class AdminServiceService {
-  private url='https://localhost:5001/api/AdminControl';
-
+ // private url='https://localhost:5001/api/AdminControl';
+  private url='http://www.api-vincomunidad.somee.com/api/AdminControl';
 
 
   constructor(private http:HttpClient) { }

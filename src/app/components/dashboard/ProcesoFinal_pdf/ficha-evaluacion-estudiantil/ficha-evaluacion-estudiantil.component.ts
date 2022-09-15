@@ -32,6 +32,7 @@ export class FichaEvaluacionEstudiantilComponent implements OnInit {
   calificacion7!: string
   calificacion8!: string
 
+  logo!: string
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public list:any,
@@ -51,6 +52,18 @@ export class FichaEvaluacionEstudiantilComponent implements OnInit {
 
         this.listFichaEvaluacionEstudiantil=resp.data!;
         this.nombreCarrera=this.listFichaEvaluacionEstudiantil[0].nombreCarrera!;
+        if(this.nombreCarrera=="INGENIERÍA DE SISTEMAS COMPUTACIONALES"){
+          // this.logo="./assets/img/logoCisc.jpg"
+           this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/wakmxaj5cwzb5s11kqf1.jpg"
+         }else if(this.nombreCarrera=="SOFTWARE"){
+              //this.logo="./assets/img/csoft.png"
+              this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209421/vincomunidad/b0ygbfe9h2oqrw4vmsrp.png"
+         }
+        /*if(this.nombreCarrera=="INGENIERÍA DE SISTEMAS COMPUTACIONALES"){
+          this.logo="./assets/img/logoCisc.jpg"
+        }else if(this.nombreCarrera=="SOFTWARE"){
+             this.logo="./assets/img/csoft.png"
+        }*/
         this.nombreEstudiante=this.listFichaEvaluacionEstudiantil[0].nombreEstudiante!;
         this.nombreDocente=this.listFichaEvaluacionEstudiantil[0].nombreDocente!;
         this.nombreSupervisor=this.listFichaEvaluacionEstudiantil[0].nombreSupervisor!;
@@ -58,6 +71,7 @@ export class FichaEvaluacionEstudiantilComponent implements OnInit {
         this.cedEstudiante=this.listFichaEvaluacionEstudiantil[0].cedEstudiante!;
         this.areaDepartamento=this.listFichaEvaluacionEstudiantil[0].areaDepartamento!;
         this.nombreInstitucion=this.listFichaEvaluacionEstudiantil[0].nombreInstitucion!;
+        this.fechaGeneracion=this.listFichaEvaluacionEstudiantil[0].fechaGeneracion!;
 
         this.calificacion1=this.listFichaEvaluacionEstudiantil[0].calificacion!;
         this.calificacion2=this.listFichaEvaluacionEstudiantil[1].calificacion!;

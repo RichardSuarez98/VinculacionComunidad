@@ -14,6 +14,11 @@ private url='https://localhost:5001/api/actividad';
 
   constructor(private http:HttpClient) { }
 
+  eliminarEstudianteActividad (actividad:IActividades):Observable<IResponse> {
+    return this.http.post<IResponse>(this.url+"/eliminarActividad",actividad);
+  }
+
+
   get (actividad:IActividades):Observable<IResponse> {
     return this.http.post<IResponse>(this.url+"/consultarActividad",actividad);
   }

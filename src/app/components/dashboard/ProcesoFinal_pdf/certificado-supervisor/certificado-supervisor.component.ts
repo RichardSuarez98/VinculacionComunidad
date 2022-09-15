@@ -21,6 +21,8 @@ export class CertificadoSupervisorComponent implements OnInit {
   nombreSupervisor!: string
   tituloProyecto!: string
   totalHoras!: number
+
+  logo!: string
   ngOnInit(): void {
     console.log(this.list);
     this.fechaGeneracion=this.list.fechaGeneracion
@@ -29,6 +31,18 @@ export class CertificadoSupervisorComponent implements OnInit {
     this.minFecha=this.list.minFecha
     this.nomAnioLectivo=this.list.nomAnioLectivo
     this.nombreCarrera=this.list.nombreCarrera
+    if(this.nombreCarrera=="INGENIERÍA DE SISTEMAS COMPUTACIONALES"){
+      // this.logo="./assets/img/logoCisc.jpg"
+       this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/wakmxaj5cwzb5s11kqf1.jpg"
+     }else if(this.nombreCarrera=="SOFTWARE"){
+          //this.logo="./assets/img/csoft.png"
+          this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209421/vincomunidad/b0ygbfe9h2oqrw4vmsrp.png"
+     }
+   /* if(this.nombreCarrera=="INGENIERÍA DE SISTEMAS COMPUTACIONALES"){
+      this.logo="./assets/img/logoCisc.jpg"
+    }else if(this.nombreCarrera=="SOFTWARE"){
+         this.logo="./assets/img/csoft.png"
+    }*/
     this.nombreSupervisor=this.list.nombreSupervisor
     this.nombreEstudiante=this.list.nombreEstudiante
     this.tituloProyecto=this.list.tituloProyecto

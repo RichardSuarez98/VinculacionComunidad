@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ServiceActividad } from 'src/app/components/Service/service-actividad.service';
 import { DetaActividad } from 'src/app/Interfaces/Actividad';
-
+//import swal from 'sweetalert';
 @Component({
   selector: 'app-actualizar-deta-actividad',
   templateUrl: './actualizar-deta-actividad.component.html',
@@ -55,10 +55,10 @@ export class ActualizarDetaActividadComponent implements OnInit {
    // console.log(solicitud);
     this._serviceActividad.putActualizarDetalleActividad(solicitud).subscribe(resp=>{
       if(resp.codigo===1){
-        this.mensaje(resp.mensaje);
+      //  swal("Buen Trabajo!", resp.mensaje, "success");
         this.dialogo.close(false);
       }else{
-        this.mensaje(resp.mensaje);
+      //  swal("Oops..!",  resp.mensaje, "warning");
       }
     })
   }

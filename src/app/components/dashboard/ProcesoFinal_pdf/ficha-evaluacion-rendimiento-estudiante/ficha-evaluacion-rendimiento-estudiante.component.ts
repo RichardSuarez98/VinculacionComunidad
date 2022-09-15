@@ -42,7 +42,7 @@ export class FichaEvaluacionRendimientoEstudianteComponent implements OnInit {
   calificacion17!: string
   calificacion18!: string
 
-
+  logo!: string
 
   constructor(@Inject(MAT_DIALOG_DATA) public list:any,
   private _estudianteService: EstudianteService,) { }
@@ -90,6 +90,18 @@ export class FichaEvaluacionRendimientoEstudianteComponent implements OnInit {
 
         this.listFichaEvaluacionRendimiento=resp.data!;
         this.nombreCarrera=this.listFichaEvaluacionRendimiento[0].nombreCarrera!;
+      /*  if(this.nombreCarrera=="INGENIERÍA DE SISTEMAS COMPUTACIONALES"){
+          this.logo="./assets/img/logoCisc.jpg"
+        }else if(this.nombreCarrera=="SOFTWARE"){
+             this.logo="./assets/img/csoft.png"
+        }*/
+        if(this.nombreCarrera=="INGENIERÍA DE SISTEMAS COMPUTACIONALES"){
+          // this.logo="./assets/img/logoCisc.jpg"
+           this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/wakmxaj5cwzb5s11kqf1.jpg"
+         }else if(this.nombreCarrera=="SOFTWARE"){
+              //this.logo="./assets/img/csoft.png"
+              this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209421/vincomunidad/b0ygbfe9h2oqrw4vmsrp.png"
+         }
         this.nombreEstudiante=this.listFichaEvaluacionRendimiento[0].nombreEstudiante!;
         this.nombreDocente=this.listFichaEvaluacionRendimiento[0].nombreDocente!;
         this.nombreSupervisor=this.listFichaEvaluacionRendimiento[0].nombreSupervisor!;
@@ -97,6 +109,7 @@ export class FichaEvaluacionRendimientoEstudianteComponent implements OnInit {
         this.cedEstudiante=this.listFichaEvaluacionRendimiento[0].cedEstudiante!;
         this.areaDepartamento=this.listFichaEvaluacionRendimiento[0].areaDepartamento!;
         this.nombreInstitucion=this.listFichaEvaluacionRendimiento[0].nombreInstitucion!;
+        this.fechaGeneracion=this.listFichaEvaluacionRendimiento[0].fechaGeneracion!;
 
         this.calificacion1=this.listFichaEvaluacionRendimiento[0].calificacion!;
         this.calificacion2=this.listFichaEvaluacionRendimiento[1].calificacion!;

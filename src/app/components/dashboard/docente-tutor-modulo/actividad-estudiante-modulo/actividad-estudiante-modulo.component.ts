@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DetaActividad, IActividades } from 'src/app/Interfaces/Actividad';
 import { AsistenciaServiceService } from '../../../Service/asistencia-service.service';
 import { ServiceActividad } from '../../../Service/service-actividad.service';
+//import swal from 'sweetalert';
 
 @Component({
   selector: 'app-actividad-estudiante-modulo',
@@ -97,16 +98,19 @@ export class ActividadEstudianteModuloComponent implements OnInit {
 
   }
 
+/*
 
+import swal from 'sweetalert';
+
+*/
   cambiarEstadoActividad(actividad:IActividades){
     this._actividadService.putEstaDocenteActividad(actividad).subscribe(response =>{
         if(response.codigo==1){
-          this.mensaje(response.mensaje);
+       //   swal("Buen trabajo!", response.mensaje, "success");
         }else{
-          this.mensaje(response.mensaje);
+       //   swal("Oops..!",  response.mensaje, "warning");  //warning
         }
     })
-    console.log(actividad)
   }
 
 
@@ -117,14 +121,11 @@ export class ActividadEstudianteModuloComponent implements OnInit {
       idActividadDiDeta:element.idActividadDiDeta,
       observacion:element.observacion
     }
-
-    console.log(element);
-    console.log(this.form.value.observacion);
     this._actividadService.putActualizarObservacion(Actividades).subscribe(response=>{
       if(response.codigo==1){
-        console.log(response.mensaje);
+     //   swal("Buen trabajo!", response.mensaje, "success");
       }else{
-        console.log(response.mensaje);
+      //  swal("Oops..!",  response.mensaje, "warning");  //warning
       }
     });
   }

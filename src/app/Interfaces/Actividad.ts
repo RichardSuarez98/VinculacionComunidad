@@ -59,4 +59,7 @@ export interface IActividadConsulta {
   horas:                   number;
   estadoDocente:           string;
   idActividadDiDeta?:      number;
+
+  idDocenteDirector?:     number;
+  nombreDocenteDirector?: string;
 }

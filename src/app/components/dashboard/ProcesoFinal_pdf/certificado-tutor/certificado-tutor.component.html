@@ -1,14 +1,16 @@
+<button  class="btn btn-outline-secondary" mat-button  (click)="pol()" >Descargar</button>
+<br> <br>
 <div class="container">
     <div class="row">
       <div id="htmlData" >
 
         <div style="text-align:center;">
-        <span><img src="./assets/img/logoUg.png" class="izquierda"><img src="./assets/img/logoCisc.jpg" class="derecha"></span>
+        <span><img src="./assets/img/logoUg.png" class="izquierda"><img src="{{logo}}" class="derecha"></span>
         </div>
 
         <br/><br/><br/><br/><br/>
         <div class="row" style="text-align: right;">
-          <b style="text-align: right;">GUAYAQUIL {{fechaGeneracion | date}}</b>
+          <b style="text-align: right;">GUAYAQUIL {{fechaGeneracion |date: 'dd/MM/yyyy'}}</b>
         </div>
 
          <div style="text-align: center; margin-top: 25%;">
@@ -20,7 +22,7 @@
 
          <p style="font-size: 130%;">Por medio de la presente certifico haber realizado la tutoría del proyecto
           <b>{{tituloProyecto}} {{nomAnioLectivo}} por el SR {{nombreEstudiante}}</b> de la carrera
-            de {{nombreCarrera}} - desarrollo del {{minFecha | date:'dd/MM/yy'}} al {{maxFecha | date:'dd/MM/yy'}},
+            de {{nombreCarrera}} - desarrollo del {{minFecha |date: 'dd/MM/yyyy'}} al {{maxFecha |date: 'dd/MM/yyyy'}},
             con duración de {{totalHoras}} horas.</p>
 
             <p style="margin-top: 8%; font-size: 130%;">
@@ -49,5 +51,3 @@
       </div>
     </div>
   </div>
-
-  <button (click)="pol()" >descargar</button>

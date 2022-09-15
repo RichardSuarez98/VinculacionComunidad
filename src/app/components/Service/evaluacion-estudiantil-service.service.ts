@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IEvaluacionEstudiantil } from 'src/app/Interfaces/EvaluacionEstudiantil';
+import { fichaDatosGeneralResponse } from 'src/app/Interfaces/IFichaDatosGenerales';
 import { IResponse } from 'src/app/Interfaces/Response';
 
 @Injectable({
@@ -20,5 +21,15 @@ export class EvaluacionEstudiantilServiceService {
   post (evaluacion:IEvaluacionEstudiantil):Observable<IResponse> {
     return this.http.post<IResponse>(this.url,evaluacion);
   }
+
+  /*  /api/evaluacionEstudiantil/mostrarperiodo */
+  postCargarDatosParaEvaluacionEstudiantil (evaluacion:IEvaluacionEstudiantil):Observable<IResponse> {
+    return this.http.post<IResponse>(this.url+"/mostrarperiodo",evaluacion);
+  }
+
+
+
+
+
 
 }

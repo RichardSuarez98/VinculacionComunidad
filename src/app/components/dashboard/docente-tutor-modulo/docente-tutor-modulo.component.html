@@ -80,6 +80,9 @@
                   <mat-label>Buscador</mat-label>
                   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
               </mat-form-field>
+              <span class="flex" style="margin-left: 20px;">
+                <button mat-button color="primary" (click)="generarFichaDatosGenerales()" style="margin: 5px ; width: 170px;" *ngIf="!habilitarBotonMonitoreo"  >Datos Generales</button>
+              </span>
               </div>
 
                         <table mat-table [dataSource]="datasource" class="mat-elevation-z8"  style="text-align: center;" id="my-table">

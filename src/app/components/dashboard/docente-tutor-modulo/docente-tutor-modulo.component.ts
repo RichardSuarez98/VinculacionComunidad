@@ -3,12 +3,13 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { ChartData, ChartEvent, ChartType } from 'chart.js';
 import * as FileSaver from 'file-saver';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { IActividades } from 'src/app/Interfaces/Actividad';
-import swal from 'sweetalert';
+//import swal from 'sweetalert';
 import { AsistenciaServiceService } from '../../Service/asistencia-service.service';
 import { ExcelServiceService } from '../../Service/excel-service.service';
 import { ServiceActividad } from '../../Service/service-actividad.service';
@@ -18,6 +19,7 @@ import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { CrudEvaluacionEstudiantilComponent } from './crud-fichas-evaluativas/crud-evaluacion-estudiantil/crud-evaluacion-estudiantil.component';
 import { CrudEvaluacionRendimientoComponent } from './crud-fichas-evaluativas/crud-evaluacion-rendimiento/crud-evaluacion-rendimiento.component';
 import { CrudMonitoreoDocenteComponent } from './crud-fichas-evaluativas/crud-monitoreo-docente/crud-monitoreo-docente.component';
+import { FichaDatosGeneralesMComponent } from './ficha-datos-generales-m/ficha-datos-generales-m.component';
 //import { CrudEvaluacionEstudiantilComponent } from '../crud-fichas-evaluativas/crud-evaluacion-estudiantil/crud-evaluacion-estudiantil.component';
 //import { CrudMonitoreoDocenteComponent } from '../crud-fichas-evaluativas/crud-monitoreo-docente/crud-monitoreo-docente.component';
 
@@ -63,7 +65,7 @@ export class DocenteTutorModuloComponent implements OnInit {
     }*/
 
   constructor(private _asistenciaService: AsistenciaServiceService,private _actividadService: ServiceActividad,
-    public dialog: MatDialog, private fb: FormBuilder, private excelService: ExcelServiceService
+    public dialog: MatDialog, private fb: FormBuilder, private excelService: ExcelServiceService, private route: Router
    ) {
     this.form = this.fb.group({
       idCarrera: [0],
@@ -85,6 +87,37 @@ export class DocenteTutorModuloComponent implements OnInit {
       this.habilitarBotonSupervisor=true;
       this.habilitarBotonMonitoreo=false;
      }
+
+
+     if(_finaldata.idRol===1){// console.log("Tienes acceso de Director de Carrera");
+      this.route.navigate(['dashboard/']);
+    }else if(_finaldata.idRol===2){//console.log("Tienes acceso de Gestor de Vinculación");
+      this.route.navigate(['dashboard/']);
+    }else if(_finaldata.idRol===3){//console.log("Tienes acces de Director de Proyecto");
+      this.route.navigate(['dashboard/']);
+    }else if(_finaldata.idRol===6){// console.log("Tienes acces de Supervisor");
+      this.route.navigate(['dashboard/']);
+     }
+    else if(_finaldata.idRol===7){
+      this.route.navigate(['dashboard/']);// asistente administrativo
+    }
+
+    /*
+    if(_finaldata.idRol===1){// console.log("Tienes acceso de Director de Carrera");
+      this.route.navigate(['dashboard/']);
+    }else if(_finaldata.idRol===2){//console.log("Tienes acceso de Gestor de Vinculación");
+      this.route.navigate(['dashboard/']);
+    }else if(_finaldata.idRol===3){//console.log("Tienes acces de Director de Proyecto");
+      this.route.navigate(['dashboard/']);
+    }
+    else if(_finaldata.idRol===4){// console.log("Tienes acces de Docente Tutor");
+     this.route.navigate(['dashboard/']);
+    }else if(_finaldata.idRol===5){// console.log("Tienes acces de Supervisor");
+     this.route.navigate(['dashboard/']);
+    }else if(_finaldata.idRol===7){
+      this.route.navigate(['dashboard/']);// asistente administrativo
+    }
+    */
   }
 
 
@@ -246,10 +279,10 @@ cargarPorcentajeProyecto(){
       }
       this.excelService.generarFichaActividadesDiarias(solicitud).subscribe(resp=>{
         if(resp.codigo==1){
-          swal("Buen trabajo!", resp.mensaje, "success");
+        //  swal("Buen trabajo!", resp.mensaje, "success");
           this.getActividad();
         }else if(resp.codigo==0){
-          swal("Oops..!",  resp.mensaje, "warning");  //warning
+        //  swal("Oops..!",  resp.mensaje, "warning");  //warning
         }
       });
     }
@@ -267,10 +300,10 @@ cargarPorcentajeProyecto(){
       }
       this.excelService.generarCertificadoTutor(solicitud).subscribe(resp=>{
         if(resp.codigo==1){
-          swal("Buen trabajo!", resp.mensaje, "success");
+        //  swal("Buen trabajo!", resp.mensaje, "success");
           this.getActividad();
         }else if(resp.codigo==0){
-          swal("Oops..!",  resp.mensaje, "warning");  //warning
+        //  swal("Oops..!",  resp.mensaje, "warning");  //warning
         }
       });
     }
@@ -288,14 +321,22 @@ cargarPorcentajeProyecto(){
       }
       this.excelService.generarCertificadoSupervisor(solicitud).subscribe(resp=>{
         if(resp.codigo==1){
-          swal("Buen trabajo!", resp.mensaje, "success");
+        //  swal("Buen trabajo!", resp.mensaje, "success");
           this.getActividad();
         }else if(resp.codigo==0){
-          swal("Oops..!",  resp.mensaje, "warning");  //warning
+        //  swal("Oops..!",  resp.mensaje, "warning");  //warning
         }
       });
     }
 
+    generarFichaDatosGenerales(){
+      const dialogo=this.dialog.open(FichaDatosGeneralesMComponent,{
+        width:'50%',
+        height:'38%',
+      })
+      dialogo.afterClosed().subscribe(result => {
+      });
+    }
 
 
 

@@ -4,7 +4,7 @@
   <div class="row">
     <div id="htmlData">
       <div style="text-align:center;">
-        <span><img src="./assets/img/logoUg.png" class="izquierda"><img src="./assets/img/logoCisc.jpg" class="derecha">
+        <span><img src="./assets/img/logoUg.png" class="izquierda"><img src="{{logo}}" class="derecha">
           <span style="font-size: 14px;"><b>UNIVERSIDAD DE GUAYAQUIL <br />
               {{nombreCarrera}} </b></span><br />
           <span style="font-size: 12px;"> DIRECCIÓN DE GESTIÓN SOCIAL DEL CONOCIMIENTO <br />
@@ -61,7 +61,7 @@
           <th>DESCRICIÓN DE TAREAS DIARIAS DESARROLLADAS</th>
         </tr>
         <tr *ngFor="let item of listFichaActividadDiaria">
-          <th>{{item.fecha |date: 'MM/dd/yyyy'}}</th>
+          <th>{{item.fecha |date: 'dd/MM/yyyy'}}</th>
           <th>{{item.horas}}</th>
           <th>
             {{item.descripcionActividad}}

@@ -63,10 +63,10 @@
                   {{item.descripcionActividad}}
                 </mat-panel-title>
                 <mat-panel-description style="text-align: center;">
-                  {{item.fecha |date: 'MM/dd/yyyy'}}
+                  {{item.fecha |date: 'dd/MM/yyyy'}}
                 </mat-panel-description>
                 <mat-panel-description style="text-align: center;">
-                  {{item.fecha |date: 'MM/dd/yyyy'}}
+                  {{item.fecha |date: 'dd/MM/yyyy'}}
                   <!---  fechaReal---->
                 </mat-panel-description>
                 <mat-panel-description>
@@ -147,22 +147,37 @@
 
   <mat-card>
     <mat-tab-group>
-      <mat-tab label="Ficha de Actividades Diarias">
+
+      <mat-tab label="Ficha de Datos Generales">
         <div style="margin: 25px;">
           <table class="table table-striped table-hover">
-            <!--table-hover-->
             <tbody>
               <td class="negro">Se generó el</td>
               <td class="negro">Descargar</td>
-              <tr *ngFor="let element of listFichaActividadDiaria">
-                <td>{{element.fechaGeneracion | date}}</td>
-                <td> <img src="./assets/img/pdf.png" width="35px" (click)="openDialog(element)">
+              <tr *ngFor="let element of listFichaDatosGeneral">
+                <td>{{element.fechaGeneracion |date: 'dd/MM/yyyy'}}</td>
+                <td> <img src="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/nrrjhzju9xbilx5p4vv3.png" width="35px" (click)="openDialogFichaGeneral(element)">
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+      </mat-tab>
 
+      <mat-tab label="Ficha de Actividades Diarias">
+        <div style="margin: 25px;">
+          <table class="table table-striped table-hover">
+            <tbody>
+              <td class="negro">Se generó el</td>
+              <td class="negro">Descargar</td>
+              <tr *ngFor="let element of listFichaActividadDiaria">
+                <td>{{element.fechaGeneracion |date: 'dd/MM/yyyy'}}</td>
+                <td> <img src="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/nrrjhzju9xbilx5p4vv3.png" width="35px" (click)="openDialog(element)">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </mat-tab>
 
       <mat-tab label="Ficha de Evaluación Estudiantil">
@@ -173,8 +188,8 @@
               <td class="negro">Se generó el</td>
               <td class="negro">Descargar</td>
               <tr *ngFor="let fichaE of listFichaEvaluacionEstudiantil">
-                <td>{{fichaE.fechaGeneracion | date}}</td>
-                <td> <img src="./assets/img/pdf.png" width="35px"
+                <td>{{fichaE.fechaGeneracion |date: 'dd/MM/yyyy'}}</td>
+                <td> <img src="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/nrrjhzju9xbilx5p4vv3.png" width="35px"
                     (click)="openDialogFichaEvaluacionEstudiantil(fichaE)">
                 </td>
               </tr>
@@ -192,8 +207,8 @@
               <td class="negro">Se generó el</td>
               <td class="negro">Descargar</td>
               <tr *ngFor="let fichaRendimiento of listFichaEvaluacionRendimiento">
-                <td>{{fichaRendimiento.fechaGeneracion | date}}</td>
-                <td> <img src="./assets/img/pdf.png" width="35px"
+                <td>{{fichaRendimiento.fechaGeneracion |date: 'dd/MM/yyyy'}}</td>
+                <td> <img src="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/nrrjhzju9xbilx5p4vv3.png" width="35px"
                     (click)="openDialogFichaEvaluacionRendimiento(fichaRendimiento)">
                 </td>
               </tr>
@@ -211,8 +226,8 @@
               <td class="negro">Se generó el</td>
               <td class="negro">Descargar</td>
               <tr *ngFor="let monitoreoDocente of listMonitoreoDocente">
-                <td>{{monitoreoDocente.fechaGeneracion | date}}</td>
-                <td> <img src="./assets/img/pdf.png" width="35px" (click)="openDialogFichaMonitoreoDocente(monitoreoDocente)">
+                <td>{{monitoreoDocente.fechaGeneracion |date: 'dd/MM/yyyy'}}</td>
+                <td> <img src="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/nrrjhzju9xbilx5p4vv3.png" width="35px" (click)="openDialogFichaMonitoreoDocente(monitoreoDocente)">
                 </td>
               </tr>
             </tbody>
@@ -229,8 +244,8 @@
               <td class="negro">Se generó el</td>
               <td class="negro">Descargar</td>
               <tr *ngFor="let certificado of listCertificadoTutor">
-                <td>{{certificado.fechaGeneracion | date}}</td>
-                <td> <img src="./assets/img/pdf.png" width="35px" (click)="openDialogCertificadoTutor(certificado)">
+                <td>{{certificado.fechaGeneracion |date: 'dd/MM/yyyy'}}</td>
+                <td> <img src="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/nrrjhzju9xbilx5p4vv3.png" width="35px" (click)="openDialogCertificadoTutor(certificado)">
                 </td>
               </tr>
             </tbody>
@@ -247,8 +262,8 @@
               <td class="negro">Se generó el</td>
               <td class="negro">Descargar</td>
               <tr *ngFor="let certificado of listCertificacionSupervisor">
-                <td>{{certificado.fechaGeneracion | date}}</td>
-                <td> <img src="./assets/img/pdf.png" width="35px"
+                <td>{{certificado.fechaGeneracion |date: 'dd/MM/yyyy'}}</td>
+                <td> <img src="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/nrrjhzju9xbilx5p4vv3.png" width="35px"
                     (click)="openDialogCertificacionSupervisor(certificado)">
                 </td>
               </tr>
@@ -266,8 +281,8 @@
               <td class="negro">Se generó el</td>
               <td class="negro">Descargar</td>
               <tr *ngFor="let asistencia of listFichaAsistencia">
-                <td>{{asistencia.fechaGeneracion | date}}</td>
-                <td> <img src="./assets/img/pdf.png" width="35px" (click)="openDialogFichaAsistencia(asistencia)">
+                <td>{{asistencia.fechaGeneracion |date: 'dd/MM/yyyy'}}</td>
+                <td> <img src="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/nrrjhzju9xbilx5p4vv3.png" width="35px" (click)="openDialogFichaAsistencia(asistencia)">
                 </td>
               </tr>
             </tbody>

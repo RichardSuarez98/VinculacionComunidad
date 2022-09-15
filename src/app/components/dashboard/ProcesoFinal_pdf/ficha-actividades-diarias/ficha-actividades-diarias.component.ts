@@ -20,6 +20,8 @@ export class FichaActividadesDiariasComponent implements OnInit {
   cedulaSupervisor!: string
   totalHoras!:  number
 
+
+  logo!: string
   constructor(@Inject(MAT_DIALOG_DATA) public list:any,
   private _estudianteService: EstudianteService,) { }
 
@@ -36,6 +38,18 @@ export class FichaActividadesDiariasComponent implements OnInit {
       if(resp.codigo==1){
         this.listFichaActividadDiaria=resp.data!;
         this.nombreCarrera=this.listFichaActividadDiaria[0].nombreCarrera!;
+       /* if(this.nombreCarrera=="INGENIERÍA DE SISTEMAS COMPUTACIONALES"){
+          this.logo="./assets/img/logoCisc.jpg"
+        }else if(this.nombreCarrera=="SOFTWARE"){
+             this.logo="./assets/img/csoft.png"
+        }*/
+        if(this.nombreCarrera=="INGENIERÍA DE SISTEMAS COMPUTACIONALES"){
+          // this.logo="./assets/img/logoCisc.jpg"
+           this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/wakmxaj5cwzb5s11kqf1.jpg"
+         }else if(this.nombreCarrera=="SOFTWARE"){
+              //this.logo="./assets/img/csoft.png"
+              this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209421/vincomunidad/b0ygbfe9h2oqrw4vmsrp.png"
+         }
         this.nombreEstudiante=this.listFichaActividadDiaria[0].nombreEstudiante!;
         this.nombreDocente=this.listFichaActividadDiaria[0].nombreDocente!;
         this.nombreSupervisor=this.listFichaActividadDiaria[0].nombreSupervisor!;

@@ -22,6 +22,9 @@ export class AsistenciaEstudianteComponent implements OnInit {
   fechaInicio!: Date
   fechaFin!: Date
 
+
+  logo!: string
+
   constructor(@Inject(MAT_DIALOG_DATA) public list:any,private _estudianteService: EstudianteService) { }
 
   ngOnInit(): void {
@@ -38,6 +41,13 @@ this._estudianteService.DescargarfichaAsistenciaEstudiantil(numeroEstudiante).su
   if(resp.codigo==1){
     this.listFichaAsistencia=resp.data!;
     this.nombreCarrera=this.listFichaAsistencia.nombreCarrera!;
+    if(this.nombreCarrera=="INGENIERÍA DE SISTEMAS COMPUTACIONALES"){
+     // this.logo="./assets/img/logoCisc.jpg"
+      this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/wakmxaj5cwzb5s11kqf1.jpg"
+    }else if(this.nombreCarrera=="SOFTWARE"){
+         //this.logo="./assets/img/csoft.png"
+         this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209421/vincomunidad/b0ygbfe9h2oqrw4vmsrp.png"
+    }
     this.nombreEstudiante= this.listFichaAsistencia.nombreEstudiante!;
     this.nombreInstitucion= this.listFichaAsistencia.nombreInstitucion!;
     this.departamento=this.listFichaAsistencia.areaDesempenio!;
