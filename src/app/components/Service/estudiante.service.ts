@@ -10,8 +10,10 @@ import { IResponse } from 'src/app/Interfaces/Response';
 })
 export class EstudianteService {
 
+  //private url='http://www.api-vincomunidad.somee.com/api/estudiante'
   private url='https://localhost:5001/api/estudiante';
   private urlFicha='https://localhost:5001/api/fichas';
+  //private urlFicha='http://www.api-vincomunidad.somee.com/api/fichas';
 
   constructor(private http:HttpClient) { }
 

@@ -11,6 +11,7 @@ import { IResponse } from 'src/app/Interfaces/Response';
 export class EvaluacionEstudiantilServiceService {
 
   private url='https://localhost:5001/api/evaluacionEstudiantil';
+  //private url='http://www.api-vincomunidad.somee.com/api/evaluacionEstudiantil';
 
   constructor(private http:HttpClient) { }
 

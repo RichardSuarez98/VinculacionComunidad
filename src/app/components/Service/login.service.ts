@@ -24,9 +24,10 @@ export class LoginService {
 
  public useri : Observable<IUsuario>
 
+  //private url = 'https://localhost:5001/api/authLogin';
   private url = 'https://localhost:5001/api/authLogin';
 //http://www.api-vincomunidad.somee.com/api/authLogin
-//private url = 'http://www.api-vincomunidad.somee.com/api/authLogin';
+   //private url = 'http://www.api-vincomunidad.somee.com/api/authLogin';
 
   private usuarioSubject: BehaviorSubject<IUsuario>;
 

@@ -225,10 +225,10 @@ export class DirectorProyectoModuloComponent implements OnInit {
          };
       this._actividadService.actualizarPlanificacionGestor(solicitud).subscribe(resp=>{
         if(resp.codigo==1){
-        //  swal("Buen Trabajo!", resp.mensaje, "success");
+          swal.fire("Buen Trabajo!", resp.mensaje, "success");
           this.getActividad();
         }else if(resp.codigo==0){
-       //   swal("Oops..!",  resp.mensaje, "warning");  //warning
+          swal.fire("Oops..!",  resp.mensaje, "warning");  //warning
         }
 
       });
@@ -242,10 +242,10 @@ export class DirectorProyectoModuloComponent implements OnInit {
          };
          this._actividadService.actualizarPlanificacionGestor(solicitud).subscribe(resp=>{
           if(resp.codigo==1){
-         //   swal("Buen trabajo!",  resp.mensaje, "success");  //warning
+            swal.fire("Buen trabajo!",  resp.mensaje, "success");  //warning
             this.getActividad();
           }else if(resp.codigo==0){
-        //    swal("Oops..!",  resp.mensaje, "warning");  //warning
+            swal.fire("Oops..!",  resp.mensaje, "warning");  //warning
           }
         });
     }
@@ -279,7 +279,6 @@ export class DirectorProyectoModuloComponent implements OnInit {
         }
         this.numberEstadProyecto=this.porcentajeProyecto[0]
         }else{
-          console.log(response.mensaje);
         }
       });
      }
@@ -291,7 +290,7 @@ export class DirectorProyectoModuloComponent implements OnInit {
         const worksheet = xlsx.utils.json_to_sheet(this.listActividad);
         const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
         const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-        this.saveAsExcelFile(excelBuffer, "products");
+        this.saveAsExcelFile(excelBuffer, "planificacion");
     });
      }
 
@@ -299,7 +298,23 @@ export class DirectorProyectoModuloComponent implements OnInit {
       const doc = new jsPDF();
       doc.text("Planificación",20,20);
       autoTable(doc, { html: '#my-table',  margin:{ top: 25 } } )
-      doc.save('table.pdf')
+      doc.save('planificacion.pdf')
+     }
+
+     exportExcel2(){
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.listActividadSeguimiento);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "seguimiento");
+    });
+     }
+
+    exportPdf2(){
+      const doc = new jsPDF();
+      doc.text("Seguimiento de las Actividades del Estudiante",20,20);
+      autoTable(doc, { html: '#my-table2',  margin:{ top: 25 } } )
+      doc.save('seguimiento.pdf')
      }
 
 

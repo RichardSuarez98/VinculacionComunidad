@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DetaAsistencia, IAsistenciaEvidencia, IAsistenciaQuery, IAsistenciaResponse } from 'src/app/Interfaces/Asistencia';
 //import swal from 'sweetalert';
 import { AsistenciaServiceService } from '../../../Service/asistencia-service.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-asistencia',
@@ -86,8 +87,6 @@ export class AsistenciaComponent implements OnInit {
   }
 
   mostrarFecha() {
-    console.log(this.form.value.fecha);
-
     const solicitud: IAsistenciaQuery = { idAnioLectivo: this.idAnioLectivo, idCarrera: this.idCarrera, idProyecto: this.idProyecto, fecha: this.form.value.fecha };
 
     this._asistenciaService.get(solicitud).subscribe(response => {
@@ -143,22 +142,14 @@ export class AsistenciaComponent implements OnInit {
       this._asistenciaService.postAsistencia(solicitud).subscribe(response => {
         console.log(response);
         if (response.codigo == 1) {
-          this._snackBar.open(response.mensaje, '', {
-            duration: 5000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom'
-          });
+          swal.fire("Buen Trabajo!", response.mensaje, "success");
           this.getProyecto();
           this.ocultarBoton=true;
           this.form.reset();
           this.listProyecto = [];
           this.datasource = new MatTableDataSource(this.listProyecto)
         } else if (response.codigo == 2) {
-          this._snackBar.open(response.mensaje, '', {
-            duration: 5000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom'
-          });
+          swal.fire("Oops..!",  response.mensaje, "warning");  //warning
         }
       })
     } else {
@@ -181,18 +172,18 @@ export class AsistenciaComponent implements OnInit {
       };
       this._asistenciaService.putAsistencia(solicitud).subscribe(response => {
         if (response.codigo == 1) {
-          this._snackBar.open('Asistencia Actualizado con èxito', '', {
-            duration: 5000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom'
-          });
+          swal.fire("Buen Trabajo!", response.mensaje, "success");
           //this.ocultarBoton=false;
           this.getProyecto();
           this.form.reset();
           this.listProyecto = [];
           this.nombreBoton = "Guardar";
           this.datasource = new MatTableDataSource(this.listProyecto)
+        }else
+        {
+          swal.fire("Oops..!",  response.mensaje, "warning");  //warning
         }
+
       });
     }
   }
@@ -229,7 +220,6 @@ export class AsistenciaComponent implements OnInit {
 
   addConcepto() {
     this.deta.push(this.form.value);
-    console.log(this.deta);
   }
 
 

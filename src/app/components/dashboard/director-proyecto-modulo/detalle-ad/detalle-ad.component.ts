@@ -284,7 +284,7 @@ export class DetalleADComponent implements OnInit {
       if (response.codigo == 1) {
         swal.fire("Buen trabajo!", response.mensaje, "success");
       } else if (response.codigo == 2) {
-      //  swal("Oops..!",  response.mensaje, "warning");
+        swal.fire("Oops..!",  response.mensaje, "warning");
       } else if (response.codigo == 0) {
         swal.fire("Oops..!",  response.mensaje, "warning");
       }

@@ -4,6 +4,7 @@ import { EstudianteService } from 'src/app/components/Service/estudiante.service
 import { ServiceActividad } from 'src/app/components/Service/service-actividad.service';
 import { guardarDatosGeneralResponse } from 'src/app/Interfaces/IFichaDatosGenerales';
 //import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ficha-datos-generales-m',
@@ -75,9 +76,9 @@ export class FichaDatosGeneralesMComponent implements OnInit {
 
    this._ficha.guardarFichaDatosGenerales(solici).subscribe(resp=>{
       if(resp.codigo===1){
-      //  swal("Buen trabajo!", resp.mensaje, "success");
+        swal.fire("Buen trabajo!", resp.mensaje, "success");
       }else if(resp.codigo===0){
-      //  swal("Oops..!",  resp.mensaje, "warning");
+        swal.fire("Oops..!",  resp.mensaje, "warning");
       }
     });
   }

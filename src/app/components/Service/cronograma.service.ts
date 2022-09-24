@@ -9,6 +9,7 @@ import { IResponse } from 'src/app/Interfaces/Response';
 })
 export class CronogramaService {
   private url='https://localhost:5001/api/cronograma';
+  //private url='http://www.api-vincomunidad.somee.com';
 
   constructor(private http:HttpClient) { }
 

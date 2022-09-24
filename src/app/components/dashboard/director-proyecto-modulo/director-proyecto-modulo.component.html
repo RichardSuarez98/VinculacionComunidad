@@ -1,263 +1,296 @@
 <br>
 <div style="margin: 25px;">
-<div class="row justify-content-center">
+  <div class="row justify-content-center">
     <div class="col-lg-4">
-        <div class="card">
-            <div class="card-body">
-                <p style="text-align: center; font-size: large;"><b>Mostrar Planificación </b></p>
-                <div style="margin: 20px;">
-                    <mat-form-field class="col-sm-12" appearance="legacy">
-                        <mat-label>Carrera</mat-label>
-                        <mat-select [(value)]="idCarrera" name="food"> <!--  -->
-                            <mat-option  *ngFor="let element of listCarrera" [value]="element.idCarrera">
-                                {{element.nombreCarrera}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field appearance="legacy" class="col-sm-12">
-                        <mat-label>Periodo Lectivo</mat-label>
-                        <mat-select  [(value)]="idAnioLectivo" name="food" > <!--    -->
-                            <mat-option *ngFor="let element of listAnioLectivo"
-                                [value]="element.idAnioLectivo">
-                                {{element.nomAnioLectivo}} {{element.nomCiclo}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field appearance="legacy">
-                        <mat-label>Proyecto</mat-label>
-                        <mat-select name="food" [(value)]="idProyecto">
-                            <mat-option (click)="getActividad()" *ngFor="let element of listProyecto"
-                                [value]="element.idProyecto">
-                                {{element.tituloProyecto}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <div>
-                      <button style="margin-left: 5px;" mat-button class="botonColorido" (click)="dialogReporte()"  >Reportes</button> <!-- routerLink="/dashboard/reportes" -->
-                      &nbsp;&nbsp;
-                      <button mat-button color="primary" class="button" (click)="openDialog()" *ngIf="habilitarBoton">Registrar</button>
-                  </div>
-                </div>
+      <div class="card">
+        <div class="card-body">
+          <p style="text-align: center; font-size: large;"><b>Mostrar Planificación </b></p>
+          <div style="margin: 20px;">
+            <mat-form-field class="col-sm-12" appearance="legacy">
+              <mat-label>Carrera</mat-label>
+              <mat-select [(value)]="idCarrera" name="food">
+                <!--  -->
+                <mat-option *ngFor="let element of listCarrera" [value]="element.idCarrera">
+                  {{element.nombreCarrera}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="legacy" class="col-sm-12">
+              <mat-label>Periodo Lectivo</mat-label>
+              <mat-select [(value)]="idAnioLectivo" name="food">
+                <!--    -->
+                <mat-option *ngFor="let element of listAnioLectivo" [value]="element.idAnioLectivo">
+                  {{element.nomAnioLectivo}} {{element.nomCiclo}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <mat-label>Proyecto</mat-label>
+              <mat-select name="food" [(value)]="idProyecto">
+                <mat-option (click)="getActividad()" *ngFor="let element of listProyecto" [value]="element.idProyecto">
+                  {{element.tituloProyecto}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div>
+              <button style="margin-left: 5px;" mat-button class="botonColorido"
+                (click)="dialogReporte()">Reportes</button> <!-- routerLink="/dashboard/reportes" -->
+              &nbsp;&nbsp;
+              <button mat-button color="primary" class="button" (click)="openDialog()"
+                *ngIf="habilitarBoton">Registrar</button>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="card">
-            <div class="card-body">
-                <p style="text-align: center; font-size: large;"><b>Proyecto</b></p>
-                <div style="text-align: center;">
-                  <p-knob  [size]="200" valueColor="SlateGray" [disabled]=true valueTemplate="{{numberEstadProyecto}}%"  [(ngModel)]="numberEstadProyecto" ></p-knob>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="card">
-            <div class="card-body">
-              <div style="margin-left: 28%; width:40%;" >
-                <p-chart type="doughnut" [data]="data" [options]="chartOptions" [style]="{'width': '40%'}"></p-chart>
-             </div>
           </div>
         </div>
+      </div>
     </div>
-</div>
-<br>
-<p style="font-size: large;"><b> Planificación </b></p>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <p style="text-align: center; font-size: large;"><b>Proyecto</b></p>
+          <div style="text-align: center;">
+            <p-knob [size]="200" valueColor="SlateGray" [disabled]=true valueTemplate="{{numberEstadProyecto}}%"
+              [(ngModel)]="numberEstadProyecto"></p-knob>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <div style="margin-left: 28%; width:40%;">
+            <p-chart type="doughnut" [data]="data" [options]="chartOptions" [style]="{'width': '40%'}"></p-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <p style="font-size: large;"><b> Planificación </b></p>
 </div>
 
 <div style="margin: 25px;">
-    <div class="row justify-content-center">
-        <div class="col-lg-12">
-            <div class="card">
-              <mat-tab-group>
-                <mat-tab label="Planificación">
-                  <div style="margin: 25px;" class="col-sm-12" *ngIf="datasource != null">
+  <div class="row justify-content-center">
+    <div class="col-lg-12">
+      <div class="card">
+        <mat-tab-group>
+          <mat-tab label="Planificación">
+            <div style="margin: 25px;" class="col-sm-12" *ngIf="datasource != null">
 
-                    <div >
-                    <mat-form-field appearance="standard" >
-                      <mat-label>Buscador</mat-label>
-                      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-                  </mat-form-field>
-                    <span class="flex" style="margin-left: 20px;">
-                      <button type="button" class="btn btn-success" (click)="exportExcel()">Excel</button>
-                      <button style="margin-left: 5px;" type="button" class="btn btn-danger" (click)="exportPdf()">PDF</button>
-                      <button [matMenuTriggerFor]="menu" style="margin-left: 5px;" type="button" class="btn btn-warning" *ngIf="habilitarBotonAprobarPlanificacion">Aprobar Planificación</button>
-                      <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="aprobarPlanificacion(1)" >Aprobar</button>
-                        <!--button mat-menu-item (click)="aprobarPlanificacion(0)" >Reprobar</!--button-->
-                      </mat-menu>
-                    </span>
-                  </div>
-
-                  </div>
-    <!---  [ngClass]="element.estadoDocente==='Sí' ? 'classSucces':'classWarning'"   ----->
-    <!--section ngClass="example-container mat-elevation-z8" tabindex="0"></!--section-->
-                  <section [ngClass]="datasource ==null ? 'mat-elevation-z8':'example-container mat-elevation-z8'" tabindex="0">
-                            <table mat-table [dataSource]="datasource" class="mat-elevation-z8" id="my-table">
-                                <ng-container matColumnDef="descripcion"  >
-                                  <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;" > Actividad </th>
-                                  <td mat-cell *matCellDef="let element"> {{element.descripcionActividad}} </td>
-                              </ng-container>
-                              <ng-container matColumnDef="fecha" >
-                                <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;"> Fecha </th>
-                                <td mat-cell *matCellDef="let element"> {{element.fecha |date: 'dd/MM/yyyy'}} </td> <!-- 'MM/dd/yyyy' -->
-                            </ng-container>
-                                <ng-container matColumnDef="nombreEstudiante" >
-                                  <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;"> Estudiante </th>
-                                  <td mat-cell *matCellDef="let element">{{element.nombreEstudiante}} </td>
-                              </ng-container>
-
-                              <ng-container matColumnDef="nombreDirectorProyecto" >
-                                <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;"> Director de Proyecto </th>
-                                <td mat-cell *matCellDef="let element"> Ing. {{element.nombreDocenteDirector}} </td>
-                            </ng-container>
-
-                                <ng-container matColumnDef="nombreDocente" >
-                                    <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;"> Docente/Tutor </th>
-                                    <td mat-cell *matCellDef="let element"> Ing. {{element.nombreDocente}} </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="nombreSupervisor" >
-                                    <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;"> Supervisor </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.nombreSupervisor}} </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="totalHoras" >
-                                    <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;">Horas </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.horas}} </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="estadoGestorVinculacion" >
-                                    <th mat-header-cell *matHeaderCellDef style="text-align: center; background-color: #3a4f63!important;color: white;">Estado Gestor</th>
-                                    <td mat-cell *matCellDef="let element" >
-                                        <mat-form-field appearance="legacy"  >
-                                              <mat-select disabled="true"  [(value)]="element.estadoGestorVinculacion"   >
-                                                <mat-option *ngFor="let estadoGestor of lstEstados"  [value]="estadoGestor.valor" (click)="cambiarEstadoActividad(element)" [ngStyle]="{'color':estadoGestor.colorbox}" >
-                                                    {{estadoGestor.name}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="actividadProgress" >
-                                  <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;">Actividad Cumplida</th>
-                                  <td mat-cell *matCellDef="let element" style="text-align: center;"   > <div ><p [ngClass]="element.estadoDocente==='Sí' ? 'classSucces':'classWarning'" >{{element.estadoDocente}}</p></div>  </td>
-                              </ng-container>
-
-
-
-                                <!--ng-container matColumnDef="accion" >
-                                    <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;" > Acción </th>
-                                    <td mat-cell *matCellDef="let element">
-                                        <button mat-button color="primary" class="button" (click)="editarActividad(element)" style="background-color: #3a4f63!important;color: white;" *ngIf="habilitarBoton">Editar</button>
-                                        <button mat-button color="primary" class="button" (click)="  openDialogActualizar(element)" style="background-color: #3a4f63!important;color: white;" *ngIf="habilitarBoton">Editar</button>
-
-                                      </td>
-                                </!--ng-container-->
-
-                                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-                            </table>
-                   </section>
-                   <mat-paginator [pageSizeOptions]="[10,15,20,25,30,35,40,45,50]" aria-label="Select page of periodic elements"></mat-paginator>
-
-
-                </mat-tab>
-
-                <mat-tab label="Seguimiento">
-                  <div class="card">
-
-                    <div style="margin: 25px;text-align:center;" class="col-sm-12" >
-                      <mat-form-field appearance="legacy" >
-                        <mat-label>Buscador</mat-label>
-                        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-                    </mat-form-field>
-                    </div>
-
-                              <table mat-table [dataSource]="datasourceSeguimiento" class="mat-elevation-z8"  style="text-align: center;" id="my-table">
-
-                                  <ng-container matColumnDef="idActividadesDiarias" style="text-align: center;">
-                                      <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;" > Id </th>
-                                      <td mat-cell *matCellDef="let element"> {{element.idActividadesDiarias}} </td>
-                                  </ng-container>
-
-                                  <ng-container matColumnDef="nombreEstudiante" style="text-align: center;">
-                                    <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;"> Estudiante </th>
-                                    <td mat-cell *matCellDef="let element">{{element.nombreEstudiante}} </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="nombreDirector" style="text-align: center;">
-                                  <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;"> Supervisor </th>
-                                  <td mat-cell *matCellDef="let element">Ing. {{element.nombreDocenteDirector}} </td>
-                              </ng-container>
-
-                                <ng-container matColumnDef="nombreDocente" style="text-align: center;">
-                                    <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;"> Docente </th>
-                                    <td mat-cell *matCellDef="let element">Ing. {{element.nombreDocente}} </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="nombreSupervisor" style="text-align: center;">
-                                  <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;"> Supervisor </th>
-                                  <td mat-cell *matCellDef="let element">{{element.nombreSupervisor}} </td>
-                              </ng-container>
-
-                                  <ng-container matColumnDef="totalHoras" style="text-align: center;">
-                                      <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;">Horas Totales </th>
-                                      <td mat-cell *matCellDef="let element"> {{element.totalHoras}} </td>
-                                  </ng-container>
-                                  <ng-container matColumnDef="fechaInicio" style="text-align: center;">
-                                    <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;">Fecha Inicio </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.fechaInicio |date: 'dd/MM/yyyy'}} </td>
-                                </ng-container>
-                                <ng-container matColumnDef="fechaFin" style="text-align: center;">
-                                  <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;">Fecha Fin </th>
-                                  <td mat-cell *matCellDef="let element"> {{element.fechaFin |date: 'dd/MM/yyyy'}} </td>
-                              </ng-container>
-
-
-                                  <ng-container matColumnDef="actividadProgress" style="text-align: center;">
-                                    <th mat-header-cell *matHeaderCellDef style="text-align: center;background-color: #3a4f63!important;color: white;">Progreso de Actividad</th>
-                                    <td mat-cell *matCellDef="let element" >
-                                      <br>
-                                        <mat-progress-bar class="progress-bar" role="progressbar"value="{{element.porcentaje}}" ></mat-progress-bar>
-                                        <p>{{element.porcentaje}}%</p>
-                                      </td>
-                                </ng-container>
-
-                                  <ng-container matColumnDef="accion">
-                                      <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;"> Acción </th>
-                                      <td mat-cell *matCellDef="let element" >
-                                        <mat-icon style="cursor: pointer;" (click)="openDialogActualizar(element)" *ngIf="habilitarBoton" >plagiarism</mat-icon> <!--  (click)="openDialog(element)"---->
-                                        <mat-icon style="cursor: pointer;" (click)="eliminarActividad(element)" *ngIf="habilitarBoton" >delete</mat-icon>
-                                      </td>
-                                  </ng-container>
-
-                                  <tr mat-header-row *matHeaderRowDef="displayedColumnsProyectos"></tr>
-                                  <tr mat-row *matRowDef="let row; columns: displayedColumnsProyectos;"></tr>
-
-                              </table>
-
-                              <mat-paginator [pageSizeOptions]="[10,15,20,25,100]" aria-label="Select page of periodic elements"></mat-paginator>
-                      </div>
-
-
-                </mat-tab>
-
-              </mat-tab-group>
-
-
-
+              <div>
+                <mat-form-field appearance="standard">
+                  <mat-label>Buscador</mat-label>
+                  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+                </mat-form-field>
+                <span class="flex" style="margin-left: 20px;">
+                  <button type="button" class="btn btn-success" (click)="exportExcel()">Excel</button>
+                  <button style="margin-left: 5px;" type="button" class="btn btn-danger"
+                    (click)="exportPdf()">PDF</button>
+                  <button [matMenuTriggerFor]="menu" style="margin-left: 5px;" type="button" class="btn btn-warning"
+                    *ngIf="habilitarBotonAprobarPlanificacion">Aprobar Planificación</button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="aprobarPlanificacion(1)">Aprobar</button>
+                    <!--button mat-menu-item (click)="aprobarPlanificacion(0)" >Reprobar</!--button-->
+                  </mat-menu>
+                </span>
               </div>
+
             </div>
-        </div>
+            <!---  [ngClass]="element.estadoDocente==='Sí' ? 'classSucces':'classWarning'"   ----->
+            <!--section ngClass="example-container mat-elevation-z8" tabindex="0"></!--section-->
+            <section [ngClass]="datasource ==null ? 'mat-elevation-z8':'example-container mat-elevation-z8'"
+              tabindex="0">
+              <table mat-table [dataSource]="datasource" class="mat-elevation-z8" id="my-table">
+                <ng-container matColumnDef="descripcion">
+                  <th mat-header-cell *matHeaderCellDef
+                    style="text-align: center;background-color: #3a4f63!important;color: white;"> Actividad </th>
+                  <td mat-cell *matCellDef="let element"> {{element.descripcionActividad}} </td>
+                </ng-container>
+                <ng-container matColumnDef="fecha">
+                  <th mat-header-cell *matHeaderCellDef
+                    style="text-align: center;background-color: #3a4f63!important;color: white;"> Fecha </th>
+                  <td mat-cell *matCellDef="let element"> {{element.fecha |date: 'dd/MM/yyyy'}} </td>
+                  <!-- 'MM/dd/yyyy' -->
+                </ng-container>
+                <ng-container matColumnDef="nombreEstudiante">
+                  <th mat-header-cell *matHeaderCellDef
+                    style="text-align: center;background-color: #3a4f63!important;color: white;"> Estudiante </th>
+                  <td mat-cell *matCellDef="let element">{{element.nombreEstudiante}} </td>
+                </ng-container>
 
+                <ng-container matColumnDef="nombreDirectorProyecto">
+                  <th mat-header-cell *matHeaderCellDef
+                    style="text-align: center;background-color: #3a4f63!important;color: white;"> Director de Proyecto
+                  </th>
+                  <td mat-cell *matCellDef="let element"> Ing. {{element.nombreDocenteDirector}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombreDocente">
+                  <th mat-header-cell *matHeaderCellDef
+                    style="text-align: center;background-color: #3a4f63!important;color: white;"> Docente/Tutor </th>
+                  <td mat-cell *matCellDef="let element"> Ing. {{element.nombreDocente}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombreSupervisor">
+                  <th mat-header-cell *matHeaderCellDef
+                    style="text-align: center;background-color: #3a4f63!important;color: white;"> Supervisor </th>
+                  <td mat-cell *matCellDef="let element"> {{element.nombreSupervisor}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="totalHoras">
+                  <th mat-header-cell *matHeaderCellDef
+                    style="text-align: center;background-color: #3a4f63!important;color: white;">Horas </th>
+                  <td mat-cell *matCellDef="let element"> {{element.horas}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="estadoGestorVinculacion">
+                  <th mat-header-cell *matHeaderCellDef
+                    style="text-align: center; background-color: #3a4f63!important;color: white;">Estado Gestor</th>
+                  <td mat-cell *matCellDef="let element">
+                    <mat-form-field appearance="legacy">
+                      <mat-select disabled="true" [(value)]="element.estadoGestorVinculacion">
+                        <mat-option *ngFor="let estadoGestor of lstEstados" [value]="estadoGestor.valor"
+                          (click)="cambiarEstadoActividad(element)" [ngStyle]="{'color':estadoGestor.colorbox}">
+                          {{estadoGestor.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actividadProgress">
+                  <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;">
+                    Actividad Cumplida</th>
+                  <td mat-cell *matCellDef="let element" style="text-align: center;">
+                    <div>
+                      <p [ngClass]="element.estadoDocente==='Sí' ? 'classSucces':'classWarning'">
+                        {{element.estadoDocente}}</p>
+                    </div>
+                  </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+              </table>
+            </section>
+            <mat-paginator [pageSizeOptions]="[10,15,20,25,30,35,40,45,50]"
+              aria-label="Select page of periodic elements"></mat-paginator>
+
+
+          </mat-tab>
+
+          <mat-tab label="Seguimiento">
+            <div class="card">
+
+              <div style="margin: 25px;text-align:center;" class="col-sm-12" *ngIf="datasourceSeguimiento != null">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Buscador</mat-label>
+                  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+                </mat-form-field>
+                <span class="flex" style="margin-left: 20px;">
+                  <button type="button" class="btn btn-success" (click)="exportExcel2()">Excel</button>
+                  <button style="margin-left: 5px;" type="button" class="btn btn-danger"
+                    (click)="exportPdf2()">PDF</button>
+                </span>
+              </div>
+              <section
+                [ngClass]="datasourceSeguimiento ==null ? 'mat-elevation-z8':'example-container mat-elevation-z8'"
+                tabindex="0">
+                <table mat-table [dataSource]="datasourceSeguimiento" class="mat-elevation-z8"
+                  style="text-align: center;" id="my-table2">
+
+                  <ng-container matColumnDef="idActividadesDiarias" style="text-align: center;">
+                    <th mat-header-cell *matHeaderCellDef
+                      style="text-align: center;background-color: #3a4f63!important;color: white;"> Id </th>
+                    <td mat-cell *matCellDef="let element"> {{element.idActividadesDiarias}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="nombreEstudiante" style="text-align: center;">
+                    <th mat-header-cell *matHeaderCellDef
+                      style="text-align: center;background-color: #3a4f63!important;color: white;"> Estudiante </th>
+                    <td mat-cell *matCellDef="let element">{{element.nombreEstudiante}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="nombreDirector" style="text-align: center;">
+                    <th mat-header-cell *matHeaderCellDef
+                      style="text-align: center;background-color: #3a4f63!important;color: white;"> Director de Proyecto
+                    </th>
+                    <td mat-cell *matCellDef="let element">Ing. {{element.nombreDocenteDirector}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="nombreDocente" style="text-align: center;">
+                    <th mat-header-cell *matHeaderCellDef
+                      style="text-align: center;background-color: #3a4f63!important;color: white;"> Docente </th>
+                    <td mat-cell *matCellDef="let element">Ing. {{element.nombreDocente}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="nombreSupervisor" style="text-align: center;">
+                    <th mat-header-cell *matHeaderCellDef
+                      style="text-align: center;background-color: #3a4f63!important;color: white;"> Supervisor </th>
+                    <td mat-cell *matCellDef="let element">{{element.nombreSupervisor}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="totalHoras" style="text-align: center;">
+                    <th mat-header-cell *matHeaderCellDef
+                      style="text-align: center;background-color: #3a4f63!important;color: white;">Horas Totales </th>
+                    <td mat-cell *matCellDef="let element"> {{element.totalHoras}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="fechaInicio" style="text-align: center;">
+                    <th mat-header-cell *matHeaderCellDef
+                      style="text-align: center;background-color: #3a4f63!important;color: white;">Fecha Inicio </th>
+                    <td mat-cell *matCellDef="let element"> {{element.fechaInicio |date: 'dd/MM/yyyy'}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="fechaFin" style="text-align: center;">
+                    <th mat-header-cell *matHeaderCellDef
+                      style="text-align: center;background-color: #3a4f63!important;color: white;">Fecha Fin </th>
+                    <td mat-cell *matCellDef="let element"> {{element.fechaFin |date: 'dd/MM/yyyy'}} </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="actividadProgress" style="text-align: center;">
+                    <th mat-header-cell *matHeaderCellDef
+                      style="text-align: center;background-color: #3a4f63!important;color: white;">Progreso de Actividad
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      <br>
+                      <mat-progress-bar class="progress-bar" role="progressbar" value="{{element.porcentaje}}">
+                      </mat-progress-bar>
+                      <p>{{element.porcentaje}}%</p>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="accion">
+                    <th mat-header-cell *matHeaderCellDef style="background-color: #3a4f63!important;color: white;">
+                      Acción </th>
+                    <td mat-cell *matCellDef="let element">
+                      <mat-icon style="cursor: pointer;" (click)="openDialogActualizar(element)" *ngIf="habilitarBoton">
+                        plagiarism</mat-icon> <!--  (click)="openDialog(element)"---->
+                      <mat-icon style="cursor: pointer;" (click)="eliminarActividad(element)" *ngIf="habilitarBoton">
+                        delete</mat-icon>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsProyectos"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnsProyectos;"></tr>
+
+                </table>
+              </section>
+              <mat-paginator [pageSizeOptions]="[10,15,20,25,100]" aria-label="Select page of periodic elements">
+              </mat-paginator>
+            </div>
+
+
+          </mat-tab>
+
+        </mat-tab-group>
+
+
+
+      </div>
     </div>
+  </div>
 
-  <br>
+</div>
 
-
-
-
-
+<br>

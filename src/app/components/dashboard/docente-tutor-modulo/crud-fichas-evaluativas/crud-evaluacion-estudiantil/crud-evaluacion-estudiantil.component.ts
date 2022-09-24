@@ -9,7 +9,7 @@ import { DetaActividad, IActividades } from 'src/app/Interfaces/Actividad';
 import { IAsistenciaQuery, IAsistenciaResponse } from 'src/app/Interfaces/Asistencia';
 import { DetaEvaluacionEstudiantil, IEvaluacionEstudiantil } from 'src/app/Interfaces/EvaluacionEstudiantil';
 
-//import swal from 'sweetalert';
+import swal from 'sweetalert2';
 //import { AsistenciaServiceService } from '../../../Service/asistencia-service.service';
 //import { EvaluacionEstudiantilServiceService } from '../../../Service/evaluacion-estudiantil-service.service';
 //import { ServiceActividad } from '../../../Service/service-actividad.service';
@@ -199,10 +199,10 @@ GuardarActividad() {
 
       this._evaluacionEstudiantil.post(fevaluacion).subscribe(response =>{
         if(response.codigo==1){
-          //swal("Buen trabajo!", response.mensaje, "success");
+          swal.fire("Buen trabajo!", response.mensaje, "success");
           this.form.reset();
         }else{
-         // swal("Oops..!",  response.mensaje, "warning");
+          swal.fire("Oops..!",  response.mensaje, "warning");
         }
       })
 

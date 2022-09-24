@@ -9,6 +9,7 @@ import { IResponse } from 'src/app/Interfaces/Response';
 })
 export class MonitoreoDocenteServiceService {
   private url='https://localhost:5001/api/monitoreoDocente';
+  //private url='http://www.api-vincomunidad.somee.com/api/monitoreoDocente';
 
   constructor(private http:HttpClient) { }
 

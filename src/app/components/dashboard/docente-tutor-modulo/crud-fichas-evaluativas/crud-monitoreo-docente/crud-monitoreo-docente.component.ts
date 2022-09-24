@@ -8,6 +8,7 @@ import { MonitoreoDocenteServiceService } from 'src/app/components/Service/monit
 import { IAsistenciaQuery, IAsistenciaResponse } from 'src/app/Interfaces/Asistencia';
 import { DetaeMonitoreoDocente, IMonitoreoDocente } from 'src/app/Interfaces/MonitoreoDocente';
 //import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crud-monitoreo-docente',
@@ -262,10 +263,10 @@ GuardarEvaluacionRendimiento() {
 console.log(fevaluacionRendimiento);
       this._monitoreoDocente.post(fevaluacionRendimiento).subscribe(response =>{
         if(response.codigo==1){
-         // swal("Buen trabajo!", response.mensaje, "success");
+          swal.fire("Buen trabajo!", response.mensaje, "success");
           this.form.reset();
         }else{
-         // swal("Oops..!",  response.mensaje, "warning");
+          swal.fire("Oops..!",  response.mensaje, "warning");
         }
       })
 

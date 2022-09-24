@@ -15,6 +15,7 @@ const EXCEL_EXTENSION = '.xlsx';
 })
 export class ExcelServiceService {
   private url='https://localhost:5001/api/actividad';
+  //private url='http://www.api-vincomunidad.somee.com/api/actividad';
 
   constructor(private http:HttpClient) { }
 

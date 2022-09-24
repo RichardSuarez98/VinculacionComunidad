@@ -10,7 +10,8 @@ import { IActividadesGestorAprobarPlanificacion } from '../dashboard/director-pr
 })
 export class ServiceActividad{
 
-private url='https://localhost:5001/api/actividad';
+    private url='https://localhost:5001/api/actividad';
+  //private url='http://www.api-vincomunidad.somee.com/api/actividad';
 
   constructor(private http:HttpClient) { }
 

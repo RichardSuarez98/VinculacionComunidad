@@ -140,7 +140,7 @@
     <div class="row">
       <div id="htmlData">
         <div style="text-align:center;">
-          <span><img src="./assets/img/logoUg.png" class="izquierda"><img src="./assets/img/logoCisc.jpg" class="derecha">
+          <span><img src="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/jixjvj4qutuidcc07sgr.png" class="izquierda"><img src="{{logo}}" class="derecha">
             <span style="font-size: large"><b>UNIVERSIDAD DE GUAYAQUIL <br />
                 {{nombreCarrera}} </b></span><br />
             <span style="font-size: large"> DEPARTAMENTO DE VINCULACIÓN <br />
@@ -188,8 +188,8 @@
                     <td>{{list.nombreEstudiante}}</td>
                       <td>{{list.nombreDocente}}</td>
                       <td>{{list.nombreSupervisor}}</td>
-                      <td>{{list.fechaInicio}}</td>
-                      <td>{{list.fechaFin}}</td>
+                      <td>{{list.fechaInicio |date: 'dd/MM/yyyy'}}</td>
+                      <td>{{list.fechaFin |date: 'dd/MM/yyyy'}}</td>
                       <td>{{list.totalHoras}}</td>
                       <td>{{list.porcentaje}}%</td>
                   </tr>
@@ -210,8 +210,8 @@
                     <td>{{list.descripcion}}</td>
                       <td>{{list.estudiante}}</td>
                       <td>{{list.docente}}</td>
-                      <td>{{list.fecha}}</td>
-                      <td>{{list.fechaReal}}</td>
+                      <td>{{list.fecha |date: 'dd/MM/yyyy'}}</td>
+                      <td>{{list.fechaReal |date: 'dd/MM/yyyy'}}</td>
                       <td>{{list.horas}}</td>
                       <td>{{list.cumplio}}</td>
                   </tr>
@@ -233,8 +233,8 @@
                     <td>{{list.descripcion}}</td>
                       <td>{{list.estudiante}}</td>
                       <td>{{list.docente}}</td>
-                      <td>{{list.fecha}}</td>
-                      <td>{{list.fechaReal}}</td>
+                      <td>{{list.fecha |date: 'dd/MM/yyyy'}}</td>
+                      <td>{{list.fechaReal |date: 'dd/MM/yyyy'}}</td>
                       <td>{{list.horas}}</td>
                       <td>{{list.cumplio}}</td>
                   </tr>
@@ -258,8 +258,8 @@
                       <td>{{list.estudiante}}</td>
                       <td>{{list.nombreDocente}}</td>
                       <th style="font-weight: normal;">{{list.nombreSupervisor}}</th>
-                      <td>{{list.fecha}}</td>
-                      <td>{{list.fechaReal}}</td>
+                      <td>{{list.fecha |date: 'dd/MM/yyyy'}}</td>
+                      <td>{{list.fechaReal |date: 'dd/MM/yyyy'}}</td>
                       <td>{{list.horas}}</td>
                       <td>{{list.cumplio}}</td>
                   </tr>

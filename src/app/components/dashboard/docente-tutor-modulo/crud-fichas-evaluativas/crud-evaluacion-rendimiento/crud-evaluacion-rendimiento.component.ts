@@ -9,7 +9,7 @@ import { DetaevaRendimiento, IEvaluacionRendimientoEstudiantil } from 'src/app/I
 //import swal from 'sweetalert';
 //import { AsistenciaServiceService } from '../../Service/asistencia-service.service';
 //import { EvaluacionRendimientoServiceService } from '../../Service/evaluacion-rendimiento-service.service';
-
+import swal from 'sweetalert2';
 @Component({
   selector: 'app-crud-evaluacion-rendimiento',
   templateUrl: './crud-evaluacion-rendimiento.component.html',
@@ -263,9 +263,9 @@ GuardarEvaluacionRendimiento() {
 
       this._evaluacionRendimiento.post(fevaluacionRendimiento).subscribe(response =>{
         if(response.codigo==1){
-        //  swal("Buen trabajo!", response.mensaje, "success");
+          swal.fire("Buen trabajo!", response.mensaje, "success");
         }else{
-         // swal("Oops..!",  response.mensaje, "warning");
+          swal.fire("Oops..!",  response.mensaje, "warning");
         }
       })
 

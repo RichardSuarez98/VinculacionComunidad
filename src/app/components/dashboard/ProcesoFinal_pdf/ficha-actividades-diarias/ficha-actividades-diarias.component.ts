@@ -44,11 +44,11 @@ export class FichaActividadesDiariasComponent implements OnInit {
              this.logo="./assets/img/csoft.png"
         }*/
         if(this.nombreCarrera=="INGENIERÍA DE SISTEMAS COMPUTACIONALES"){
-          // this.logo="./assets/img/logoCisc.jpg"
-           this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/wakmxaj5cwzb5s11kqf1.jpg"
+           this.logo="./assets/img/logoCisc.jpg"
+           //this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/wakmxaj5cwzb5s11kqf1.jpg"
          }else if(this.nombreCarrera=="SOFTWARE"){
-              //this.logo="./assets/img/csoft.png"
-              this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209421/vincomunidad/b0ygbfe9h2oqrw4vmsrp.png"
+              this.logo="./assets/img/csoft.png"
+              //this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209421/vincomunidad/b0ygbfe9h2oqrw4vmsrp.png"
          }
         this.nombreEstudiante=this.listFichaActividadDiaria[0].nombreEstudiante!;
         this.nombreDocente=this.listFichaActividadDiaria[0].nombreDocente!;

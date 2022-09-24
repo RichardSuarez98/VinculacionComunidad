@@ -17,29 +17,29 @@
         <table width="100%" style="text-align: center;">
             <tr>
                 <th>Estudiante: </th>
-                <th colspan="6" style="color: blue;">{{nombreEstudiante}}</th>
+                <th colspan="6" >{{nombreEstudiante}}</th>
             </tr>
             <tr>
                 <th class="col-lg-2">INSTITUCIÓN</th>
-                <th class="col-lg-3" style="color: blue;">{{nombreInstitucion}}</th>
+                <th class="col-lg-3" >{{nombreInstitucion}}</th>
                 <th class="col-lg-2">DEPARTAMENTO</th>
-                <th class="col-lg-5" colspan="4" style="color: blue;">{{departamento}}</th>
+                <th class="col-lg-5" colspan="4" >{{departamento}}</th>
             </tr>
             <tr>
-                <th class="col-lg-2">FECHA INICIAL</th>
-                <th class="col-lg-3" style="color: blue;">{{fechaInicio |date: 'dd/MM/yyyy'}}</th>
+                <th class="col-lg-2" >FECHA INICIAL</th>
+                <th class="col-lg-3"  >{{fechaInicio |date: 'dd/MM/yyyy'}}</th>
                 <th class="col-lg-2">FECHA FINAL</th>
-                <th class="col-lg-5" colspan="4" style="color: blue;">{{fechaFin |date: 'dd/MM/yyyy'}}</th>
+                <th class="col-lg-5" colspan="4" >{{fechaFin |date: 'dd/MM/yyyy'}}</th>
             </tr>
             <tr>
-                <th>FECHA</th>
-                <th>Asistió</th>
-                <th>HORAS</th>
-                <th>FIRMA DEL ESTUDIANTE</th>
-                <th>OBSERVACIÓN</th>
+                <th class="col-lg-3">FECHA</th>
+                <th class="col-lg-1">Asistió</th>
+                <th class="col-lg-1">HORAS</th>
+                <th class="col-lg-5">FIRMA DEL ESTUDIANTE</th>
+                <th class="col-lg-2">OBSERVACIÓN</th>
             </tr>
             <tr *ngFor="let item of detalleAsistencia">
-                <th style="font-weight: normal;">{{item.fecha |date: 'dd/MM/yyyy'}}</th>
+                <th style="font-weight: normal;" >{{item.fecha |date: 'EEEE, MMMM d, y'}}</th>
                 <th style="font-weight: normal;">{{item.asistencia ? "Sí" : "No"}}</th>
                 <th style="font-weight: normal;">{{item.horas}}</th>
                 <th style="font-weight: normal;"></th>

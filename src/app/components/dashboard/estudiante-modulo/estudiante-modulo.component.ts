@@ -17,7 +17,7 @@ import { FichaEvaluacionEstudiantilComponent } from '../ProcesoFinal_pdf/ficha-e
 import { FichaEvaluacionRendimientoEstudianteComponent } from '../ProcesoFinal_pdf/ficha-evaluacion-rendimiento-estudiante/ficha-evaluacion-rendimiento-estudiante.component';
 import { FichaMonitoreoDocenteComponent } from '../ProcesoFinal_pdf/ficha-monitoreo-docente/ficha-monitoreo-docente.component';
 import { VerAsistenciaComponent } from './ver-asistencia/ver-asistencia.component';
-
+import swal from 'sweetalert2'
 @Component({
   selector: 'app-estudiante-modulo',
   templateUrl: './estudiante-modulo.component.html',
@@ -116,11 +116,11 @@ export class EstudianteModuloComponent implements OnInit {
       asistenciaFin:item.asistenciaFin
     }
     this._estudianteService.putGuardarEvidencia(evidencia).subscribe(resp=>{
-      if(resp.codigo==1){
-        this.mensaje(resp.mensaje);
-      }else if(resp.codigo==1){
-        this.mensaje(resp.mensaje);
-      }
+     if(resp.codigo==1){
+            swal.fire("Buen Trabajo!", resp.mensaje, "success");
+          }else if(resp.codigo==0){
+            swal.fire("Oops..!",  resp.mensaje, "warning");  //warning
+          }
     })
   }
 

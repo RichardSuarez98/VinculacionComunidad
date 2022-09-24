@@ -8,11 +8,13 @@ import { IResponse } from 'src/app/Interfaces/Response';
   providedIn: 'root'
 })
 export class AsistenciaServiceService {
-  private url='https://localhost:5001/api/asistencia';
-  private urlEstudiante = 'https://localhost:5001/api/asistencia/estudianteAsistencia'
-  private urlCarrera = 'https://localhost:5001/api/asistencia/cargarcarrera';
-  private urlCargaaniolectivo = 'https://localhost:5001/api/asistencia/cargarAnioLectivo';
-  private urlCargaProyecto='https://localhost:5001/api/asistencia/cargarproyecto';
+  //private urlGeneral='http://www.api-vincomunidad.somee.com/';
+  private urlGeneral='https://localhost:5001/'
+  private url=this.urlGeneral+'api/asistencia';
+  private urlEstudiante = this.urlGeneral+'api/asistencia/estudianteAsistencia'
+  private urlCarrera = this.urlGeneral+'api/asistencia/cargarcarrera';
+  private urlCargaaniolectivo = this.urlGeneral+'api/asistencia/cargarAnioLectivo';
+  private urlCargaProyecto=this.urlGeneral+'api/asistencia/cargarproyecto';
 
  ///actualizarAsistencia
 

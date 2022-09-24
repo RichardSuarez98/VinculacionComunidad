@@ -9,7 +9,7 @@ import * as FileSaver from 'file-saver';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { IActividades } from 'src/app/Interfaces/Actividad';
-//import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import { AsistenciaServiceService } from '../../Service/asistencia-service.service';
 import { ExcelServiceService } from '../../Service/excel-service.service';
 import { ServiceActividad } from '../../Service/service-actividad.service';
@@ -250,7 +250,6 @@ cargarPorcentajeProyecto(){
        ]
    }
    }else{
-     console.log(response.mensaje);
    }
  });
 }
@@ -279,10 +278,10 @@ cargarPorcentajeProyecto(){
       }
       this.excelService.generarFichaActividadesDiarias(solicitud).subscribe(resp=>{
         if(resp.codigo==1){
-        //  swal("Buen trabajo!", resp.mensaje, "success");
+         swal.fire("Buen trabajo!", resp.mensaje, "success");
           this.getActividad();
         }else if(resp.codigo==0){
-        //  swal("Oops..!",  resp.mensaje, "warning");  //warning
+        swal.fire("Oops..!",  resp.mensaje, "warning");  //warning
         }
       });
     }
@@ -300,10 +299,10 @@ cargarPorcentajeProyecto(){
       }
       this.excelService.generarCertificadoTutor(solicitud).subscribe(resp=>{
         if(resp.codigo==1){
-        //  swal("Buen trabajo!", resp.mensaje, "success");
+         swal.fire("Buen trabajo!", resp.mensaje, "success");
           this.getActividad();
         }else if(resp.codigo==0){
-        //  swal("Oops..!",  resp.mensaje, "warning");  //warning
+         swal.fire("Oops..!",  resp.mensaje, "warning");  //warning
         }
       });
     }
@@ -321,10 +320,10 @@ cargarPorcentajeProyecto(){
       }
       this.excelService.generarCertificadoSupervisor(solicitud).subscribe(resp=>{
         if(resp.codigo==1){
-        //  swal("Buen trabajo!", resp.mensaje, "success");
+          swal.fire("Buen trabajo!", resp.mensaje, "success");
           this.getActividad();
         }else if(resp.codigo==0){
-        //  swal("Oops..!",  resp.mensaje, "warning");  //warning
+         swal.fire("Oops..!",  resp.mensaje, "warning");  //warning
         }
       });
     }

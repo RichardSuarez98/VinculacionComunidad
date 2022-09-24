@@ -8,6 +8,7 @@ import { DetaActividad, IActividades } from 'src/app/Interfaces/Actividad';
 import { AsistenciaServiceService } from '../../../Service/asistencia-service.service';
 import { ServiceActividad } from '../../../Service/service-actividad.service';
 //import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-actividad-estudiante-modulo',
@@ -106,9 +107,9 @@ import swal from 'sweetalert';
   cambiarEstadoActividad(actividad:IActividades){
     this._actividadService.putEstaDocenteActividad(actividad).subscribe(response =>{
         if(response.codigo==1){
-       //   swal("Buen trabajo!", response.mensaje, "success");
+          swal.fire("Buen trabajo!", response.mensaje, "success");
         }else{
-       //   swal("Oops..!",  response.mensaje, "warning");  //warning
+          swal.fire("Oops..!",  response.mensaje, "warning");  //warning
         }
     })
   }
@@ -123,9 +124,9 @@ import swal from 'sweetalert';
     }
     this._actividadService.putActualizarObservacion(Actividades).subscribe(response=>{
       if(response.codigo==1){
-     //   swal("Buen trabajo!", response.mensaje, "success");
+        swal.fire("Buen trabajo!", response.mensaje, "success");
       }else{
-      //  swal("Oops..!",  response.mensaje, "warning");  //warning
+        swal.fire("Oops..!",  response.mensaje, "warning");  //warning
       }
     });
   }

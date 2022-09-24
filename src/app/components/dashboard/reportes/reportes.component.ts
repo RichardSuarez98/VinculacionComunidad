@@ -46,6 +46,7 @@ export class ReportesComponent implements OnInit {
   valor=0;
   ocultarfechas:boolean=false;
   ocultarEstudiante:boolean=false;
+logo!:string
 
   lstReporte:any[] =[
     {valor:0,name:'LISTADO DE ESTUDIANTES ASIGNADOS A  PROYECTO'},
@@ -133,12 +134,15 @@ tablaReporte!: number;
       fechaDesde:this.fechaDesde,
       fechaHasta:this.fechaHasta
     }
-    console.log(this.fechaDesde);
-    console.log(this.fechaHasta);
 
     if(solicitud.idCarrera==1){
       this.nombreCarrera="INGENIERÍA DE SISTEMAS COMPUTACIONALES"
+      this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209420/vincomunidad/wakmxaj5cwzb5s11kqf1.jpg";
+    }else{
+      this.nombreCarrera="CARRERA DE SOFTWARE"
+      this.logo="https://res.cloudinary.com/guayaquil19980/image/upload/v1663209421/vincomunidad/b0ygbfe9h2oqrw4vmsrp.png";
     }
+
 
     switch (this.valor) {
       case 0:

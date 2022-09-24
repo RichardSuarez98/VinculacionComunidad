@@ -10,6 +10,7 @@ import { IResponse } from 'src/app/Interfaces/Response';
 export class ReporteServiceService {
 
   private url='https://localhost:5001/api/reportes';
+ // private url='http://www.api-vincomunidad.somee.com/api/reportes';
 
   constructor(private http:HttpClient) { }
 
